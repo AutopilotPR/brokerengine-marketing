@@ -8,37 +8,40 @@ export default function Pricing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const prices = {
-    starter: { monthly: 299, annual: 239 },
-    pro: { monthly: 799, annual: 639 },
+    starter: { monthly: 499, annual: 399 },
+    pro: { monthly: 1299, annual: 1039 },
   };
 
   const starterFeatures = [
     '1 seat',
-    'Apollo 200 leads/month',
-    'Basic pipeline + GHL sync',
-    '2 content pieces/week',
-    'AI Visibility Score',
+    'AI content engine (blog, LinkedIn, Quora)',
+    'AI Visibility Score (weekly)',
+    'Basic pipeline dashboard',
+    'Voice profile setup',
     'Email support',
   ];
 
   const proFeatures = [
     '3 seats',
     'Everything in Starter',
-    'Instantly cold outreach',
-    'Hot lead SMS alerts',
-    'Reply classification',
-    'Calendar webhook briefs',
-    '4 content pieces/week',
-    'Voice profile',
+    'Cold outreach machine (Instantly)',
+    'Hot lead detection + SMS alerts',
+    'AI reply classification + drafts',
+    'GHL CRM sync (full pipeline)',
+    'Buyer database + deal matching',
+    'Pre-meeting deal briefs',
+    'Podcast booking (PodMatch)',
+    'Newsletter (Beehiiv)',
     'Priority support',
   ];
 
   const enterpriseFeatures = [
     'Unlimited seats',
+    'White-label (your brand)',
     'Dedicated agent infrastructure',
-    'Custom sequences',
-    'Buyer DB matching',
-    'White-label solution',
+    'Custom outreach sequences',
+    'Full buyer DB matching',
+    'Competitor intelligence suite',
     'SLA + dedicated CSM',
   ];
 
@@ -74,10 +77,10 @@ export default function Pricing() {
       <section className="py-16 px-6">
         <div className="mx-auto max-w-7xl text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-black mb-4">
-            Simple, transparent pricing.
+            Less than the sum of the parts.
           </h1>
           <p className="text-xl text-gray-500 mb-10">
-            Start free. Scale as you grow.
+            Replace Apollo, Instantly, GHL, Beehiiv, PodMatch, and your VA — for one flat price.
           </p>
 
           {/* Billing Toggle */}
@@ -120,7 +123,7 @@ export default function Pricing() {
             {/* Starter */}
             <div className="rounded-2xl border border-gray-200 p-8 bg-white hover:shadow-lg transition">
               <h3 className="text-2xl font-bold text-black mb-2">Starter</h3>
-              <p className="text-gray-500 mb-6 text-sm">Perfect for getting started</p>
+              <p className="text-gray-500 mb-6 text-sm">Content + visibility on autopilot</p>
               <div className="mb-8">
                 <p className="text-4xl font-bold text-black">
                   ${billingPeriod === 'monthly' ? prices.starter.monthly : prices.starter.annual}
@@ -149,7 +152,7 @@ export default function Pricing() {
                 Most popular
               </div>
               <h3 className="text-2xl font-bold mb-2">Pro</h3>
-              <p className="text-gray-300 mb-6 text-sm">Everything you need to scale</p>
+              <p className="text-gray-300 mb-6 text-sm">Full revenue operation on autopilot</p>
               <div className="mb-8">
                 <p className="text-4xl font-bold">
                   ${billingPeriod === 'monthly' ? prices.pro.monthly : prices.pro.annual}
@@ -175,7 +178,7 @@ export default function Pricing() {
             {/* Enterprise */}
             <div className="rounded-2xl border border-gray-200 p-8 bg-white hover:shadow-lg transition">
               <h3 className="text-2xl font-bold text-black mb-2">Enterprise</h3>
-              <p className="text-gray-500 mb-6 text-sm">Custom deployment & support</p>
+              <p className="text-gray-500 mb-6 text-sm">White-label for broker networks</p>
               <div className="mb-8">
                 <p className="text-3xl font-bold text-black">Custom</p>
                 <p className="text-sm text-gray-500">Contact sales for pricing</p>

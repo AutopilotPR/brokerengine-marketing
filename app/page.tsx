@@ -41,10 +41,10 @@ export default function Home() {
             </p>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-black mb-6">
-            The deal platform engineered for M&A brokers.
+            The AI operating system for M&A advisors.
           </h1>
           <p className="text-lg text-gray-500 mb-10">
-            BrokerEngine is the AI platform that builds pipeline, accelerates every deal, and compounds revenue around the clock.
+            Replace Apollo, Instantly, GHL, Beehiiv, PodMatch, and your VA with one platform that finds sellers, closes pipeline, and builds your brand — all on autopilot.
           </p>
 
           {/* CTA Form */}
@@ -68,7 +68,7 @@ export default function Home() {
       <section className="py-12 px-6 border-t border-b border-gray-100">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm text-gray-400 mb-8 text-center">
-            Trusted by teams at leading firms
+            Built on 75+ closed M&A transactions. Every broker who joins makes it smarter.
           </p>
           <div className="flex justify-center flex-wrap gap-12">
             {['Granola', 'Flow', 'Listen', 'Obvious', 'Modal', 'USV'].map((company) => (
@@ -195,7 +195,7 @@ export default function Home() {
       <section className="py-20 px-6 bg-gray-50">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-3xl font-bold text-black mb-6">
-            &quot;When I first opened BrokerEngine, I instantly got the feeling this was the next generation of deal flow.&quot;
+            &quot;I used to spend 3 hours a day on outreach and CRM updates. Now BrokerEngine handles all of it. I just review and close.&quot;
           </p>
           <p className="text-gray-500">
             Marcus Reid, Managing Partner · Meridian Advisors
@@ -278,7 +278,7 @@ export default function Home() {
         <div className="mx-auto max-w-2xl">
           <div className="bg-gray-100 rounded-2xl p-12 text-center">
             <h3 className="text-3xl font-bold text-black mb-6">
-              Start with 14 days of Pro, for free.
+              One hot lead pays for 12 months of Pro.
             </h3>
             <div className="flex flex-col md:flex-row gap-3 justify-center mb-6">
               <input
@@ -301,14 +301,14 @@ export default function Home() {
       <section className="py-20 px-6 bg-gray-50">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-4xl font-bold mb-4">
-            The only platform with{' '}
-            <span className="text-gray-400">Universal Context.</span>
+            The only platform that{' '}
+            <span className="text-gray-400">gets smarter with every deal.</span>
           </h2>
           <p className="text-gray-500 mb-8">
-            Every signal from every deal, compounding into one layer your team and agents act on.
+            Every broker who joins adds to the collective intelligence. Playbooks, sequences, and deal patterns — refined across thousands of real M&A transactions.
           </p>
           <button className="px-8 py-3 border-2 border-black text-black rounded-full font-medium hover:bg-black hover:text-white transition">
-            Explore Universal Context
+            See how it works
           </button>
         </div>
       </section>
