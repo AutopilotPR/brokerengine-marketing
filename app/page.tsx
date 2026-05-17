@@ -1,7 +1,381 @@
 'use client';
 
-import { useState } from 'react';
-import { ChevronRight, Menu, X } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import {
+  ChevronRight,
+  Menu,
+  X,
+  Target,
+  Mail,
+  MessageSquare,
+  BarChart2,
+  Settings,
+} from 'lucide-react';
+
+// ── Product Demo Types ─────────────────────────────────────────────────────
+
+type TabId = 'prospect' | 'outreach' | 'replies' | 'dashboard';
+
+interface DemoTab {
+  id: TabId;
+  label: string;
+}
+
+const DEMO_TABS: DemoTab[] = [
+  { id: 'prospect', label: 'Prospect' },
+  { id: 'outreach', label: 'Outreach' },
+  { id: 'replies', label: 'Replies' },
+  { id: 'dashboard', label: 'Dashboard' },
+];
+
+// ── Sidebar ────────────────────────────────────────────────────────────────
+
+function AppSidebar({ activeTab }: { activeTab: TabId }) {
+  const navItems: { id: TabId; label: string; icon: React.ReactNode }[] = [
+    { id: 'prospect', label: 'Prospects', icon: <Target size={14} /> },
+    { id: 'outreach', label: 'Outreach', icon: <Mail size={14} /> },
+    { id: 'replies', label: 'Replies', icon: <MessageSquare size={14} /> },
+    { id: 'dashboard', label: 'Dashboard', icon: <BarChart2 size={14} /> },
+    { id: 'dashboard', label: 'Settings', icon: <Settings size={14} /> },
+  ];
+
+  return (
+    <div className="w-48 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col h-full">
+      {/* Logo */}
+      <div className="px-4 py-4 flex items-center gap-2 border-b border-gray-100">
+        <span className="font-bold text-sm text-black">BrokerEngine</span>
+        <span className="text-[10px] font-semibold bg-black text-white rounded px-1 py-0.5">AI</span>
+      </div>
+
+      {/* Nav */}
+      <nav className="flex-1 px-2 py-3 space-y-0.5">
+        {navItems.map((item, i) => {
+          const isActive = item.id === activeTab && item.label !== 'Settings';
+          return (
+            <div
+              key={`${item.id}-${i}`}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs cursor-default transition-colors ${
+                isActive
+                  ? 'bg-gray-100 text-black font-medium'
+                  : 'text-gray-500 hover:bg-gray-50'
+              }`}
+            >
+              <span className={isActive ? 'text-black' : 'text-gray-400'}>
+                {item.icon}
+              </span>
+              {item.label}
+            </div>
+          );
+        })}
+      </nav>
+
+      {/* User */}
+      <div className="px-3 py-3 border-t border-gray-100 flex items-center gap-2">
+        <div className="w-6 h-6 rounded-full bg-gray-800 text-white text-[9px] font-bold flex items-center justify-center flex-shrink-0">
+          B
+        </div>
+        <span className="text-[10px] text-gray-400 truncate">broker@firm.com</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Tab Content: Prospect ──────────────────────────────────────────────────
+
+function ProspectContent() {
+  const rows = [
+    { name: 'Meridian HVAC', industry: 'HVAC Services', revenue: '$8.2M', emp: '45', score: '94/100', status: 'HOT', statusColor: 'bg-green-100 text-green-700' },
+    { name: 'Peak Roofing Co', industry: 'Roofing', revenue: '$5.1M', emp: '28', score: '87/100', status: 'HOT', statusColor: 'bg-green-100 text-green-700' },
+    { name: 'Cascade Plumbing', industry: 'Plumbing', revenue: '$3.8M', emp: '19', score: '72/100', status: 'WARM', statusColor: 'bg-yellow-100 text-yellow-700' },
+    { name: 'Alpine Electric', industry: 'Electrical', revenue: '$6.4M', emp: '31', score: '68/100', status: 'WARM', statusColor: 'bg-yellow-100 text-yellow-700' },
+    { name: 'Summit HVAC', industry: 'HVAC Services', revenue: '$2.1M', emp: '12', score: '45/100', status: 'COLD', statusColor: 'bg-gray-100 text-gray-500' },
+  ];
+
+  return (
+    <div className="flex-1 overflow-hidden flex flex-col">
+      <div className="px-5 py-4 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <h2 className="text-sm font-semibold text-black">Prospects</h2>
+          <span className="text-xs text-gray-400">247 companies identified</span>
+        </div>
+        <button className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors">
+          Run Apollo Scan
+        </button>
+      </div>
+      <div className="flex-1 overflow-auto">
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="border-b border-gray-100 bg-gray-50">
+              <th className="text-left px-5 py-2.5 text-gray-400 font-medium">Company</th>
+              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Industry</th>
+              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Revenue</th>
+              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Employees</th>
+              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Score</th>
+              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={row.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
+                <td className="px-5 py-2.5 font-medium text-black">{row.name}</td>
+                <td className="px-3 py-2.5 text-gray-500">{row.industry}</td>
+                <td className="px-3 py-2.5 text-gray-600">{row.revenue}</td>
+                <td className="px-3 py-2.5 text-gray-500">{row.emp}</td>
+                <td className="px-3 py-2.5 text-gray-600 font-medium">{row.score}</td>
+                <td className="px-3 py-2.5">
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${row.statusColor}`}>
+                    {row.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// ── Tab Content: Outreach ──────────────────────────────────────────────────
+
+function OutreachContent() {
+  const sequences = [
+    { name: 'HVAC Owner Outreach Q2', step: 'Step 3 of 5', contacts: 42, status: 'Live', statusColor: 'bg-green-100 text-green-700', openRate: '28% open rate' },
+    { name: 'Roofing Business Sellers', step: 'Step 1 of 5', contacts: 18, status: 'Live', statusColor: 'bg-green-100 text-green-700', openRate: '34% open rate' },
+    { name: 'Plumbing Owner Sequence', step: 'Step 2 of 5', contacts: 31, status: 'Paused', statusColor: 'bg-yellow-100 text-yellow-700', openRate: '22% open rate' },
+  ];
+
+  return (
+    <div className="flex-1 overflow-hidden flex flex-col">
+      <div className="px-5 py-4 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <h2 className="text-sm font-semibold text-black">Active Sequences</h2>
+          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-semibold rounded-full">3 running</span>
+        </div>
+        <button className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors">
+          New Sequence
+        </button>
+      </div>
+      <div className="flex-1 overflow-auto px-5 py-3 space-y-3">
+        {sequences.map((seq) => (
+          <div key={seq.name} className="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-black truncate">{seq.name}</p>
+              <p className="text-[11px] text-gray-400 mt-0.5">{seq.step} · {seq.contacts} contacts</p>
+            </div>
+            <div className="flex items-center gap-3 ml-4 flex-shrink-0">
+              <span className="text-[10px] text-gray-400">{seq.openRate}</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${seq.statusColor}`}>
+                {seq.status}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Tab Content: Replies ───────────────────────────────────────────────────
+
+function RepliesContent() {
+  const replies = [
+    { initials: 'MT', name: 'Mike Torres', company: 'Meridian HVAC', message: 'Interested — let\'s get on a call this week', time: '2m ago', badge: 'HOT', badgeColor: 'bg-red-100 text-red-700', rowBg: 'bg-red-50/40' },
+    { initials: 'SC', name: 'Sarah Chen', company: 'Peak Roofing', message: 'This is exactly what we needed. Call?', time: '15m ago', badge: 'HOT', badgeColor: 'bg-red-100 text-red-700', rowBg: 'bg-red-50/40' },
+    { initials: 'JR', name: 'James Ruiz', company: 'Alpine Electric', message: 'Send me more info about the process', time: '1h ago', badge: 'WARM', badgeColor: 'bg-yellow-100 text-yellow-700', rowBg: 'bg-white' },
+    { initials: 'TW', name: 'Tom Walsh', company: 'Summit HVAC', message: 'Not interested at this time', time: '3h ago', badge: 'COLD', badgeColor: 'bg-gray-100 text-gray-500', rowBg: 'bg-white' },
+  ];
+
+  return (
+    <div className="flex-1 overflow-hidden flex flex-col">
+      <div className="px-5 py-4 flex items-center gap-3 border-b border-gray-100">
+        <h2 className="text-sm font-semibold text-black">Reply Inbox</h2>
+        <span className="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-semibold rounded-full">12 new replies</span>
+      </div>
+      <div className="flex-1 overflow-auto divide-y divide-gray-100">
+        {replies.map((r) => (
+          <div key={r.name} className={`flex items-center gap-3 px-5 py-3 ${r.rowBg}`}>
+            <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center flex-shrink-0">
+              {r.initials}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-semibold text-black">{r.name}</span>
+                <span className="text-[10px] text-gray-400">{r.company}</span>
+              </div>
+              <p className="text-[11px] text-gray-500 truncate mt-0.5">{r.message}</p>
+            </div>
+            <div className="flex items-center gap-2 ml-2 flex-shrink-0">
+              <span className="text-[10px] text-gray-400">{r.time}</span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${r.badgeColor}`}>
+                {r.badge}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Tab Content: Dashboard ─────────────────────────────────────────────────
+
+function DashboardContent() {
+  const stats = [
+    { label: 'Active Prospects', value: '247', sub: '+18 this week', subColor: 'text-green-600' },
+    { label: 'Emails Sent', value: '1,842', sub: '42 today', subColor: 'text-gray-400' },
+    { label: 'HOT Replies', value: '12', sub: '3 new', subColor: 'text-red-500' },
+    { label: 'Pipeline Value', value: '$2.4M', sub: 'Est. value', subColor: 'text-gray-400' },
+  ];
+
+  const bars = [
+    { label: 'W1', height: 40 },
+    { label: 'W2', height: 55 },
+    { label: 'W3', height: 45 },
+    { label: 'W4', height: 70 },
+    { label: 'W5', height: 65 },
+    { label: 'W6', height: 82 },
+  ];
+
+  return (
+    <div className="flex-1 overflow-hidden flex flex-col">
+      <div className="px-5 py-4 border-b border-gray-100">
+        <h2 className="text-sm font-semibold text-black">Dashboard</h2>
+      </div>
+      <div className="flex-1 overflow-auto px-5 py-4 space-y-4">
+        {/* Stat Cards */}
+        <div className="grid grid-cols-2 gap-3">
+          {stats.map((s) => (
+            <div key={s.label} className="bg-white border border-gray-200 rounded-xl px-4 py-3">
+              <p className="text-[10px] text-gray-400 mb-1">{s.label}</p>
+              <p className="text-lg font-bold text-black">{s.value}</p>
+              <p className={`text-[10px] mt-0.5 font-medium ${s.subColor}`}>{s.sub}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Bar Chart */}
+        <div className="bg-white border border-gray-200 rounded-xl px-4 py-3">
+          <p className="text-[10px] font-medium text-gray-500 mb-3">Reply Rate by Week</p>
+          <div className="flex items-end gap-2 h-20">
+            {bars.map((b) => (
+              <div key={b.label} className="flex-1 flex flex-col items-center gap-1">
+                <div
+                  className="w-full bg-gray-900 rounded-t"
+                  style={{ height: `${b.height}%` }}
+                />
+                <span className="text-[9px] text-gray-400">{b.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Product Demo Component ─────────────────────────────────────────────────
+
+function ProductDemo() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const [hovering, setHovering] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const switchToTab = (index: number) => {
+    setVisible(false);
+    setTimeout(() => {
+      setActiveIndex(index);
+      setVisible(true);
+    }, 200);
+  };
+
+  useEffect(() => {
+    if (hovering) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+    timerRef.current = setInterval(() => {
+      const next = (activeIndex + 1) % DEMO_TABS.length;
+      switchToTab(next);
+    }, 3000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [activeIndex, hovering]);
+
+  const activeTab = DEMO_TABS[activeIndex];
+
+  const contentMap: Record<TabId, React.ReactNode> = {
+    prospect: <ProspectContent />,
+    outreach: <OutreachContent />,
+    replies: <RepliesContent />,
+    dashboard: <DashboardContent />,
+  };
+
+  return (
+    <div className="w-full max-w-[1100px] mx-auto">
+      {/* Tab Row */}
+      <div
+        className="flex items-center gap-8 justify-center mb-6"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
+        {DEMO_TABS.map((tab, i) => {
+          const isActive = i === activeIndex;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => switchToTab(i)}
+              className="relative pb-2 text-sm font-medium transition-colors focus:outline-none"
+              style={{ color: isActive ? '#000' : '#9ca3af' }}
+            >
+              {tab.label}
+              <span
+                className="absolute bottom-0 left-0 h-0.5 bg-black rounded-full transition-all duration-300"
+                style={{ width: isActive ? '100%' : '0%' }}
+              />
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Browser Frame */}
+      <div className="rounded-2xl border border-gray-200 shadow-2xl overflow-hidden bg-white">
+        {/* Browser Chrome Bar */}
+        <div className="bg-gray-100 px-4 py-2.5 flex items-center gap-3 border-b border-gray-200">
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-red-400" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400" />
+            <div className="w-3 h-3 rounded-full bg-green-400" />
+          </div>
+          <div className="flex-1 flex justify-center">
+            <div className="bg-white border border-gray-200 rounded-md px-4 py-1 text-[11px] text-gray-400 w-64 text-center">
+              app.brokerengine.ai
+            </div>
+          </div>
+          <div className="w-16" />
+        </div>
+
+        {/* App Frame */}
+        <div className="flex h-[480px]">
+          <AppSidebar activeTab={activeTab.id} />
+          <div
+            className="flex-1 overflow-hidden transition-all duration-200"
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(6px)',
+            }}
+          >
+            {contentMap[activeTab.id]}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Main Page ──────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -62,6 +436,11 @@ export default function Home() {
             Talk to sales <ChevronRight className="inline" size={16} />
           </a>
         </div>
+      </section>
+
+      {/* ── Product Demo (Attio-style) ── */}
+      <section className="py-8 px-6">
+        <ProductDemo />
       </section>
 
       {/* Logo Strip */}
