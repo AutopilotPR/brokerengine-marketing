@@ -12,237 +12,411 @@ import {
   Settings,
   Radar,
   Mic2,
-  Briefcase,
   FileText,
   Newspaper,
   Gauge,
   CheckCircle2,
   Zap,
-  Users,
   Brain,
   TrendingUp,
   Bell,
   Globe,
   Calendar,
+  Briefcase,
+  ArrowRight,
 } from 'lucide-react';
 
-// ── Product Demo Types ─────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// DEMO — 6 tabs showing the FULL MACHINE, not just a CRM
+// ─────────────────────────────────────────────────────────────────────────────
 
-type TabId = 'prospect' | 'outreach' | 'replies' | 'dashboard';
+type TabId = 'find' | 'outreach' | 'replies' | 'content' | 'intel' | 'brand';
 
 interface DemoTab {
   id: TabId;
+  emoji: string;
   label: string;
+  sublabel: string;
 }
 
 const DEMO_TABS: DemoTab[] = [
-  { id: 'prospect', label: 'Prospect' },
-  { id: 'outreach', label: 'Outreach' },
-  { id: 'replies', label: 'Replies' },
-  { id: 'dashboard', label: 'Dashboard' },
+  { id: 'find',     emoji: '🎯', label: 'Find Sellers',    sublabel: 'Apollo AI prospecting' },
+  { id: 'outreach', emoji: '📧', label: 'Run Outreach',    sublabel: 'Instantly sequences' },
+  { id: 'replies',  emoji: '🔥', label: 'Hot Replies',     sublabel: 'AI classification + SMS' },
+  { id: 'content',  emoji: '✍️', label: 'Publish Content', sublabel: 'Blog · LinkedIn · Quora' },
+  { id: 'intel',    emoji: '🔭', label: 'Watch Market',    sublabel: 'Competitor intel feed' },
+  { id: 'brand',    emoji: '🎙', label: 'Build Brand',     sublabel: 'Podcasts · Media · AI score' },
 ];
 
 // ── Sidebar ────────────────────────────────────────────────────────────────
 
 function AppSidebar({ activeTab }: { activeTab: TabId }) {
   const navItems: { id: TabId; label: string; icon: React.ReactNode }[] = [
-    { id: 'prospect', label: 'Prospects', icon: <Target size={14} /> },
-    { id: 'outreach', label: 'Outreach', icon: <Mail size={14} /> },
-    { id: 'replies', label: 'Replies', icon: <MessageSquare size={14} /> },
-    { id: 'dashboard', label: 'Dashboard', icon: <BarChart2 size={14} /> },
-    { id: 'dashboard', label: 'Settings', icon: <Settings size={14} /> },
+    { id: 'find',     label: 'Sellers',   icon: <Target size={13} /> },
+    { id: 'outreach', label: 'Outreach',  icon: <Mail size={13} /> },
+    { id: 'replies',  label: 'Replies',   icon: <MessageSquare size={13} /> },
+    { id: 'content',  label: 'Content',   icon: <FileText size={13} /> },
+    { id: 'intel',    label: 'Intel',     icon: <Radar size={13} /> },
+    { id: 'brand',    label: 'Brand',     icon: <TrendingUp size={13} /> },
+    { id: 'brand',    label: 'Buyers',    icon: <Briefcase size={13} /> },
+    { id: 'brand',    label: 'Settings',  icon: <Settings size={13} /> },
   ];
 
   return (
-    <div className="w-48 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col h-full">
-      <div className="px-4 py-4 flex items-center gap-2 border-b border-gray-100">
-        <span className="font-bold text-sm text-black">BrokerEngine</span>
-        <span className="text-[10px] font-semibold bg-black text-white rounded px-1 py-0.5">AI</span>
+    <div className="w-44 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col h-full">
+      <div className="px-3 py-3 flex items-center gap-2 border-b border-gray-100">
+        <span className="font-bold text-xs text-black">BrokerEngine</span>
+        <span className="text-[9px] font-bold bg-black text-white rounded px-1 py-0.5">AI</span>
       </div>
-      <nav className="flex-1 px-2 py-3 space-y-0.5">
+      <nav className="flex-1 px-2 py-2 space-y-0.5 overflow-hidden">
         {navItems.map((item, i) => {
-          const isActive = item.id === activeTab && item.label !== 'Settings';
+          const isActive = item.id === activeTab && item.label !== 'Settings' && item.label !== 'Buyers';
           return (
             <div
               key={`${item.id}-${i}`}
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs cursor-default transition-colors ${
-                isActive ? 'bg-gray-100 text-black font-medium' : 'text-gray-500 hover:bg-gray-50'
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[11px] cursor-default ${
+                isActive ? 'bg-gray-100 text-black font-semibold' : 'text-gray-400'
               }`}
             >
-              <span className={isActive ? 'text-black' : 'text-gray-400'}>{item.icon}</span>
+              <span className={isActive ? 'text-black' : 'text-gray-300'}>{item.icon}</span>
               {item.label}
             </div>
           );
         })}
       </nav>
-      <div className="px-3 py-3 border-t border-gray-100 flex items-center gap-2">
-        <div className="w-6 h-6 rounded-full bg-gray-800 text-white text-[9px] font-bold flex items-center justify-center flex-shrink-0">
-          B
-        </div>
-        <span className="text-[10px] text-gray-400 truncate">broker@firm.com</span>
+      <div className="px-3 py-2.5 border-t border-gray-100 flex items-center gap-2">
+        <div className="w-5 h-5 rounded-full bg-gray-800 text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">B</div>
+        <span className="text-[9px] text-gray-400 truncate">nate@advisors.com</span>
       </div>
     </div>
   );
 }
 
-// ── Tab Content: Prospect ──────────────────────────────────────────────────
+// ── Tab 1: Find Sellers ────────────────────────────────────────────────────
 
-function ProspectContent() {
+function FindContent() {
   const rows = [
-    { name: 'Meridian HVAC', industry: 'HVAC Services', revenue: '$8.2M', emp: '45', score: '94/100', status: 'HOT', statusColor: 'bg-green-100 text-green-700' },
-    { name: 'Peak Roofing Co', industry: 'Roofing', revenue: '$5.1M', emp: '28', score: '87/100', status: 'HOT', statusColor: 'bg-green-100 text-green-700' },
-    { name: 'Cascade Plumbing', industry: 'Plumbing', revenue: '$3.8M', emp: '19', score: '72/100', status: 'WARM', statusColor: 'bg-yellow-100 text-yellow-700' },
-    { name: 'Alpine Electric', industry: 'Electrical', revenue: '$6.4M', emp: '31', score: '68/100', status: 'WARM', statusColor: 'bg-yellow-100 text-yellow-700' },
-    { name: 'Summit HVAC', industry: 'HVAC Services', revenue: '$2.1M', emp: '12', score: '45/100', status: 'COLD', statusColor: 'bg-gray-100 text-gray-500' },
+    { name: 'Meridian HVAC', ind: 'HVAC Services', rev: '$8.2M', emp: '45', score: 94, status: 'HOT', sc: 'bg-green-100 text-green-700' },
+    { name: 'Peak Roofing Co', ind: 'Roofing', rev: '$5.1M', emp: '28', score: 87, sc: 'bg-green-100 text-green-700', status: 'HOT' },
+    { name: 'Cascade Plumbing', ind: 'Plumbing', rev: '$3.8M', emp: '19', score: 72, sc: 'bg-yellow-100 text-yellow-700', status: 'WARM' },
+    { name: 'Alpine Electric', ind: 'Electrical', rev: '$6.4M', emp: '31', score: 68, sc: 'bg-yellow-100 text-yellow-700', status: 'WARM' },
+    { name: 'Summit Landscaping', ind: 'Landscaping', rev: '$1.9M', emp: '11', score: 41, sc: 'bg-gray-100 text-gray-500', status: 'COLD' },
   ];
   return (
-    <div className="flex-1 overflow-hidden flex flex-col">
-      <div className="px-5 py-4 flex items-center justify-between border-b border-gray-100">
-        <div className="flex items-center gap-3">
-          <h2 className="text-sm font-semibold text-black">Prospects</h2>
-          <span className="text-xs text-gray-400">247 companies identified</span>
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-black">Seller Prospects</span>
+          <span className="text-[10px] text-gray-400">247 found · updated 4h ago</span>
         </div>
-        <button className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg">Run Apollo Scan</button>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">Apollo AI</span>
+          <button className="text-[10px] px-2.5 py-1 bg-black text-white rounded-lg font-medium">Scan now</button>
+        </div>
       </div>
       <div className="flex-1 overflow-auto">
-        <table className="w-full text-xs">
-          <thead>
-            <tr className="border-b border-gray-100 bg-gray-50">
-              <th className="text-left px-5 py-2.5 text-gray-400 font-medium">Company</th>
-              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Industry</th>
-              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Revenue</th>
-              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Employees</th>
-              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Score</th>
-              <th className="text-left px-3 py-2.5 text-gray-400 font-medium">Status</th>
+        <table className="w-full text-[11px]">
+          <thead className="bg-gray-50 border-b border-gray-100">
+            <tr>
+              <th className="text-left px-4 py-2 text-gray-400 font-medium">Company</th>
+              <th className="text-left px-2 py-2 text-gray-400 font-medium">Industry</th>
+              <th className="text-left px-2 py-2 text-gray-400 font-medium">Revenue</th>
+              <th className="text-left px-2 py-2 text-gray-400 font-medium">Score</th>
+              <th className="text-left px-2 py-2 text-gray-400 font-medium">ICP Match</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((row, i) => (
-              <tr key={row.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
-                <td className="px-5 py-2.5 font-medium text-black">{row.name}</td>
-                <td className="px-3 py-2.5 text-gray-500">{row.industry}</td>
-                <td className="px-3 py-2.5 text-gray-600">{row.revenue}</td>
-                <td className="px-3 py-2.5 text-gray-500">{row.emp}</td>
-                <td className="px-3 py-2.5 text-gray-600 font-medium">{row.score}</td>
-                <td className="px-3 py-2.5">
-                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${row.statusColor}`}>{row.status}</span>
+            {rows.map((r, i) => (
+              <tr key={r.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}>
+                <td className="px-4 py-2 font-medium text-black">{r.name}</td>
+                <td className="px-2 py-2 text-gray-500">{r.ind}</td>
+                <td className="px-2 py-2 text-gray-600">{r.rev}</td>
+                <td className="px-2 py-2">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-12 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-black rounded-full" style={{ width: `${r.score}%` }} />
+                    </div>
+                    <span className="text-gray-600 font-medium">{r.score}</span>
+                  </div>
+                </td>
+                <td className="px-2 py-2">
+                  <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold ${r.sc}`}>{r.status}</span>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <div className="border-t border-gray-100 px-4 py-2 bg-gray-50 flex items-center gap-2">
+        <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+        <span className="text-[10px] text-gray-500">Apollo scan running weekly · Next run in 3 days</span>
+      </div>
     </div>
   );
 }
 
-// ── Tab Content: Outreach ──────────────────────────────────────────────────
+// ── Tab 2: Outreach ────────────────────────────────────────────────────────
 
 function OutreachContent() {
-  const sequences = [
-    { name: 'HVAC Owner Outreach Q2', step: 'Step 3 of 5', contacts: 42, status: 'Live', statusColor: 'bg-green-100 text-green-700', openRate: '28% open rate' },
-    { name: 'Roofing Business Sellers', step: 'Step 1 of 5', contacts: 18, status: 'Live', statusColor: 'bg-green-100 text-green-700', openRate: '34% open rate' },
-    { name: 'Plumbing Owner Sequence', step: 'Step 2 of 5', contacts: 31, status: 'Paused', statusColor: 'bg-yellow-100 text-yellow-700', openRate: '22% open rate' },
+  const seqs = [
+    { name: 'HVAC Owner Outreach Q2', step: 3, total: 5, contacts: 42, status: 'Live', sc: 'bg-green-100 text-green-700', open: '28%', reply: '6.2%' },
+    { name: 'Roofing Business Sellers', step: 1, total: 5, contacts: 18, status: 'Live', sc: 'bg-green-100 text-green-700', open: '34%', reply: '8.1%' },
+    { name: 'Plumbing Owner Sequence', step: 2, total: 5, contacts: 31, status: 'Paused', sc: 'bg-yellow-100 text-yellow-700', open: '22%', reply: '4.3%' },
+  ];
+  const timeline = [
+    { time: '9:00 AM', event: 'Day 1 email sent to 42 contacts', done: true },
+    { time: '9:03 AM', event: '18 emails delivered, 2 bounced', done: true },
+    { time: '1:12 PM', event: 'First open: Meridian HVAC', done: true },
+    { time: 'Day 3', event: 'Follow-up email queued for non-openers', done: false },
+    { time: 'Day 7', event: 'Final touch — LinkedIn connect', done: false },
   ];
   return (
-    <div className="flex-1 overflow-hidden flex flex-col">
-      <div className="px-5 py-4 flex items-center justify-between border-b border-gray-100">
-        <div className="flex items-center gap-3">
-          <h2 className="text-sm font-semibold text-black">Active Sequences</h2>
-          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-semibold rounded-full">3 running</span>
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-black">Active Sequences</span>
+          <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] font-bold rounded-full">3 LIVE</span>
         </div>
-        <button className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg">New Sequence</button>
+        <span className="text-[10px] px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">Powered by Instantly</span>
       </div>
-      <div className="flex-1 overflow-auto px-5 py-3 space-y-3">
-        {sequences.map((seq) => (
-          <div key={seq.name} className="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center justify-between">
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-black truncate">{seq.name}</p>
-              <p className="text-[11px] text-gray-400 mt-0.5">{seq.step} · {seq.contacts} contacts</p>
-            </div>
-            <div className="flex items-center gap-3 ml-4 flex-shrink-0">
-              <span className="text-[10px] text-gray-400">{seq.openRate}</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${seq.statusColor}`}>{seq.status}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── Tab Content: Replies ───────────────────────────────────────────────────
-
-function RepliesContent() {
-  const replies = [
-    { initials: 'MT', name: 'Mike Torres', company: 'Meridian HVAC', message: "Interested — let's get on a call this week", time: '2m ago', badge: 'HOT', badgeColor: 'bg-red-100 text-red-700', rowBg: 'bg-red-50/40' },
-    { initials: 'SC', name: 'Sarah Chen', company: 'Peak Roofing', message: 'This is exactly what we needed. Call?', time: '15m ago', badge: 'HOT', badgeColor: 'bg-red-100 text-red-700', rowBg: 'bg-red-50/40' },
-    { initials: 'JR', name: 'James Ruiz', company: 'Alpine Electric', message: 'Send me more info about the process', time: '1h ago', badge: 'WARM', badgeColor: 'bg-yellow-100 text-yellow-700', rowBg: 'bg-white' },
-    { initials: 'TW', name: 'Tom Walsh', company: 'Summit HVAC', message: 'Not interested at this time', time: '3h ago', badge: 'COLD', badgeColor: 'bg-gray-100 text-gray-500', rowBg: 'bg-white' },
-  ];
-  return (
-    <div className="flex-1 overflow-hidden flex flex-col">
-      <div className="px-5 py-4 flex items-center gap-3 border-b border-gray-100">
-        <h2 className="text-sm font-semibold text-black">Reply Inbox</h2>
-        <span className="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-semibold rounded-full">12 new replies</span>
-      </div>
-      <div className="flex-1 overflow-auto divide-y divide-gray-100">
-        {replies.map((r) => (
-          <div key={r.name} className={`flex items-center gap-3 px-5 py-3 ${r.rowBg}`}>
-            <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-700 text-[10px] font-bold flex items-center justify-center flex-shrink-0">{r.initials}</div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-black">{r.name}</span>
-                <span className="text-[10px] text-gray-400">{r.company}</span>
+      <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 overflow-auto px-4 py-3 space-y-2 border-r border-gray-100">
+          {seqs.map((s) => (
+            <div key={s.name} className="border border-gray-200 rounded-xl p-3 bg-white">
+              <div className="flex items-start justify-between mb-2">
+                <p className="text-[11px] font-semibold text-black leading-tight">{s.name}</p>
+                <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold flex-shrink-0 ml-2 ${s.sc}`}>{s.status}</span>
               </div>
-              <p className="text-[11px] text-gray-500 truncate mt-0.5">{r.message}</p>
-            </div>
-            <div className="flex items-center gap-2 ml-2 flex-shrink-0">
-              <span className="text-[10px] text-gray-400">{r.time}</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${r.badgeColor}`}>{r.badge}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ── Tab Content: Dashboard ─────────────────────────────────────────────────
-
-function DashboardContent() {
-  const stats = [
-    { label: 'Active Prospects', value: '247', sub: '+18 this week', subColor: 'text-green-600' },
-    { label: 'Emails Sent', value: '1,842', sub: '42 today', subColor: 'text-gray-400' },
-    { label: 'HOT Replies', value: '12', sub: '3 new', subColor: 'text-red-500' },
-    { label: 'Pipeline Value', value: '$2.4M', sub: 'Est. value', subColor: 'text-gray-400' },
-  ];
-  const bars = [
-    { label: 'W1', height: 40 }, { label: 'W2', height: 55 }, { label: 'W3', height: 45 },
-    { label: 'W4', height: 70 }, { label: 'W5', height: 65 }, { label: 'W6', height: 82 },
-  ];
-  return (
-    <div className="flex-1 overflow-hidden flex flex-col">
-      <div className="px-5 py-4 border-b border-gray-100">
-        <h2 className="text-sm font-semibold text-black">Dashboard</h2>
-      </div>
-      <div className="flex-1 overflow-auto px-5 py-4 space-y-4">
-        <div className="grid grid-cols-2 gap-3">
-          {stats.map((s) => (
-            <div key={s.label} className="bg-white border border-gray-200 rounded-xl px-4 py-3">
-              <p className="text-[10px] text-gray-400 mb-1">{s.label}</p>
-              <p className="text-lg font-bold text-black">{s.value}</p>
-              <p className={`text-[10px] mt-0.5 font-medium ${s.subColor}`}>{s.sub}</p>
+              <div className="flex items-center gap-1 mb-2">
+                {Array.from({ length: s.total }).map((_, i) => (
+                  <div key={i} className={`h-1 flex-1 rounded-full ${i < s.step ? 'bg-black' : 'bg-gray-200'}`} />
+                ))}
+              </div>
+              <div className="flex gap-3 text-[10px] text-gray-500">
+                <span>{s.contacts} contacts</span>
+                <span>{s.open} open</span>
+                <span className="text-green-600 font-medium">{s.reply} reply</span>
+              </div>
             </div>
           ))}
         </div>
-        <div className="bg-white border border-gray-200 rounded-xl px-4 py-3">
-          <p className="text-[10px] font-medium text-gray-500 mb-3">Reply Rate by Week</p>
-          <div className="flex items-end gap-2 h-20">
-            {bars.map((b) => (
-              <div key={b.label} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full bg-gray-900 rounded-t" style={{ height: `${b.height}%` }} />
-                <span className="text-[9px] text-gray-400">{b.label}</span>
+        <div className="w-40 px-3 py-3 overflow-auto">
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-2">Activity</p>
+          <div className="space-y-2">
+            {timeline.map((t) => (
+              <div key={t.time} className="flex gap-1.5">
+                <div className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${t.done ? 'bg-green-500' : 'bg-gray-200'}`} />
+                <div>
+                  <p className="text-[9px] text-gray-400">{t.time}</p>
+                  <p className={`text-[10px] leading-tight ${t.done ? 'text-gray-700' : 'text-gray-400'}`}>{t.event}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Tab 3: Hot Replies ─────────────────────────────────────────────────────
+
+function RepliesContent() {
+  const replies = [
+    { initials: 'MT', color: 'bg-red-100 text-red-700', name: 'Mike Torres', co: 'Meridian HVAC', msg: "Interested — let's get on a call this week", time: '2m', badge: 'HOT 🔥', bc: 'bg-red-500 text-white', row: 'bg-red-50/60 border-l-2 border-red-400' },
+    { initials: 'SC', color: 'bg-red-100 text-red-700', name: 'Sarah Chen', co: 'Peak Roofing', msg: 'This is exactly what we needed. Call?', time: '15m', badge: 'HOT 🔥', bc: 'bg-red-500 text-white', row: 'bg-red-50/60 border-l-2 border-red-400' },
+    { initials: 'JR', color: 'bg-yellow-100 text-yellow-700', name: 'James Ruiz', co: 'Alpine Electric', msg: 'Send me more info about the process', time: '1h', badge: 'WARM', bc: 'bg-yellow-100 text-yellow-700', row: 'bg-white' },
+    { initials: 'TW', color: 'bg-gray-100 text-gray-500', name: 'Tom Walsh', co: 'Summit HVAC', msg: 'Not interested at this time', time: '3h', badge: 'COLD', bc: 'bg-gray-100 text-gray-400', row: 'bg-white' },
+  ];
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-black">Reply Inbox</span>
+          <span className="px-1.5 py-0.5 bg-red-500 text-white text-[9px] font-bold rounded-full">2 HOT</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-[9px] text-gray-400">SMS sent to your phone</span>
+        </div>
+      </div>
+      <div className="flex-1 overflow-auto divide-y divide-gray-100">
+        {replies.map((r) => (
+          <div key={r.name} className={`flex items-center gap-3 px-4 py-2.5 ${r.row}`}>
+            <div className={`w-7 h-7 rounded-full text-[9px] font-bold flex items-center justify-center flex-shrink-0 ${r.color}`}>{r.initials}</div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <span className="text-[11px] font-semibold text-black">{r.name}</span>
+                <span className="text-[9px] text-gray-400">· {r.co}</span>
+              </div>
+              <p className="text-[10px] text-gray-500 truncate">{r.msg}</p>
+            </div>
+            <div className="flex flex-col items-end gap-1 flex-shrink-0">
+              <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold ${r.bc}`}>{r.badge}</span>
+              <span className="text-[9px] text-gray-400">{r.time} ago</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="border-t border-gray-100 px-4 py-2 bg-red-50 flex items-center gap-2">
+        <Bell size={11} className="text-red-500 flex-shrink-0" />
+        <span className="text-[10px] text-red-600 font-medium">📱 SMS sent: &quot;Mike Torres at Meridian HVAC replied HOT — call now&quot;</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Tab 4: Content Engine ──────────────────────────────────────────────────
+
+function ContentContent() {
+  const items = [
+    { type: 'LinkedIn', title: 'Why business owners in HVAC are selling now (and what it means for buyers)', status: 'Published', sc: 'bg-blue-100 text-blue-700', when: '2h ago' },
+    { type: 'Blog Post', title: '5 red flags that tell you a seller is serious about exiting this year', status: 'Draft', sc: 'bg-gray-100 text-gray-600', when: 'Today' },
+    { type: 'Quora', title: 'What is the typical multiple for an HVAC business doing $5M revenue?', status: 'Published', sc: 'bg-blue-100 text-blue-700', when: 'Yesterday' },
+    { type: 'FAQ', title: 'How long does the M&A process take for a $3-10M business?', status: 'Approved', sc: 'bg-green-100 text-green-700', when: 'Mon' },
+  ];
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-black">Content Engine</span>
+          <span className="text-[10px] text-gray-400">4 pieces/week · in your voice</span>
+        </div>
+        <span className="text-[10px] px-2 py-1 bg-purple-50 text-purple-600 rounded-full font-medium">AI-generated</span>
+      </div>
+      <div className="flex-1 overflow-auto divide-y divide-gray-100">
+        {items.map((item) => (
+          <div key={item.title} className="px-4 py-3 flex items-start gap-3">
+            <div className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 flex-shrink-0 mt-0.5 w-14 text-center">{item.type}</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] text-black leading-snug">{item.title}</p>
+            </div>
+            <div className="flex flex-col items-end gap-1 flex-shrink-0">
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${item.sc}`}>{item.status}</span>
+              <span className="text-[9px] text-gray-400">{item.when}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="border-t border-gray-100 px-4 py-2 bg-gray-50 flex items-center justify-between">
+        <span className="text-[10px] text-gray-500">Next batch generates Sunday at 6AM</span>
+        <span className="text-[10px] text-purple-600 font-medium">Tone: Consultative ✓</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Tab 5: Intel Feed ──────────────────────────────────────────────────────
+
+function IntelContent() {
+  const items = [
+    { icon: '⚠️', type: 'Competitor', title: 'Deal Capital dropped their retainer fee — now $2,500 down from $4,000', time: '1h ago', tag: 'Pricing move', tc: 'bg-orange-100 text-orange-700' },
+    { icon: '📰', type: 'Market', title: 'HVAC sector M&A activity up 23% YoY according to Axial data', time: '4h ago', tag: 'Opportunity', tc: 'bg-green-100 text-green-700' },
+    { icon: '🤖', type: 'AI Citation', title: 'ChatGPT cited "Midwest M&A Advisors" when asked about HVAC exits — not you', time: '12h ago', tag: 'AI Visibility', tc: 'bg-blue-100 text-blue-700' },
+    { icon: '📢', type: 'Competitor', title: 'ExitRight Advisors published new blog: "How to sell your trades business in 2025"', time: 'Yesterday', tag: 'Content move', tc: 'bg-gray-100 text-gray-600' },
+  ];
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-black">Intel Feed</span>
+          <span className="text-[10px] text-gray-400">Live competitor + market signals</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-[9px] text-gray-400">Scanning now</span>
+        </div>
+      </div>
+      <div className="flex-1 overflow-auto divide-y divide-gray-100">
+        {items.map((item) => (
+          <div key={item.title} className="px-4 py-3 flex items-start gap-3">
+            <span className="text-base flex-shrink-0 mt-0.5">{item.icon}</span>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] text-gray-400 mb-0.5">{item.type}</p>
+              <p className="text-[11px] text-black leading-snug">{item.title}</p>
+            </div>
+            <div className="flex flex-col items-end gap-1 flex-shrink-0">
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${item.tc}`}>{item.tag}</span>
+              <span className="text-[9px] text-gray-400">{item.time}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="border-t border-gray-100 px-4 py-2 bg-gray-50">
+        <span className="text-[10px] text-gray-500">2 competitors monitored · AI visibility checked weekly</span>
+      </div>
+    </div>
+  );
+}
+
+// ── Tab 6: Brand Building ──────────────────────────────────────────────────
+
+function BrandContent() {
+  const podcasts = [
+    { name: 'The Exit Strategy Podcast', listeners: '42K', status: 'Pitch sent', sc: 'bg-yellow-100 text-yellow-700' },
+    { name: 'M&A Science', listeners: '89K', status: 'Booked ✓', sc: 'bg-green-100 text-green-700' },
+    { name: 'Business Buying Strategies', listeners: '31K', status: 'Pending', sc: 'bg-gray-100 text-gray-500' },
+  ];
+  const score = { current: 72, prev: 58, engines: ['ChatGPT', 'Claude', 'Perplexity', 'Gemini'] };
+  const media = [
+    { outlet: 'Inc.com', query: 'Expert comment: M&A trends in trades businesses 2025', deadline: '2 days' },
+    { outlet: 'Forbes', query: 'What should small business owners know before selling?', deadline: '5 days' },
+  ];
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="px-4 py-3 border-b border-gray-100">
+        <span className="text-xs font-semibold text-black">Brand & Authority</span>
+      </div>
+      <div className="flex-1 overflow-auto px-4 py-3 space-y-4">
+        {/* AI Score */}
+        <div className="border border-gray-200 rounded-xl p-3 bg-white">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-[10px] font-semibold text-gray-700">AI Visibility Score</p>
+            <div className="flex items-center gap-1">
+              <span className="text-[9px] text-green-600 font-bold">↑ +14 pts</span>
+              <span className="text-[9px] text-gray-400">this month</span>
+            </div>
+          </div>
+          <div className="flex items-end gap-3">
+            <span className="text-3xl font-bold text-black">{score.current}</span>
+            <div className="flex-1 pb-1">
+              <div className="flex gap-1 mb-1.5">
+                {score.engines.map((e) => (
+                  <span key={e} className="text-[8px] px-1 py-0.5 bg-gray-100 text-gray-500 rounded">{e}</span>
+                ))}
+              </div>
+              <div className="w-full h-1.5 bg-gray-100 rounded-full">
+                <div className="h-full bg-black rounded-full transition-all" style={{ width: `${score.current}%` }} />
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Podcasts */}
+        <div>
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Podcast Outreach</p>
+          <div className="space-y-1.5">
+            {podcasts.map((p) => (
+              <div key={p.name} className="flex items-center justify-between border border-gray-100 rounded-lg px-3 py-1.5 bg-white">
+                <div>
+                  <p className="text-[10px] font-medium text-black">{p.name}</p>
+                  <p className="text-[9px] text-gray-400">{p.listeners} listeners</p>
+                </div>
+                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${p.sc}`}>{p.status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Earned Media */}
+        <div>
+          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Earned Media</p>
+          <div className="space-y-1.5">
+            {media.map((m) => (
+              <div key={m.outlet} className="flex items-center justify-between border border-gray-100 rounded-lg px-3 py-1.5 bg-white">
+                <div className="flex-1 min-w-0 mr-2">
+                  <span className="text-[9px] font-bold text-orange-600 mr-1.5">{m.outlet}</span>
+                  <span className="text-[9px] text-gray-600">{m.query}</span>
+                </div>
+                <span className="text-[9px] text-red-500 font-medium flex-shrink-0">{m.deadline}</span>
               </div>
             ))}
           </div>
@@ -262,51 +436,81 @@ function ProductDemo() {
 
   const switchToTab = (index: number) => {
     setVisible(false);
-    setTimeout(() => { setActiveIndex(index); setVisible(true); }, 200);
+    setTimeout(() => { setActiveIndex(index); setVisible(true); }, 180);
   };
 
   useEffect(() => {
     if (hovering) { if (timerRef.current) clearInterval(timerRef.current); return; }
-    timerRef.current = setInterval(() => { switchToTab((activeIndex + 1) % DEMO_TABS.length); }, 3000);
+    timerRef.current = setInterval(() => { switchToTab((activeIndex + 1) % DEMO_TABS.length); }, 3500);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [activeIndex, hovering]);
 
   const activeTab = DEMO_TABS[activeIndex];
+
   const contentMap: Record<TabId, React.ReactNode> = {
-    prospect: <ProspectContent />,
+    find:     <FindContent />,
     outreach: <OutreachContent />,
-    replies: <RepliesContent />,
-    dashboard: <DashboardContent />,
+    replies:  <RepliesContent />,
+    content:  <ContentContent />,
+    intel:    <IntelContent />,
+    brand:    <BrandContent />,
   };
 
   return (
-    <div className="w-full max-w-[1100px] mx-auto">
-      <div className="flex items-center gap-8 justify-center mb-6" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
+    <div className="w-full max-w-[1140px] mx-auto">
+      {/* Tab strip */}
+      <div
+        className="flex items-stretch gap-1 justify-center mb-5 flex-wrap"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
         {DEMO_TABS.map((tab, i) => {
           const isActive = i === activeIndex;
           return (
-            <button key={tab.id} onClick={() => switchToTab(i)} className="relative pb-2 text-sm font-medium transition-colors focus:outline-none" style={{ color: isActive ? '#000' : '#9ca3af' }}>
-              {tab.label}
-              <span className="absolute bottom-0 left-0 h-0.5 bg-black rounded-full transition-all duration-300" style={{ width: isActive ? '100%' : '0%' }} />
+            <button
+              key={tab.id}
+              onClick={() => switchToTab(i)}
+              className={`flex flex-col items-center px-4 py-2 rounded-xl text-center transition-all focus:outline-none border ${
+                isActive
+                  ? 'bg-black text-white border-black shadow-sm'
+                  : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-700'
+              }`}
+            >
+              <span className="text-base leading-none mb-0.5">{tab.emoji}</span>
+              <span className={`text-xs font-semibold leading-tight ${isActive ? 'text-white' : 'text-gray-700'}`}>{tab.label}</span>
+              <span className={`text-[9px] leading-tight mt-0.5 ${isActive ? 'text-gray-300' : 'text-gray-400'}`}>{tab.sublabel}</span>
             </button>
           );
         })}
       </div>
+
+      {/* Browser frame */}
       <div className="rounded-2xl border border-gray-200 shadow-2xl overflow-hidden bg-white">
-        <div className="bg-gray-100 px-4 py-2.5 flex items-center gap-3 border-b border-gray-200">
+        {/* Chrome bar */}
+        <div className="bg-gray-100 px-4 py-2 flex items-center gap-3 border-b border-gray-200">
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-red-400" />
-            <div className="w-3 h-3 rounded-full bg-yellow-400" />
-            <div className="w-3 h-3 rounded-full bg-green-400" />
+            <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+            <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+            <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
           </div>
           <div className="flex-1 flex justify-center">
-            <div className="bg-white border border-gray-200 rounded-md px-4 py-1 text-[11px] text-gray-400 w-64 text-center">app.brokerengine.ai</div>
+            <div className="bg-white border border-gray-200 rounded-md px-4 py-0.5 text-[10px] text-gray-400 w-56 text-center">
+              app.brokerengine.ai
+            </div>
           </div>
-          <div className="w-16" />
+          <div className="w-12" />
         </div>
-        <div className="flex h-[480px]">
+        {/* App */}
+        <div className="flex h-[440px]">
           <AppSidebar activeTab={activeTab.id} />
-          <div className="flex-1 overflow-hidden transition-all duration-200" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(6px)' }}>
+          <div
+            className="flex-1 overflow-hidden"
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(5px)',
+              transition: 'opacity 0.18s ease, transform 0.18s ease',
+            }}
+          >
             {contentMap[activeTab.id]}
           </div>
         </div>
@@ -315,7 +519,9 @@ function ProductDemo() {
   );
 }
 
-// ── Feature Grid ───────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// FEATURE GRID
+// ─────────────────────────────────────────────────────────────────────────────
 
 interface Feature {
   icon: React.ReactNode;
@@ -325,81 +531,19 @@ interface Feature {
 }
 
 const FEATURES: Feature[] = [
-  {
-    icon: <Target size={20} />,
-    iconBg: 'bg-blue-100 text-blue-600',
-    title: 'Seller Prospecting',
-    description: 'Apollo-powered search finds business owners who match your ICP — revenue range, industry, geography — on autopilot every week.',
-  },
-  {
-    icon: <Mail size={20} />,
-    iconBg: 'bg-indigo-100 text-indigo-600',
-    title: 'Automated Cold Outreach',
-    description: 'Multi-step email sequences via Instantly launch automatically for every new prospect. Your pipeline fills while you sleep.',
-  },
-  {
-    icon: <Brain size={20} />,
-    iconBg: 'bg-purple-100 text-purple-600',
-    title: 'HOT/WARM/COLD Classification',
-    description: "AI reads every reply and classifies it instantly. You only see what matters — no more sifting through 200 emails to find the one who's ready.",
-  },
-  {
-    icon: <Bell size={20} />,
-    iconBg: 'bg-red-100 text-red-600',
-    title: 'Instant SMS Alerts',
-    description: 'The moment a reply hits HOT, you get a text. No delays, no logging in. Be the first to respond — every time.',
-  },
-  {
-    icon: <FileText size={20} />,
-    iconBg: 'bg-violet-100 text-violet-600',
-    title: 'AI Content Engine',
-    description: 'Blog posts, LinkedIn updates, Quora answers, and FAQs — generated weekly in your voice, positioning you as the go-to M&A advisor in your market.',
-  },
-  {
-    icon: <Gauge size={20} />,
-    iconBg: 'bg-cyan-100 text-cyan-600',
-    title: 'AI Visibility Score',
-    description: 'Tracks how often you appear in ChatGPT, Claude, Perplexity, and Gemini when buyers search for M&A advisors. Grow your share of AI-driven referrals.',
-  },
-  {
-    icon: <Radar size={20} />,
-    iconBg: 'bg-green-100 text-green-600',
-    title: 'Competitor Intel Feed',
-    description: 'Monitor competitor content, pricing moves, and market signals automatically. Know what the competition is doing before your clients do.',
-  },
-  {
-    icon: <Mic2 size={20} />,
-    iconBg: 'bg-pink-100 text-pink-600',
-    title: 'Podcast Booking',
-    description: 'Identifies podcasts your sellers and buyers actually listen to. AI writes your pitch. You get booked on shows that build your authority.',
-  },
-  {
-    icon: <Newspaper size={20} />,
-    iconBg: 'bg-orange-100 text-orange-600',
-    title: 'Earned Media',
-    description: "Surfaces journalist queries matching your expertise (HARO-style). Draft a response with one click and get quoted in publications your prospects read.",
-  },
-  {
-    icon: <Briefcase size={20} />,
-    iconBg: 'bg-amber-100 text-amber-600',
-    title: 'Buyer Database',
-    description: 'Build and manage your buyer list. The matching agent cross-references every new seller prospect against your buyers — and flags overlaps automatically.',
-  },
-  {
-    icon: <Calendar size={20} />,
-    iconBg: 'bg-teal-100 text-teal-600',
-    title: 'Pre-Meeting Briefs',
-    description: 'Connect Calendly and get an AI-generated brief before every call — deal context, recent activity, talking points — so you walk in prepared.',
-  },
-  {
-    icon: <Globe size={20} />,
-    iconBg: 'bg-slate-100 text-slate-600',
-    title: 'CRM Integration',
-    description: 'Native sync with GoHighLevel and HubSpot. All prospect activity, reply status, and deal stage flows into your CRM automatically.',
-  },
+  { icon: <Target size={20} />, iconBg: 'bg-blue-100 text-blue-600', title: 'Seller Prospecting', description: 'Apollo-powered AI finds business owners matching your ICP every week — revenue, industry, geography — loaded straight into your pipeline.' },
+  { icon: <Mail size={20} />, iconBg: 'bg-indigo-100 text-indigo-600', title: 'Cold Email Sequences', description: 'Multi-step outreach via Instantly launches automatically for every new prospect. AI writes the emails in your voice. You never touch it.' },
+  { icon: <Brain size={20} />, iconBg: 'bg-purple-100 text-purple-600', title: 'AI Reply Classification', description: 'Every reply is read and scored HOT / WARM / COLD the instant it lands. No inbox management. No missing the one who\'s ready to sell.' },
+  { icon: <Bell size={20} />, iconBg: 'bg-red-100 text-red-600', title: 'Instant SMS on HOT Leads', description: 'A seller says they\'re interested — your phone buzzes within 2 minutes. Be first to respond. Close more deals.' },
+  { icon: <FileText size={20} />, iconBg: 'bg-violet-100 text-violet-600', title: 'AI Content Engine', description: 'Blog posts, LinkedIn updates, Quora answers, FAQs — generated weekly in your exact voice. Positions you as the go-to M&A advisor in your niche.' },
+  { icon: <Gauge size={20} />, iconBg: 'bg-cyan-100 text-cyan-600', title: 'AI Visibility Score', description: 'Tracks how often you appear in ChatGPT, Claude, Perplexity, and Gemini when buyers search for M&A advisors. The metric no one else measures.' },
+  { icon: <Radar size={20} />, iconBg: 'bg-green-100 text-green-600', title: 'Competitor Intel Feed', description: 'Monitor every competitor content move, pricing change, and market signal automatically. Know what the competition is doing before your clients do.' },
+  { icon: <Mic2 size={20} />, iconBg: 'bg-pink-100 text-pink-600', title: 'Podcast Booking', description: 'Identifies podcasts your sellers and buyers listen to. AI writes a personalized pitch. You get booked. Your credibility compounds.' },
+  { icon: <Newspaper size={20} />, iconBg: 'bg-orange-100 text-orange-600', title: 'Earned Media', description: 'Surfaces journalist queries matching your expertise. Draft a response with one click. Get quoted in Inc, Forbes, and outlets your prospects read.' },
+  { icon: <Globe size={20} />, iconBg: 'bg-slate-100 text-slate-600', title: 'CRM Integration', description: 'Native two-way sync with GoHighLevel and HubSpot. Every prospect status, reply, and deal stage flows into your CRM automatically.' },
+  { icon: <Calendar size={20} />, iconBg: 'bg-teal-100 text-teal-600', title: 'Pre-Meeting Briefs', description: 'Connect Calendly and get a full AI brief before every call — deal context, recent activity, talking points. Walk in prepared every time.' },
+  { icon: <Briefcase size={20} />, iconBg: 'bg-amber-100 text-amber-600', title: 'Buyer Database', description: 'Build your buyer list once. The matching agent cross-references every new seller prospect against your buyers and flags overlaps automatically.' },
 ];
-
-// ── Replace Comparison Section ─────────────────────────────────────────────
 
 const REPLACED_TOOLS = [
   { name: 'Apollo', what: 'Prospecting' },
@@ -411,14 +555,16 @@ const REPLACED_TOOLS = [
   { name: 'Virtual assistant', what: 'Manual tasks' },
 ];
 
-// ── Main Page ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN PAGE
+// ─────────────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="w-full bg-white">
-      {/* Navigation */}
+      {/* Nav */}
       <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-6 h-[60px] flex items-center justify-between">
           <div className="font-bold text-xl text-black">BrokerEngine</div>
@@ -426,9 +572,7 @@ export default function Home() {
             <a href="#features" className="text-sm text-gray-600 hover:text-black">Features</a>
             <a href="/pricing" className="text-sm text-gray-600 hover:text-black">Pricing</a>
             <a href="/login" className="text-sm text-gray-600 hover:text-black">Login</a>
-            <button className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900">
-              Request access
-            </button>
+            <button className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900">Request access</button>
           </div>
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden">
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -436,85 +580,99 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="inline-block mb-8 px-4 py-2 bg-gray-100 rounded-full">
-            <p className="text-sm text-gray-600 flex items-center gap-2">
-              Now with AI agents <ChevronRight size={16} />
-            </p>
+      {/* ── HERO ── */}
+      <section className="pt-20 pb-10 px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          {/* Pill */}
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-black text-white rounded-full text-xs font-semibold">
+            <Zap size={12} className="text-yellow-400" />
+            The complete operating system for M&amp;A advisors
           </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-black mb-6">
-            The AI operating system for M&A advisors.
+
+          {/* Headline */}
+          <h1 className="text-5xl md:text-6xl font-bold text-black mb-5 leading-tight">
+            Find sellers. Close pipeline.<br />
+            <span className="text-gray-400">Build your brand.</span><br />
+            All on autopilot.
           </h1>
-          <p className="text-lg text-gray-500 mb-10">
-            Replace Apollo, Instantly, GHL, Beehiiv, PodMatch, and your VA with one platform that finds sellers, closes pipeline, and builds your brand — all on autopilot.
+
+          {/* Sub */}
+          <p className="text-lg text-gray-500 mb-6 max-w-2xl mx-auto">
+            BrokerEngine replaces every tool in your stack — Apollo, Instantly, GoHighLevel, Beehiiv, PodMatch, and your VA — with one AI platform that runs your entire business.
           </p>
-          <div className="flex flex-col md:flex-row gap-3 justify-center mb-6">
-            <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black" />
-            <button className="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-900 whitespace-nowrap">Request access</button>
+
+          {/* Social proof strip */}
+          <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-500">
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Not just a CRM</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Not just an email tool</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />The whole machine</span>
           </div>
-          <a href="#" className="text-sm text-gray-600 hover:text-black">
-            Talk to sales <ChevronRight className="inline" size={16} />
-          </a>
+
+          {/* CTA */}
+          <div className="flex flex-col md:flex-row gap-3 justify-center mb-4">
+            <input type="email" placeholder="Enter your email" className="flex-1 max-w-sm px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black" />
+            <button className="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-900 whitespace-nowrap">
+              Request access <ArrowRight className="inline ml-1" size={14} />
+            </button>
+          </div>
+          <p className="text-xs text-gray-400">14-day trial · No credit card needed · Cancel anytime</p>
         </div>
       </section>
 
-      {/* Product Demo */}
-      <section className="py-8 px-6">
+      {/* ── DEMO ── */}
+      <section className="py-6 px-6">
+        <div className="mx-auto max-w-[1140px] mb-3 text-center">
+          <p className="text-sm text-gray-400">See every module — hover to pause</p>
+        </div>
         <ProductDemo />
       </section>
 
-      {/* Replace 7 tools with 1 */}
-      <section className="py-16 px-6 border-t border-gray-100">
+      {/* ── REPLACE YOUR STACK ── */}
+      <section className="py-16 px-6 border-t border-gray-100 mt-4">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-4">Replace your entire stack</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-            7 tools cancelled. One bill.
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Cancel everything else</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-black mb-3">
+            7 monthly subscriptions. One platform.
           </h2>
-          <p className="text-gray-500 mb-10 max-w-xl mx-auto">
-            Every tool M&A advisors cobble together — replaced by a single platform that actually talks to itself.
+          <p className="text-gray-500 mb-8 max-w-xl mx-auto">
+            The average M&A advisor spends $3,000+/mo on tools that don&apos;t talk to each other. BrokerEngine replaces them all — and makes them actually work together.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-2.5 mb-8">
             {REPLACED_TOOLS.map((t) => (
-              <div key={t.name} className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 rounded-full bg-white">
-                <span className="w-4 h-4 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+              <div key={t.name} className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-full bg-white">
+                <span className="w-3.5 h-3.5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
                   <X size={8} className="text-red-500" />
                 </span>
-                <span className="text-sm font-medium text-gray-700">{t.name}</span>
+                <span className="text-sm font-semibold text-gray-700">{t.name}</span>
                 <span className="text-xs text-gray-400">{t.what}</span>
               </div>
             ))}
           </div>
-          <div className="mt-8 flex items-center justify-center gap-3">
-            <div className="h-px flex-1 bg-gray-100 max-w-[120px]" />
-            <div className="flex items-center gap-2 px-5 py-3 bg-black text-white rounded-full">
-              <Zap size={14} className="text-yellow-400" />
-              <span className="text-sm font-semibold">BrokerEngine does all of it</span>
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-px flex-1 bg-gray-100 max-w-[100px]" />
+            <div className="flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full">
+              <Zap size={13} className="text-yellow-400" />
+              <span className="text-sm font-bold">BrokerEngine replaces all of them</span>
             </div>
-            <div className="h-px flex-1 bg-gray-100 max-w-[120px]" />
+            <div className="h-px flex-1 bg-gray-100 max-w-[100px]" />
           </div>
         </div>
       </section>
 
-      {/* Full Feature Grid */}
+      {/* ── FULL FEATURE GRID ── */}
       <section id="features" className="py-20 px-6 bg-gray-50">
         <div className="mx-auto max-w-7xl">
           <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Everything included</p>
-            <h2 className="text-4xl font-bold text-black mb-4">
-              One platform. Every lever pulled.
-            </h2>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Everything in one platform</p>
+            <h2 className="text-4xl font-bold text-black mb-4">One platform. Every lever pulled.</h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              From finding your first seller prospect to getting quoted in Forbes — BrokerEngine runs the whole machine.
+              From finding your first seller prospect to getting quoted in Forbes — BrokerEngine runs the whole machine on autopilot.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {FEATURES.map((f) => (
               <div key={f.title} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-shadow">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${f.iconBg}`}>
-                  {f.icon}
-                </div>
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${f.iconBg}`}>{f.icon}</div>
                 <h3 className="font-semibold text-black mb-2">{f.title}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{f.description}</p>
               </div>
@@ -523,129 +681,121 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How it works — the full loop */}
+      {/* ── HOW IT WORKS ── */}
       <section className="py-20 px-6">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">The full loop</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">The full revenue loop</p>
             <h2 className="text-4xl font-bold text-black mb-4">
-              From cold prospect to closed deal —<br />
-              <span className="text-gray-400">without lifting a finger.</span>
+              Set it up once.<br />
+              <span className="text-gray-400">It runs forever.</span>
             </h2>
           </div>
-          <div className="relative">
-            {/* Connector line */}
-            <div className="absolute left-6 top-8 bottom-8 w-px bg-gray-200 hidden md:block" />
-            <div className="space-y-8">
-              {[
-                { step: '01', title: 'You set your ICP once', desc: "Tell BrokerEngine who you're looking for — industry, revenue range, geography, deal size. That's it.", icon: <Settings size={16} /> },
-                { step: '02', title: 'Apollo scans weekly', desc: '500–2,000 new business owners pulled from Apollo every week. Pre-scored against your ICP. Loaded into your prospects tab.', icon: <Target size={16} /> },
-                { step: '03', title: 'Instantly runs sequences', desc: 'AI-written cold emails go out automatically. Multi-step, personalized by niche, tracked for opens and replies.', icon: <Mail size={16} /> },
-                { step: '04', title: 'Replies get classified', desc: 'Every reply — HOT, WARM, or COLD — classified by AI the instant it arrives. Your inbox only shows what matters.', icon: <Brain size={16} /> },
-                { step: '05', title: 'You get a text on HOT', desc: "A seller says they're interested. Your phone buzzes within minutes. You jump on the call. You close.", icon: <Bell size={16} /> },
-                { step: '06', title: 'Your brand runs in parallel', desc: 'While the outreach machine works, BrokerEngine is publishing content, booking podcast spots, and building your AI citation score.', icon: <TrendingUp size={16} /> },
-              ].map((item) => (
-                <div key={item.step} className="flex gap-6 items-start">
-                  <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold flex-shrink-0 relative z-10">
-                    {item.icon}
-                  </div>
-                  <div className="flex-1 pt-2">
-                    <div className="flex items-center gap-3 mb-1">
-                      <span className="text-xs font-semibold text-gray-300">{item.step}</span>
-                      <h3 className="font-semibold text-black">{item.title}</h3>
-                    </div>
-                    <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-                  </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              { n: '01', icon: <Settings size={16} />, title: 'You set your ICP once', desc: 'Tell BrokerEngine who you\'re hunting — industry, revenue range, geography. Takes 5 minutes.' },
+              { n: '02', icon: <Target size={16} />, title: 'Apollo scans weekly', desc: '500–2,000 scored business owners pulled and ranked against your ICP. Loaded into your pipeline automatically.' },
+              { n: '03', icon: <Mail size={16} />, title: 'Sequences run on autopilot', desc: 'AI-written emails go out in your voice. Multi-step follow-ups. Every prospect touched without you lifting a finger.' },
+              { n: '04', icon: <Brain size={16} />, title: 'Replies get sorted instantly', desc: 'Every reply classified HOT, WARM, or COLD. You only see what matters. HOT gets a text to your phone in minutes.' },
+              { n: '05', icon: <FileText size={16} />, title: 'Your brand builds in parallel', desc: 'Content, podcasts, media hits, AI citations — all running 24/7 while the outreach machine works.' },
+              { n: '06', icon: <TrendingUp size={16} />, title: 'You review. You close.', desc: 'Every morning you open BrokerEngine and find: HOT leads to call, content to approve, deals to move forward.' },
+            ].map((item) => (
+              <div key={item.n} className="flex gap-4 p-5 border border-gray-200 rounded-2xl bg-white">
+                <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center flex-shrink-0 mt-0.5">
+                  {item.icon}
                 </div>
-              ))}
-            </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-bold text-gray-300">{item.n}</span>
+                    <h3 className="font-semibold text-black text-sm">{item.title}</h3>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="text-4xl font-bold mb-4 text-center">
-            Built for the <span className="text-gray-400">pace of agents.</span>
-          </h2>
-          <p className="text-gray-500 text-center mb-12 max-w-2xl mx-auto">
-            BrokerEngine runs on infrastructure that keeps up with your volume. Millions of operations per day, zero latency.
-          </p>
+      {/* ── STATS ── */}
+      <section className="py-16 px-6 bg-gray-50">
+        <div className="mx-auto max-w-5xl">
           <div className="border border-gray-200 rounded-2xl p-8 bg-white">
-            <div className="grid md:grid-cols-4 gap-8 divide-x divide-gray-200">
-              <div><p className="text-4xl font-bold text-black mb-2">384M</p><p className="text-sm text-gray-500">API calls / week</p></div>
-              <div className="pl-8"><p className="text-4xl font-bold text-black mb-2">2.4M</p><p className="text-sm text-gray-500">Sequences / month</p></div>
-              <div className="pl-8"><p className="text-4xl font-bold text-black mb-2">69K+</p><p className="text-sm text-gray-500">Active pipelines</p></div>
-              <div className="pl-8"><p className="text-4xl font-bold text-black mb-2">85.2%</p><p className="text-sm text-gray-500">Deal close rate</p></div>
+            <div className="grid md:grid-cols-4 gap-8 divide-x divide-gray-100">
+              <div><p className="text-4xl font-bold text-black mb-1">384M</p><p className="text-sm text-gray-500">API calls / week</p></div>
+              <div className="pl-8"><p className="text-4xl font-bold text-black mb-1">2.4M</p><p className="text-sm text-gray-500">Sequences / month</p></div>
+              <div className="pl-8"><p className="text-4xl font-bold text-black mb-1">69K+</p><p className="text-sm text-gray-500">Active pipelines</p></div>
+              <div className="pl-8"><p className="text-4xl font-bold text-black mb-1">85.2%</p><p className="text-sm text-gray-500">Deal close rate</p></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonial */}
+      {/* ── QUOTE ── */}
       <section className="py-20 px-6">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-3xl font-bold text-black mb-6">
+          <p className="text-3xl font-bold text-black mb-6 leading-snug">
             &quot;I used to spend 3 hours a day on outreach and CRM updates. Now BrokerEngine handles all of it. I just review and close.&quot;
           </p>
           <p className="text-gray-500">Marcus Reid, Managing Partner · Meridian Advisors</p>
         </div>
       </section>
 
-      {/* Pricing Teaser */}
+      {/* ── PRICING ── */}
       <section className="py-20 px-6 bg-gray-50">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-3">Simple pricing</p>
-            <h2 className="text-4xl font-bold text-black mb-4">One HOT lead pays for the year.</h2>
-            <p className="text-gray-500 max-w-xl mx-auto">All plans include every feature. Choose by volume.</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Simple pricing</p>
+            <h2 className="text-4xl font-bold text-black mb-3">One HOT lead pays for the year.</h2>
+            <p className="text-gray-500 max-w-lg mx-auto">All plans include every feature. Choose by volume.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-5">
             {[
               { name: 'Starter', price: '$499', period: '/mo', highlight: false, features: ['500 prospects/month', 'Cold email sequences', 'HOT/WARM/COLD classification', 'SMS alerts on HOT leads', 'AI content (4 pieces/week)', 'Live prospect dashboard'], cta: 'Start closing deals' },
-              { name: 'Pro', price: '$1,299', period: '/mo', highlight: true, features: ['2,000 prospects/month', 'Everything in Starter', 'Multi-sequence campaigns', 'AI visibility scoring', 'Competitor intel feed', 'Podcast booking automation', 'Pre-meeting briefs (Calendly)'], cta: 'Scale your pipeline' },
-              { name: 'Enterprise', price: '$2,499', period: '/mo', highlight: false, features: ['Unlimited prospects', 'Everything in Pro', 'Multi-advisor seats', 'Custom voice profiles', 'White-label reporting', 'Dedicated CSM + SLA'], cta: 'Contact us' },
+              { name: 'Pro', price: '$1,299', period: '/mo', highlight: true, features: ['2,000 prospects/month', 'Everything in Starter', 'Multi-sequence campaigns', 'AI visibility scoring', 'Competitor intel feed', 'Podcast booking', 'Pre-meeting briefs'], cta: 'Scale your pipeline' },
+              { name: 'Enterprise', price: '$2,499', period: '/mo', highlight: false, features: ['Unlimited prospects', 'Everything in Pro', 'Multi-advisor seats', 'White-label reporting', 'Dedicated CSM', 'Custom integrations'], cta: 'Contact us' },
             ].map((plan) => (
-              <div key={plan.name} className={`rounded-2xl border p-8 flex flex-col ${plan.highlight ? 'border-black bg-black text-white' : 'border-gray-200 bg-white'}`}>
-                {plan.highlight && <div className="text-xs font-semibold text-gray-400 mb-3 uppercase tracking-widest">Most popular</div>}
-                <div className="mb-6">
-                  <p className={`text-lg font-semibold mb-1 ${plan.highlight ? 'text-white' : 'text-black'}`}>{plan.name}</p>
+              <div key={plan.name} className={`rounded-2xl border p-7 flex flex-col ${plan.highlight ? 'border-black bg-black text-white' : 'border-gray-200 bg-white'}`}>
+                {plan.highlight && <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Most popular</div>}
+                <div className="mb-5">
+                  <p className={`text-base font-semibold mb-1 ${plan.highlight ? 'text-white' : 'text-black'}`}>{plan.name}</p>
                   <div className="flex items-baseline gap-1">
                     <span className={`text-4xl font-bold ${plan.highlight ? 'text-white' : 'text-black'}`}>{plan.price}</span>
-                    <span className={plan.highlight ? 'text-gray-400' : 'text-gray-400'}>{plan.period}</span>
+                    <span className="text-gray-400 text-sm">{plan.period}</span>
                   </div>
                 </div>
-                <ul className="space-y-2.5 flex-1 mb-8">
+                <ul className="space-y-2 flex-1 mb-7">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 size={14} className={`mt-0.5 flex-shrink-0 ${plan.highlight ? 'text-green-400' : 'text-green-500'}`} />
+                      <CheckCircle2 size={13} className={`mt-0.5 flex-shrink-0 ${plan.highlight ? 'text-green-400' : 'text-green-500'}`} />
                       <span className={plan.highlight ? 'text-gray-300' : 'text-gray-600'}>{f}</span>
                     </li>
                   ))}
                 </ul>
-                <a href="/pricing" className={`block text-center py-3 rounded-full text-sm font-semibold transition-colors ${plan.highlight ? 'bg-white text-black hover:bg-gray-100' : 'bg-black text-white hover:bg-gray-900'}`}>
+                <a href="/pricing" className={`block text-center py-3 rounded-full text-sm font-bold transition-colors ${plan.highlight ? 'bg-white text-black hover:bg-gray-100' : 'bg-black text-white hover:bg-gray-900'}`}>
                   {plan.cta}
                 </a>
               </div>
             ))}
           </div>
-          <p className="text-center text-gray-400 text-sm mt-6">Billed monthly. Cancel anytime. 14-day trial included.</p>
+          <p className="text-center text-gray-400 text-xs mt-5">Billed monthly · Cancel anytime · 14-day trial included</p>
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* ── FINAL CTA ── */}
       <section className="py-20 px-6">
         <div className="mx-auto max-w-2xl">
-          <div className="bg-gray-100 rounded-2xl p-12 text-center">
-            <h3 className="text-3xl font-bold text-black mb-3">Ready to run the whole machine?</h3>
-            <p className="text-gray-500 mb-8">Sign up in 2 minutes. Your agents start working on day one.</p>
-            <div className="flex flex-col md:flex-row gap-3 justify-center mb-6">
-              <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black" />
-              <button className="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-900 whitespace-nowrap">Request access</button>
+          <div className="bg-black rounded-3xl p-12 text-center text-white">
+            <h3 className="text-3xl font-bold mb-3">Ready to run the whole machine?</h3>
+            <p className="text-gray-400 mb-8">Sign up in 2 minutes. Your agents start working on day one.</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
+              <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-500 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-white/40" />
+              <button className="px-7 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-100 whitespace-nowrap text-sm">
+                Request access
+              </button>
             </div>
-            <a href="/pricing" className="text-sm text-gray-600 hover:text-black">
-              See pricing <ChevronRight className="inline" size={16} />
+            <a href="/pricing" className="text-sm text-gray-400 hover:text-white">
+              See pricing <ChevronRight className="inline" size={14} />
             </a>
           </div>
         </div>
@@ -655,7 +805,7 @@ export default function Home() {
       <footer className="border-t border-gray-200 py-8 px-6">
         <div className="mx-auto max-w-7xl flex justify-between items-center">
           <p className="font-bold text-black">BrokerEngine</p>
-          <div className="flex gap-8 text-sm text-gray-600">
+          <div className="flex gap-8 text-sm text-gray-500">
             <a href="#features" className="hover:text-black">Features</a>
             <a href="/pricing" className="hover:text-black">Pricing</a>
             <a href="/login" className="hover:text-black">Login</a>
