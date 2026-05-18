@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import {
   ChevronRight,
@@ -65,8 +66,8 @@ function AppSidebar({ activeTab }: { activeTab: TabId }) {
   return (
     <div className="w-44 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col h-full">
       <div className="px-3 py-3 flex items-center gap-2 border-b border-gray-100">
+        <Image src="/icon.svg" alt="BrokerEngine" width={22} height={22} className="rounded" />
         <span className="font-bold text-xs text-black">BrokerEngine</span>
-        <span className="text-[9px] font-bold bg-black text-white rounded px-1 py-0.5">AI</span>
       </div>
       <nav className="flex-1 px-2 py-2 space-y-0.5 overflow-hidden">
         {navItems.map((item, i) => {
@@ -567,7 +568,10 @@ export default function Home() {
       {/* Nav */}
       <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-6 h-[60px] flex items-center justify-between">
-          <div className="font-bold text-xl text-black">BrokerEngine</div>
+          <div className="flex items-center gap-2.5">
+            <Image src="/icon.svg" alt="BrokerEngine" width={32} height={32} />
+            <Image src="/logo.svg" alt="BrokerEngine" width={140} height={22} className="h-[22px] w-auto" />
+          </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-black">Features</a>
             <a href="/pricing" className="text-sm text-gray-600 hover:text-black">Pricing</a>

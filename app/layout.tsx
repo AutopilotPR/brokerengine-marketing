@@ -5,6 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/icon.svg",
+  },
   title: "BrokerEngine",
   description:
     "The AI platform engineered for M&A brokers. Build pipeline, accelerate deals, and compound revenue with universal context.",
