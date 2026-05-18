@@ -568,9 +568,9 @@ export default function Home() {
       {/* Nav */}
       <nav className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-6 h-[60px] flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <Image src="/icon.svg" alt="BrokerEngine" width={32} height={32} />
-            <Image src="/logo.svg" alt="BrokerEngine" width={140} height={22} className="h-[22px] w-auto" />
+          <div className="flex items-center gap-2">
+            <Image src="/icon.svg" alt="" width={32} height={32} className="rounded-lg" />
+            <span className="font-bold text-[18px] text-black tracking-tight">BrokerEngine</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-black">Features</a>
