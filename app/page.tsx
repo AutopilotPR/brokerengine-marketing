@@ -26,6 +26,8 @@ import {
   Briefcase,
   ArrowRight,
   Phone,
+  TrendingDown,
+  Activity,
 } from 'lucide-react';
 
 type TabId = 'find' | 'outreach' | 'replies' | 'content' | 'intel' | 'brand';
@@ -487,6 +489,200 @@ interface Feature {
   description: string;
 }
 
+// ── Live Machine Section ─────────────────────────────────────────────────
+
+function LiveMachineSection() {
+  const weekLabels = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'];
+  const scoreData  = [18, 24, 22, 31, 38, 44, 52, 71];
+  const maxScore   = 80;
+
+  const prospects = [
+    { initials: 'MH', color: 'bg-violet-500', name: 'Mike Hartley', company: 'Hartley HVAC', rev: '$6.2M', badge: 'HOT', badgeColor: 'bg-red-500 text-white', sms: '2m ago' },
+    { initials: 'SC', color: 'bg-blue-500',   name: 'Sarah Chen',   company: 'Peak Roofing',  rev: '$5.1M', badge: 'HOT', badgeColor: 'bg-red-500 text-white', sms: '15m ago' },
+    { initials: 'JR', color: 'bg-emerald-500',name: 'James Ruiz',   company: 'Alpine Elec',   rev: '$3.8M', badge: 'WARM', badgeColor: 'bg-yellow-400 text-black', sms: null },
+    { initials: 'TW', color: 'bg-slate-400',  name: 'Tom Walsh',    company: 'Summit HVAC',   rev: '$1.9M', badge: 'COLD', badgeColor: 'bg-gray-200 text-gray-500', sms: null },
+  ];
+
+  const activities = [
+    { dot: 'bg-red-500',    text: 'Mike Hartley replied HOT',          sub: 'SMS fired to your phone',        time: '2m' },
+    { dot: 'bg-violet-500', text: '12 new prospects added',             sub: 'Apollo scan complete',            time: '1h' },
+    { dot: 'bg-blue-500',   text: 'Sequence step 3 sent to 38 contacts',sub: 'Powered by Instantly',           time: '9h' },
+    { dot: 'bg-emerald-500',text: 'Blog draft ready for review',        sub: 'AI content engine',               time: '1d' },
+    { dot: 'bg-yellow-400', text: 'Competitor update detected',         sub: 'Deal Capital changed pricing',    time: '2d' },
+  ];
+
+  return (
+    <section className="relative py-24 px-6 bg-[#0D1117] overflow-hidden">
+      {/* subtle dot grid */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      <div className="relative mx-auto max-w-7xl">
+        {/* heading */}
+        <div className="text-center mb-16">
+          <p className="text-xs font-bold text-violet-400 uppercase tracking-widest mb-3">The pipeline. Running now.</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+            Every lever pulled.<br />
+            <span className="text-[#6E727A]">While you focus on closing.</span>
+          </h2>
+          <p className="text-[#6E727A] max-w-xl mx-auto">
+            Prospects found. Outreach sent. Replies classified. Brand built. All running in parallel, automatically, in the background.
+          </p>
+        </div>
+
+        {/* three-column grid */}
+        <div className="grid lg:grid-cols-3 gap-5">
+
+          {/* COL 1: Prospect pipeline */}
+          <div className="rounded-2xl border border-[#2A2E35] bg-[#141820] overflow-hidden flex flex-col">
+            <div className="px-5 py-4 border-b border-[#2A2E35] flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-white">Seller pipeline</p>
+                <p className="text-xs text-[#6E727A] mt-0.5">Updated 4 hours ago</p>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[11px] text-[#6E727A]">Apollo live</span>
+              </div>
+            </div>
+            <div className="flex-1 divide-y divide-[#1E2229]">
+              {prospects.map((p) => (
+                <div key={p.name} className="flex items-center gap-3 px-5 py-3">
+                  <div className={`w-8 h-8 rounded-full ${p.color} flex items-center justify-center text-white text-[11px] font-bold flex-shrink-0`}>
+                    {p.initials}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[13px] text-white font-medium truncate">{p.name}</p>
+                    <p className="text-[11px] text-[#6E727A] truncate">{p.company} · {p.rev}</p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${p.badgeColor}`}>{p.badge}</span>
+                    {p.sms && (
+                      <span className="text-[10px] text-violet-400 flex items-center gap-0.5">
+                        <Bell size={9} />SMS {p.sms}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="px-5 py-3 border-t border-[#2A2E35] bg-[#0D1117]">
+              <p className="text-[11px] text-[#6E727A]">247 total prospects · <span className="text-violet-400">2 HOT this week</span></p>
+            </div>
+          </div>
+
+          {/* COL 2: Activity feed */}
+          <div className="rounded-2xl border border-[#2A2E35] bg-[#141820] overflow-hidden flex flex-col">
+            <div className="px-5 py-4 border-b border-[#2A2E35]">
+              <p className="text-sm font-semibold text-white">Live activity</p>
+              <p className="text-xs text-[#6E727A] mt-0.5">Everything your agents did</p>
+            </div>
+            <div className="flex-1 divide-y divide-[#1E2229]">
+              {activities.map((a, i) => (
+                <div key={i} className="flex items-start gap-3 px-5 py-3.5">
+                  <div className="flex flex-col items-center gap-1 pt-1 flex-shrink-0">
+                    <div className={`w-2 h-2 rounded-full ${a.dot} flex-shrink-0`} />
+                    {i < activities.length - 1 && <div className="w-px flex-1 min-h-4 bg-[#2A2E35]" />}
+                  </div>
+                  <div className="flex-1 min-w-0 pb-0.5">
+                    <p className="text-[13px] text-white font-medium leading-snug">{a.text}</p>
+                    <p className="text-[11px] text-[#6E727A] mt-0.5">{a.sub}</p>
+                  </div>
+                  <span className="text-[11px] text-[#6E727A] flex-shrink-0 mt-0.5">{a.time}</span>
+                </div>
+              ))}
+            </div>
+            <div className="px-5 py-3 border-t border-[#2A2E35] bg-[#0D1117]">
+              <p className="text-[11px] text-[#6E727A]">All actions logged. Nothing runs in the dark.</p>
+            </div>
+          </div>
+
+          {/* COL 3: AI visibility score chart */}
+          <div className="rounded-2xl border border-[#2A2E35] bg-[#141820] overflow-hidden flex flex-col">
+            <div className="px-5 py-4 border-b border-[#2A2E35] flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-white">AI Visibility Score</p>
+                <p className="text-xs text-[#6E727A] mt-0.5">How often AI cites you</p>
+              </div>
+              <div className="flex items-center gap-1 text-emerald-400 text-xs font-bold">
+                <TrendingUp size={13} />
+                +53 pts
+              </div>
+            </div>
+            {/* chart */}
+            <div className="flex-1 px-5 pt-5 pb-3">
+              <div className="flex items-end gap-1.5 h-32">
+                {scoreData.map((val, i) => {
+                  const isLast = i === scoreData.length - 1;
+                  const pct = (val / maxScore) * 100;
+                  return (
+                    <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                      {isLast && (
+                        <div className="rounded-md bg-violet-500/20 border border-violet-500/40 px-1.5 py-0.5 text-[10px] font-bold text-violet-300 whitespace-nowrap mb-1">
+                          {val}
+                        </div>
+                      )}
+                      <div
+                        className={`w-full rounded-t-md transition-all ${
+                          isLast ? 'bg-violet-500' : 'bg-[#2A2E35]'
+                        }`}
+                        style={{ height: `${pct}%`, minHeight: 4 }}
+                      />
+                      <span className="text-[9px] text-[#6E727A]">{weekLabels[i]}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            {/* query pills */}
+            <div className="px-5 pb-4 space-y-2">
+              {[
+                { query: 'best M&A broker for HVAC', cited: true },
+                { query: 'how to sell a trades business', cited: true },
+                { query: 'M&A advisor under $10M revenue', cited: false },
+              ].map((q) => (
+                <div key={q.query} className="flex items-center justify-between gap-2">
+                  <p className="text-[11px] text-[#6E727A] truncate">{q.query}</p>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${
+                    q.cited ? 'bg-emerald-500/20 text-emerald-400' : 'bg-[#2A2E35] text-[#6E727A]'
+                  }`}>
+                    {q.cited ? 'Cited' : 'Not yet'}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="px-5 py-3 border-t border-[#2A2E35] bg-[#0D1117]">
+              <p className="text-[11px] text-[#6E727A]">Checked weekly · Claude today · ChatGPT coming</p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* bottom stat row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
+          {[
+            { label: 'Prospects found this week', value: '47', sub: 'via Apollo', color: 'text-violet-400' },
+            { label: 'Emails delivered', value: '312', sub: 'via Instantly', color: 'text-blue-400' },
+            { label: 'HOT leads this month', value: '8', sub: 'SMS fired each time', color: 'text-red-400' },
+            { label: 'AI visibility score', value: '71', sub: 'up from 18 eight weeks ago', color: 'text-emerald-400' },
+          ].map((s) => (
+            <div key={s.label} className="rounded-xl border border-[#2A2E35] bg-[#141820] px-5 py-4">
+              <p className={`text-2xl font-bold ${s.color} mb-1`}>{s.value}</p>
+              <p className="text-[12px] text-white font-medium leading-snug">{s.label}</p>
+              <p className="text-[11px] text-[#6E727A] mt-0.5">{s.sub}</p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
 const FEATURES: Feature[] = [
   {
     icon: <Target size={20} />, iconBg: 'bg-blue-100 text-blue-600',
@@ -624,6 +820,9 @@ export default function Home() {
         </div>
         <ProductDemo />
       </section>
+
+      {/* LIVE MACHINE SECTION */}
+      <LiveMachineSection />
 
       {/* ONE BILL */}
       <section className="py-16 px-6 border-t border-gray-100 mt-4">
