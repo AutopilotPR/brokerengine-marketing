@@ -695,6 +695,7 @@ export default function Home() {
           </div>
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-sm text-gray-600 hover:text-black">Features</a>
+            <a href="/how-it-works" className="text-sm text-gray-600 hover:text-black">How it works</a>
             <a href="/pricing" className="text-sm text-gray-600 hover:text-black">Pricing</a>
             <a href="/login" className="text-sm text-gray-600 hover:text-black">Login</a>
             <a href="/signup" className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900">Request access</a>
@@ -916,6 +917,7 @@ export default function Home() {
           </div>
           <div className="flex gap-8 text-sm text-gray-500">
             <a href="#features" className="hover:text-black">Features</a>
+            <a href="/how-it-works" className="hover:text-black">How it works</a>
             <a href="/pricing" className="hover:text-black">Pricing</a>
             <a href="/login" className="hover:text-black">Login</a>
           </div>
