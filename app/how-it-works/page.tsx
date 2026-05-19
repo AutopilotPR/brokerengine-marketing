@@ -96,10 +96,11 @@ const SETUP_STEPS = [
 ];
 
 const WEEKLY_SCHEDULE = [
-  { day: 'Every day', icon: <Target size={16} />, color: 'bg-blue-100 text-blue-600', title: 'Apollo scans for new sellers', desc: 'Founders and CEOs matching your ICP drop into your pipeline automatically. Deduped against existing contacts.' },
-  { day: 'Every day', icon: <Mail size={16} />, color: 'bg-indigo-100 text-indigo-600', title: 'Outreach sequences run', desc: 'Cold emails go out via Instantly in your voice. Multi-step follow-ups fire on schedule. You review before anything sends.' },
-  { day: 'Real time', icon: <Brain size={16} />, color: 'bg-purple-100 text-purple-600', title: 'Replies get classified', desc: 'Every reply is read by AI and labeled HOT, WARM, COLD, or out of office. HOT fires an SMS to your phone within two minutes.' },
-  { day: 'Every Monday', icon: <FileText size={16} />, color: 'bg-violet-100 text-violet-600', title: 'Content drafts generated', desc: 'Blog post, LinkedIn draft, Quora answer, and FAQ — all in your voice, tailored to your target queries. You review and publish.' },
+  { day: 'Every Monday', icon: <Target size={16} />, color: 'bg-blue-100 text-blue-600', title: 'Apollo scans for new sellers', desc: 'Founders and CEOs matching your ICP drop into your pipeline. Monday adds a dedicated SaaS-only pass — higher multiples, higher deal size. Deduped against existing contacts.' },
+  { day: 'Every Monday', icon: <Mail size={16} />, color: 'bg-indigo-100 text-indigo-600', title: 'Referral partner outreach runs', desc: '5 river guides targeted each week — CPAs, fractional CFOs, M&A attorneys, EOS implementors. Separate track. Peer-to-peer template. You review before anything sends.' },
+  { day: 'Every day', icon: <Mail size={16} />, color: 'bg-blue-100 text-blue-700', title: 'Founder outreach sequences run', desc: 'Cold emails go out via Instantly in your voice. 5-step Exit Audit cadence. You approve each draft — nothing sends without your sign-off.' },
+  { day: 'Real time', icon: <Brain size={16} />, color: 'bg-purple-100 text-purple-600', title: 'Replies get classified and drafted', desc: 'Every reply labeled HOT, WARM, COLD, OOO, or Unsub. Claude drafts a reply in your voice for each. You approve in one click. HOT fires an SMS to your phone within two minutes.' },
+  { day: 'Every Monday', icon: <FileText size={16} />, color: 'bg-violet-100 text-violet-600', title: 'Content drafts generated', desc: 'Blog post, LinkedIn draft, Quora answer, and FAQ — all in your voice, checked against your voice profile. You review and publish. Nothing posts without approval.' },
   { day: 'Every Monday', icon: <Radar size={16} />, color: 'bg-green-100 text-green-600', title: 'Competitors monitored', desc: 'BrokerEngine checks competitor sites and surfaces any meaningful changes in your intel feed.' },
   { day: 'Every Monday', icon: <Gauge size={16} />, color: 'bg-cyan-100 text-cyan-600', title: 'AI visibility scored', desc: 'Claude is asked your target queries. Does your name appear in the answer? Your visibility score updates and trends over time.' },
 ];
@@ -158,7 +159,7 @@ const TOOLS_RUNNING = [
 const FAQS = [
   {
     q: 'Does the AI reply to emails for me?',
-    a: 'No. The AI classifies every reply as HOT, WARM, COLD, or out of office, and it drafts a suggested response. You review the draft and decide whether to send it. Nothing goes out without your approval.',
+    a: 'No. The AI classifies every reply as HOT, WARM, COLD, OOO, or Unsubscribe and drafts a suggested reply in your voice. You review the draft and click approve. Nothing sends without your sign-off. The AI writes it. You decide.',
   },
   {
     q: 'Can I customize what the outreach emails say?',
@@ -310,17 +311,20 @@ export default function HowItWorks() {
               </div>
               <div className="divide-y divide-gray-100">
                 {[
-                  'Find sellers matching your ICP weekly',
+                  'Find sellers matching your ICP every week (Apollo)',
+                  'Run a dedicated Monday SaaS prospect pull',
+                  'Pull 5 referral partners weekly (river guide track)',
                   'Write personalized cold emails in your voice',
                   'Send and track outreach via Instantly',
-                  'Read every reply and classify it HOT, WARM, or COLD',
-                  'Fire an SMS to your phone on HOT replies',
+                  'Read every reply: HOT, WARM, COLD, OOO, or Unsub',
+                  'Draft a contextual reply in your voice for every classified reply',
+                  'Fire an SMS on HOT replies (threshold you configure)',
+                  'Research the company before a meeting and write a 1-page brief',
                   'Fire an SMS when a meeting is booked via Calendly',
                   'Generate blog, LinkedIn, and Quora drafts weekly',
                   'Monitor competitors for changes',
                   'Track your AI visibility score weekly',
                   'Match sellers to buyers in your database',
-                  'Generate pre-meeting briefs before calls',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3 px-6 py-3">
                     <CheckCircle2 size={14} className="text-emerald-500 mt-0.5 flex-shrink-0" />

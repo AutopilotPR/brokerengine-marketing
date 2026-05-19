@@ -613,17 +613,22 @@ const FEATURES: Feature[] = [
   {
     icon: <Mail size={20} />, iconBg: 'bg-indigo-100 text-indigo-600',
     title: 'Cold Email Sequences',
-    description: 'Outreach runs in your voice via Instantly. AI writes the emails. Multi-step follow-ups run on schedule. You review what goes out. The system handles the volume.',
+    description: 'Outreach runs in your voice via Instantly. AI writes the emails. Exit Audit 5-step cadence is the default. Multi-step follow-ups run on schedule. You approve each draft before it sends.',
+  },
+  {
+    icon: <Globe size={20} />, iconBg: 'bg-teal-100 text-teal-600',
+    title: 'Referral Partner Outreach',
+    description: 'Every week, 5 river guides are targeted: CPAs, fractional CFOs, M&A attorneys, EOS implementors, business coaches. Separate track from founder outreach. Peer-to-peer tone. 15% commission offer. You approve before it sends.',
   },
   {
     icon: <Brain size={20} />, iconBg: 'bg-purple-100 text-purple-600',
-    title: 'AI Reply Classification',
-    description: 'Every reply is read and sorted: HOT, WARM, COLD, or out of office. You see the classification instantly. You decide what to say next. The AI does not reply for you.',
+    title: 'AI Reply Classification + Draft Reply',
+    description: 'Every reply is read and sorted: HOT, WARM, COLD, OOO, or Unsubscribe. Claude drafts a contextual reply in your voice for each one. You approve in one click. Nothing sends without your sign-off.',
   },
   {
     icon: <Bell size={20} />, iconBg: 'bg-red-100 text-red-600',
     title: 'SMS on HOT Reply',
-    description: 'A seller says they are interested. Your phone buzzes within two minutes. Name, company, and reply included. You call while the conversation is still warm.',
+    description: 'A seller signals they want to talk. Your phone buzzes within two minutes. Name, company, and reply included. HOT threshold is configurable — you set the revenue and intent floor.',
   },
   {
     icon: <Phone size={20} />, iconBg: 'bg-rose-100 text-rose-600',
