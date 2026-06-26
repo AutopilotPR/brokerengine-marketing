@@ -88,8 +88,8 @@ const SETUP_STEPS = [
   {
     number: '04',
     time: 'Automatic',
-    title: 'Your CRM is ready',
-    desc: 'A GoHighLevel subaccount is provisioned for you on signup. Your pipeline, contacts, and deal stages are there from day one. No integration, no setup, no extra invoice.',
+    title: 'Your deal pipeline is ready',
+    desc: 'A built-in CRM with pipeline, contacts, and deal stages is live from day one. Sellers, buyers, and deals all in one place. No third-party CRM required.',
     you: false,
     badge: 'We handle this',
   },
@@ -100,7 +100,6 @@ const WEEKLY_SCHEDULE = [
   { day: 'Every Monday', icon: <Mail size={16} />, color: 'bg-indigo-100 text-indigo-600', title: 'Referral partner outreach runs', desc: '5 river guides targeted each week — CPAs, fractional CFOs, M&A attorneys, EOS implementors. Separate track. Peer-to-peer template. You review before anything sends.' },
   { day: 'Every day', icon: <Mail size={16} />, color: 'bg-blue-100 text-blue-700', title: 'Founder outreach sequences run', desc: 'Cold emails go out via Instantly in your voice. 5-step Exit Audit cadence. You approve each draft — nothing sends without your sign-off.' },
   { day: 'Real time', icon: <Brain size={16} />, color: 'bg-purple-100 text-purple-600', title: 'Replies get classified and drafted', desc: 'Every reply labeled HOT, WARM, COLD, OOO, or Unsub. Claude drafts a reply in your voice for each. You approve in one click. HOT fires an SMS to your phone within two minutes.' },
-  { day: 'Every Monday', icon: <FileText size={16} />, color: 'bg-violet-100 text-violet-600', title: 'Content drafts generated', desc: 'Blog post, LinkedIn draft, Quora answer, and FAQ — all in your voice, checked against your voice profile. You review and publish. Nothing posts without approval.' },
   { day: 'Every Monday', icon: <Radar size={16} />, color: 'bg-green-100 text-green-600', title: 'Competitors monitored', desc: 'BrokerEngine checks competitor sites and surfaces any meaningful changes in your intel feed.' },
   { day: 'Every Monday', icon: <Gauge size={16} />, color: 'bg-cyan-100 text-cyan-600', title: 'AI visibility scored', desc: 'Claude is asked your target queries. Does your name appear in the answer? Your visibility score updates and trends over time.' },
 ];
@@ -149,11 +148,10 @@ const SMS_MOMENTS = [
 const TOOLS_RUNNING = [
   { name: 'Apollo', role: 'Finds business owners matching your ICP every week', dot: 'bg-orange-400' },
   { name: 'Instantly', role: 'Delivers cold email sequences in your name', dot: 'bg-blue-400' },
-  { name: 'GoHighLevel', role: 'Your built-in CRM, pipeline, and contact records', dot: 'bg-green-400' },
   { name: 'Twilio', role: 'Fires SMS alerts to your phone on HOT replies and new meetings', dot: 'bg-red-400' },
-  { name: 'Beehiiv', role: 'Publishes your newsletter when you approve it', dot: 'bg-yellow-400' },
   { name: 'Resend', role: 'Handles transactional emails like buyer teasers', dot: 'bg-violet-400' },
-  { name: 'Claude (Anthropic)', role: 'Writes everything in your voice, classifies replies, scores visibility', dot: 'bg-gray-400' },
+  { name: 'Claude (Anthropic)', role: 'Classifies replies, scores AI visibility, drafts responses in your voice', dot: 'bg-gray-400' },
+  { name: 'Built-in CRM', role: 'Your pipeline, contacts, deals, and buyers — no third-party CRM needed', dot: 'bg-green-400' },
 ];
 
 const FAQS = [
@@ -167,7 +165,7 @@ const FAQS = [
   },
   {
     q: 'What if I already have Apollo or Instantly?',
-    a: 'You can cancel those subscriptions. We hold the master accounts and provision you a subaccount. You get the same tools at a lower total cost with the automation layer on top.',
+    a: 'You can cancel those subscriptions. We hold the master accounts and provision you onto each platform. You get the same tools at a lower total cost with the automation layer on top.',
   },
   {
     q: 'How long until I see my first HOT lead?',
@@ -175,11 +173,11 @@ const FAQS = [
   },
   {
     q: 'Do I need to connect my existing CRM?',
-    a: 'No. Your CRM is a GoHighLevel subaccount we provision for you on signup. It is ready on day one with no setup. If you want to sync with HubSpot or Salesforce, that is on the roadmap but not available today.',
+    a: 'No. BrokerEngine includes a built-in deal pipeline with contacts, deals, buyers, and stage tracking. It is ready on day one with no setup required.',
   },
   {
     q: 'What happens if I cancel?',
-    a: 'You can cancel anytime. Your data exports as a CSV. The subaccounts on Apollo, Instantly, and GHL close when your subscription ends.',
+    a: 'You can cancel anytime. Your data exports as a CSV. The subaccounts on Apollo and Instantly close when your subscription ends.',
   },
 ];
 
@@ -397,7 +395,7 @@ export default function HowItWorks() {
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-12">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Under the hood</p>
-            <h2 className="text-4xl font-bold text-black mb-3">Seven tools running in the background.</h2>
+            <h2 className="text-4xl font-bold text-black mb-3">Everything running in the background.</h2>
             <p className="text-gray-500">You never see their invoices. They are all included in your BrokerEngine subscription.</p>
           </div>
           <div className="space-y-3">

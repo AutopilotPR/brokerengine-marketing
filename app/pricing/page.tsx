@@ -14,24 +14,23 @@ export default function Pricing() {
 
   const starterFeatures = [
     '1 seat',
-    'AI content engine (blog, LinkedIn, Quora)',
-    'AI Visibility Score (weekly)',
-    'Basic pipeline dashboard',
-    'Voice profile setup',
+    'Seller prospecting (Apollo)',
+    'Cold email sequences (Instantly)',
+    'HOT / WARM / COLD reply classification',
+    'SMS alerts on HOT replies',
+    'Built-in deal pipeline',
     'Email support',
   ];
 
   const proFeatures = [
     '3 seats',
     'Everything in Starter',
-    'Cold outreach machine (Instantly)',
-    'Hot lead detection + SMS alerts',
-    'AI reply classification + drafts',
-    'GHL CRM sync (full pipeline)',
+    '2,000 prospects per month',
+    'Multi-sequence campaigns',
     'Buyer database + deal matching',
-    'Pre-meeting deal briefs',
-    'Podcast booking (PodMatch)',
-    'Newsletter (Beehiiv)',
+    'Referral partner outreach',
+    'AI Visibility Score (weekly)',
+    'Competitor intel feed',
     'Priority support',
   ];
 
@@ -80,7 +79,7 @@ export default function Pricing() {
             Less than the sum of the parts.
           </h1>
           <p className="text-xl text-gray-500 mb-10">
-            Replace Apollo, Instantly, GHL, Beehiiv, PodMatch, and your VA — for one flat price.
+            Replace Apollo, Instantly, Twilio, and your VA — for one flat price. CRM included.
           </p>
 
           {/* Billing Toggle */}
@@ -123,7 +122,7 @@ export default function Pricing() {
             {/* Starter */}
             <div className="rounded-2xl border border-gray-200 p-8 bg-white hover:shadow-lg transition">
               <h3 className="text-2xl font-bold text-black mb-2">Starter</h3>
-              <p className="text-gray-500 mb-6 text-sm">Content + visibility on autopilot</p>
+              <p className="text-gray-500 mb-6 text-sm">Pipeline + outreach on autopilot</p>
               <div className="mb-8">
                 <p className="text-4xl font-bold text-black">
                   ${billingPeriod === 'monthly' ? prices.starter.monthly : prices.starter.annual}

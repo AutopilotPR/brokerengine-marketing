@@ -30,7 +30,7 @@ import {
   Activity,
 } from 'lucide-react';
 
-type TabId = 'find' | 'outreach' | 'replies' | 'content' | 'intel' | 'brand';
+type TabId = 'find' | 'outreach' | 'replies' | 'intel' | 'brand';
 
 interface DemoTab {
   id: TabId;
@@ -43,9 +43,8 @@ const DEMO_TABS: DemoTab[] = [
   { id: 'find',     emoji: '🎯', label: 'Find Sellers',   sublabel: 'Apollo prospecting' },
   { id: 'outreach', emoji: '📧', label: 'Run Outreach',   sublabel: 'Instantly sequences' },
   { id: 'replies',  emoji: '🔥', label: 'Hot Replies',    sublabel: 'AI classification + SMS' },
-  { id: 'content',  emoji: '✍️', label: 'Draft Content',  sublabel: 'Blog · LinkedIn · Quora' },
   { id: 'intel',    emoji: '🔭', label: 'Watch Market',   sublabel: 'Competitor intel feed' },
-  { id: 'brand',    emoji: '🎙', label: 'Build Brand',    sublabel: 'Podcasts · Media · AI score' },
+  { id: 'brand',    emoji: '🎙', label: 'Build Brand',    sublabel: 'AI score · deal pipeline' },
 ];
 
 function AppSidebar({ activeTab }: { activeTab: TabId }) {
@@ -53,10 +52,9 @@ function AppSidebar({ activeTab }: { activeTab: TabId }) {
     { id: 'find',     label: 'Sellers',  icon: <Target size={13} /> },
     { id: 'outreach', label: 'Outreach', icon: <Mail size={13} /> },
     { id: 'replies',  label: 'Replies',  icon: <MessageSquare size={13} /> },
-    { id: 'content',  label: 'Content',  icon: <FileText size={13} /> },
     { id: 'intel',    label: 'Intel',    icon: <Radar size={13} /> },
-    { id: 'brand',    label: 'Brand',    icon: <TrendingUp size={13} /> },
-    { id: 'brand',    label: 'Buyers',   icon: <Briefcase size={13} /> },
+    { id: 'brand',    label: 'Deals',    icon: <Briefcase size={13} /> },
+    { id: 'brand',    label: 'Buyers',   icon: <TrendingUp size={13} /> },
     { id: 'brand',    label: 'Settings', icon: <Settings size={13} /> },
   ];
   return (
@@ -83,7 +81,7 @@ function AppSidebar({ activeTab }: { activeTab: TabId }) {
       </nav>
       <div className="px-3 py-2.5 border-t border-gray-100 flex items-center gap-2">
         <div className="w-5 h-5 rounded-full bg-gray-800 text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">B</div>
-        <span className="text-[9px] text-gray-400 truncate">nate@advisors.com</span>
+        <span className="text-[9px] text-gray-400 truncate">broker@example.com</span>
       </div>
     </div>
   );
@@ -254,45 +252,6 @@ function RepliesContent() {
   );
 }
 
-function ContentContent() {
-  const items = [
-    { type: 'Reddit', title: 'What multiple should I expect for an HVAC business doing $5M revenue?', status: 'Ready to post', sc: 'bg-purple-100 text-purple-700', when: '2h ago', link: true },
-    { type: 'Blog', title: '5 signs a seller is serious about exiting this year', status: 'Draft', sc: 'bg-gray-100 text-gray-600', when: 'Today', link: false },
-    { type: 'Quora', title: 'How long does the M&A process take for a $3M to $10M business?', status: 'Ready to post', sc: 'bg-purple-100 text-purple-700', when: 'Yesterday', link: true },
-    { type: 'LinkedIn', title: 'Why HVAC business owners are selling now and what it means for buyers', status: 'Draft', sc: 'bg-gray-100 text-gray-600', when: 'Mon', link: false },
-  ];
-  return (
-    <div className="flex-1 flex flex-col overflow-hidden">
-      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-black">Content Drafts</span>
-          <span className="text-[10px] text-gray-400">In your voice · ready to review</span>
-        </div>
-        <span className="text-[10px] px-2 py-1 bg-purple-50 text-purple-600 rounded-full font-medium">AI generated</span>
-      </div>
-      <div className="flex-1 overflow-auto divide-y divide-gray-100">
-        {items.map((item) => (
-          <div key={item.title} className="px-4 py-3 flex items-start gap-3">
-            <div className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 flex-shrink-0 mt-0.5 w-14 text-center">{item.type}</div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[11px] text-black leading-snug">{item.title}</p>
-              {item.link && <p className="text-[9px] text-purple-500 mt-0.5">View source post →</p>}
-            </div>
-            <div className="flex flex-col items-end gap-1 flex-shrink-0">
-              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${item.sc}`}>{item.status}</span>
-              <span className="text-[9px] text-gray-400">{item.when}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="border-t border-gray-100 px-4 py-2 bg-gray-50 flex items-center justify-between">
-        <span className="text-[10px] text-gray-500">You review and publish. Nothing goes out automatically.</span>
-        <span className="text-[10px] text-purple-600 font-medium">Tone: Consultative</span>
-      </div>
-    </div>
-  );
-}
-
 function IntelContent() {
   const items = [
     { icon: '⚠️', type: 'Competitor', title: 'Deal Capital dropped their retainer to $2,500 down from $4,000', time: '1h ago', tag: 'Pricing move', tc: 'bg-orange-100 text-orange-700' },
@@ -419,7 +378,6 @@ function ProductDemo() {
     find:     <FindContent />,
     outreach: <OutreachContent />,
     replies:  <RepliesContent />,
-    content:  <ContentContent />,
     intel:    <IntelContent />,
     brand:    <BrandContent />,
   };
@@ -494,10 +452,9 @@ interface Feature {
 const TOOLS = [
   { name: 'Apollo',    what: 'Prospecting',    price: '$99/mo',  dot: 'bg-orange-400' },
   { name: 'Instantly', what: 'Cold email',     price: '$97/mo',  dot: 'bg-blue-400' },
-  { name: 'GHL',       what: 'CRM and SMS',    price: '$297/mo', dot: 'bg-green-400' },
-  { name: 'Beehiiv',   what: 'Newsletter',     price: '$39/mo',  dot: 'bg-yellow-400' },
   { name: 'Twilio',    what: 'SMS delivery',   price: '$50/mo',  dot: 'bg-red-400' },
   { name: 'Resend',    what: 'Email delivery', price: '$20/mo',  dot: 'bg-violet-400' },
+  { name: 'Claude',    what: 'AI engine',      price: '$40/mo',  dot: 'bg-gray-400' },
 ];
 
 function ToolConsolidationSection() {
@@ -520,7 +477,7 @@ function ToolConsolidationSection() {
     { dot: 'bg-red-500',    text: 'Mike Hartley replied HOT',          sub: 'SMS fired to your phone',        time: '2m' },
     { dot: 'bg-violet-500', text: '12 new prospects added',             sub: 'Apollo scan complete',            time: '1h' },
     { dot: 'bg-blue-500',   text: 'Sequence step 3 sent to 38 contacts',sub: 'Powered by Instantly',           time: '9h' },
-    { dot: 'bg-emerald-500',text: 'Blog draft ready for review',        sub: 'AI content engine',               time: '1d' },
+    { dot: 'bg-emerald-500',text: 'Deal moved to due diligence',          sub: 'Pipeline updated',                time: '1d' },
     { dot: 'bg-yellow-400', text: 'Competitor update detected',         sub: 'Deal Capital changed pricing',    time: '2d' },
   ];
 
@@ -530,11 +487,11 @@ function ToolConsolidationSection() {
         <div className="text-center mb-10">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">One invoice. Every tool included.</p>
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-3">
-            Six tools. Six invoices.<br />
+            Five tools. Five invoices.<br />
             <span className="text-gray-400">Or one.</span>
           </h2>
           <p className="text-gray-500 max-w-lg mx-auto">
-            We hold the master accounts. You get provisioned a subaccount on each platform. You pay us one number. We charge less than the bundle costs at retail.
+            We hold the master accounts and provision you onto every platform. You pay one number — less than what the tools cost at retail.
           </p>
         </div>
 
@@ -557,7 +514,7 @@ function ToolConsolidationSection() {
             ))}
             <div className="flex items-center justify-between px-4 py-2">
               <span className="text-xs text-gray-400">Total at retail</span>
-              <span className="text-sm font-bold text-gray-400 line-through">$602/mo</span>
+              <span className="text-sm font-bold text-gray-400 line-through">$306/mo</span>
             </div>
           </div>
 
@@ -580,7 +537,7 @@ function ToolConsolidationSection() {
                 <Image src="/icon.svg" alt="" width={32} height={32} />
               </div>
               <p className="text-lg font-bold mb-1">BrokerEngine</p>
-              <p className="text-gray-400 text-sm mb-5">All six tools. Automated. One bill.</p>
+              <p className="text-gray-400 text-sm mb-5">All tools. Automated. One bill.</p>
               <div className="w-full border-t border-white/10 pt-5 space-y-2">
                 {TOOLS.map((t) => (
                   <div key={t.name} className="flex items-center justify-between">
@@ -635,11 +592,7 @@ const FEATURES: Feature[] = [
     title: 'SMS on Booked Meeting',
     description: 'When a seller books via Calendly, you get a text within seconds. Meeting time, attendee name, and deal context. No logging in to check. It comes to you.',
   },
-  {
-    icon: <FileText size={20} />, iconBg: 'bg-violet-100 text-violet-600',
-    title: 'AI Content Engine',
-    description: 'Blog posts, LinkedIn drafts, Quora answers, and FAQ content generated weekly in your voice. Drafts land in your dashboard. You review and publish. Nothing goes out without your approval.',
-  },
+
   {
     icon: <Gauge size={20} />, iconBg: 'bg-cyan-100 text-cyan-600',
     title: 'AI Visibility Score',
@@ -662,13 +615,8 @@ const FEATURES: Feature[] = [
   },
   {
     icon: <Globe size={20} />, iconBg: 'bg-slate-100 text-slate-600',
-    title: 'Your CRM, Built In',
-    description: 'Every broker gets a GoHighLevel subaccount provisioned on signup. Your pipeline, contacts, and deal stages live there. No integration setup. No syncing required.',
-  },
-  {
-    icon: <Calendar size={20} />, iconBg: 'bg-teal-100 text-teal-600',
-    title: 'Pre-Meeting Briefs',
-    description: 'New meeting booked on Calendly? BrokerEngine generates a deal brief and sends it to your phone before the call. Walk in prepared every time.',
+    title: 'Built-In Deal Pipeline',
+    description: 'Your CRM lives inside BrokerEngine. Sellers, buyers, deals, and contacts all in one place. Kanban pipeline with stage tracking. No third-party CRM required.',
   },
   {
     icon: <Briefcase size={20} />, iconBg: 'bg-amber-100 text-amber-600',
@@ -680,10 +628,9 @@ const FEATURES: Feature[] = [
 const BUNDLED_TOOLS = [
   { name: 'Apollo', what: 'Prospecting', price: '$99' },
   { name: 'Instantly', what: 'Cold email', price: '$97' },
-  { name: 'GoHighLevel', what: 'CRM and SMS', price: '$297' },
-  { name: 'Beehiiv', what: 'Newsletter', price: '$39' },
   { name: 'Twilio', what: 'SMS', price: '$50' },
   { name: 'Resend', what: 'Email delivery', price: '$20' },
+  { name: 'Claude', what: 'AI engine', price: '$40' },
 ];
 
 export default function Home() {
@@ -723,7 +670,7 @@ export default function Home() {
             <span className="text-gray-400">Close pipeline.</span>
           </h1>
           <p className="text-lg text-gray-500 mb-6 max-w-2xl mx-auto">
-            BrokerEngine holds every subscription you need: Apollo, Instantly, GoHighLevel, Twilio, and more. You pay one number. We automate the entire pipeline end to end.
+            BrokerEngine holds every subscription you need: Apollo, Instantly, Twilio, and more. Built-in CRM, AI reply classification, and HOT lead SMS. You pay one number. We automate the entire pipeline end to end.
           </p>
           <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-500">
             <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />One bill. No stack to manage.</span>
@@ -789,7 +736,7 @@ export default function Home() {
               { n: '02', icon: <Target size={16} />, title: 'Apollo scans weekly', desc: 'Business owners matching your ICP appear in your pipeline automatically. You never search for leads manually.' },
               { n: '03', icon: <Mail size={16} />, title: 'Sequences run in your voice', desc: 'AI writes personalized emails via Instantly. Multi-step follow-ups run on schedule. You review what goes out.' },
               { n: '04', icon: <Brain size={16} />, title: 'Replies get sorted instantly', desc: 'Every reply classified HOT, WARM, or COLD. HOT gets a text to your phone within minutes.' },
-              { n: '05', icon: <FileText size={16} />, title: 'Content builds your brand in parallel', desc: 'Blog posts, LinkedIn drafts, and community post opportunities generated weekly. You approve before anything publishes.' },
+              { n: '05', icon: <Briefcase size={16} />, title: 'Deal pipeline tracks every opportunity', desc: 'Sellers, buyers, and deals managed in your built-in CRM. Kanban pipeline with stage tracking. No separate CRM needed.' },
               { n: '06', icon: <TrendingUp size={16} />, title: 'You review. You close.', desc: 'Open your dashboard each morning. HOT leads to call. Drafts to approve. Deals to move forward. That is your whole job.' },
             ].map((item) => (
               <div key={item.n} className="flex gap-4 p-5 border border-gray-200 rounded-2xl bg-white">
@@ -847,18 +794,18 @@ export default function Home() {
           <div className="text-center mb-12">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Simple pricing</p>
             <h2 className="text-4xl font-bold text-black mb-3">One HOT lead pays for the year.</h2>
-            <p className="text-gray-500 max-w-lg mx-auto">All plans include every tool subscription. No Apollo bill. No Instantly bill. No GoHighLevel bill. Choose by volume.</p>
+            <p className="text-gray-500 max-w-lg mx-auto">All plans include every tool subscription. No Apollo bill. No Instantly bill. Built-in CRM included. Choose by volume.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             {[
               {
                 name: 'Starter', price: '$499', highlight: false,
-                features: ['500 prospects per month', 'Cold email sequences', 'HOT / WARM / COLD classification', 'SMS alerts on HOT replies', 'AI content drafts (4 per week)', 'Live prospect dashboard'],
+                features: ['500 prospects per month', 'Cold email sequences', 'HOT / WARM / COLD classification', 'SMS alerts on HOT replies', 'Built-in deal pipeline', 'Live prospect dashboard'],
                 cta: 'Start closing deals',
               },
               {
                 name: 'Pro', price: '$1,299', highlight: true,
-                features: ['2,000 prospects per month', 'Everything in Starter', 'Multi-sequence campaigns', 'AI visibility scoring', 'Competitor intel feed', 'Podcast outreach drafts', 'Pre-meeting briefs'],
+                features: ['2,000 prospects per month', 'Everything in Starter', 'Multi-sequence campaigns', 'AI visibility scoring', 'Competitor intel feed', 'Buyer database + deal matching', 'Referral partner outreach'],
                 cta: 'Scale your pipeline',
               },
               {
