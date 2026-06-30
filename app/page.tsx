@@ -760,21 +760,14 @@ export default function Home() {
       <section className="py-16 px-6 bg-gray-50">
         <div className="mx-auto max-w-4xl">
           <div className="border border-gray-200 rounded-2xl p-8 md:p-12 bg-white text-center">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Built on real deals. Not demos.</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Built for brokers. Not demos.</p>
             <h2 className="text-3xl font-bold text-black mb-6">
-              75+ closed M&A transactions inform every decision the system makes.
+              Every tool a broker needs, connected and working together from day one.
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto mb-6">
-              The outreach sequences, qualifying patterns, and content formats in BrokerEngine come from real closed deals. Every broker who joins adds to that foundation. Their anonymized signal flows back into the collective model. You start on day one with the accumulated wisdom of everyone who came before you.
-            </p>
             <p className="text-gray-500 max-w-2xl mx-auto mb-8">
-              Per-broker AI cost: $40 to $80 per month. That is why we can charge less than the tool bundle and still run profitably.
+              BrokerEngine replaces your Apollo bill, your Instantly bill, and your CRM subscription with one platform built specifically for M&A brokers. AI-assisted outreach, deal tracking, and buyer matching — all in one place.
             </p>
-            <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto">
-              <div>
-                <p className="text-3xl font-bold text-black mb-1">75+</p>
-                <p className="text-xs text-gray-500">Closed M&A deals in the training data</p>
-              </div>
+            <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
               <div>
                 <p className="text-3xl font-bold text-black mb-1">$40</p>
                 <p className="text-xs text-gray-500">Per broker AI cost per month</p>
