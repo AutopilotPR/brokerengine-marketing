@@ -25,12 +25,14 @@ import {
   Calendar,
   Briefcase,
   ArrowRight,
-  Phone,
-  TrendingDown,
   Activity,
+  Lock,
+  DollarSign,
+  Users,
+  Calculator,
 } from 'lucide-react';
 
-type TabId = 'find' | 'outreach' | 'replies' | 'intel' | 'brand';
+type TabId = 'deals' | 'valuations' | 'outreach' | 'replies' | 'intel';
 
 interface DemoTab {
   id: TabId;
@@ -40,22 +42,23 @@ interface DemoTab {
 }
 
 const DEMO_TABS: DemoTab[] = [
-  { id: 'find',     emoji: '🎯', label: 'Find Sellers',   sublabel: 'Apollo prospecting' },
-  { id: 'outreach', emoji: '📧', label: 'Run Outreach',   sublabel: 'Instantly sequences' },
-  { id: 'replies',  emoji: '🔥', label: 'Hot Replies',    sublabel: 'AI classification + SMS' },
-  { id: 'intel',    emoji: '🔭', label: 'Watch Market',   sublabel: 'Competitor intel feed' },
-  { id: 'brand',    emoji: '🎙', label: 'Build Brand',    sublabel: 'AI score · deal pipeline' },
+  { id: 'deals',      emoji: '🗂️', label: 'Deal Room',      sublabel: 'Secure pipeline' },
+  { id: 'valuations', emoji: '🧮', label: 'Valuations',      sublabel: 'AI calculators' },
+  { id: 'outreach',   emoji: '📧', label: 'Outreach',        sublabel: 'AI sequences' },
+  { id: 'replies',    emoji: '🔥', label: 'Hot Replies',     sublabel: 'AI classification' },
+  { id: 'intel',      emoji: '🔭', label: 'Market Intel',    sublabel: 'Competitor feed' },
 ];
 
 function AppSidebar({ activeTab }: { activeTab: TabId }) {
   const navItems: { id: TabId; label: string; icon: React.ReactNode }[] = [
-    { id: 'find',     label: 'Sellers',  icon: <Target size={13} /> },
-    { id: 'outreach', label: 'Outreach', icon: <Mail size={13} /> },
-    { id: 'replies',  label: 'Replies',  icon: <MessageSquare size={13} /> },
-    { id: 'intel',    label: 'Intel',    icon: <Radar size={13} /> },
-    { id: 'brand',    label: 'Deals',    icon: <Briefcase size={13} /> },
-    { id: 'brand',    label: 'Buyers',   icon: <TrendingUp size={13} /> },
-    { id: 'brand',    label: 'Settings', icon: <Settings size={13} /> },
+    { id: 'deals',      label: 'Deal Pipeline', icon: <Briefcase size={13} /> },
+    { id: 'valuations', label: 'Valuations',    icon: <Calculator size={13} /> },
+    { id: 'deals',      label: 'Sellers',       icon: <Target size={13} /> },
+    { id: 'deals',      label: 'Buyers',        icon: <Users size={13} /> },
+    { id: 'deals',      label: 'Leads for Sale',icon: <DollarSign size={13} /> },
+    { id: 'outreach',   label: 'Inbox',         icon: <MessageSquare size={13} /> },
+    { id: 'intel',      label: 'Intel',         icon: <Radar size={13} /> },
+    { id: 'deals',      label: 'Assistant',     icon: <Brain size={13} /> },
   ];
   return (
     <div className="w-44 flex-shrink-0 bg-white border-r border-gray-100 flex flex-col h-full">
@@ -65,7 +68,7 @@ function AppSidebar({ activeTab }: { activeTab: TabId }) {
       </div>
       <nav className="flex-1 px-2 py-2 space-y-0.5 overflow-hidden">
         {navItems.map((item, i) => {
-          const isActive = item.id === activeTab && item.label !== 'Settings' && item.label !== 'Buyers';
+          const isActive = item.id === activeTab && i < 2;
           return (
             <div
               key={`${item.id}-${i}`}
@@ -80,58 +83,53 @@ function AppSidebar({ activeTab }: { activeTab: TabId }) {
         })}
       </nav>
       <div className="px-3 py-2.5 border-t border-gray-100 flex items-center gap-2">
-        <div className="w-5 h-5 rounded-full bg-gray-800 text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">B</div>
-        <span className="text-[9px] text-gray-400 truncate">broker@example.com</span>
+        <div className="w-5 h-5 rounded-full bg-gray-800 text-white text-[8px] font-bold flex items-center justify-center flex-shrink-0">N</div>
+        <span className="text-[9px] text-gray-400 truncate">nate@broker.com</span>
       </div>
     </div>
   );
 }
 
-function FindContent() {
-  const rows = [
-    { name: 'Meridian HVAC', ind: 'HVAC Services', rev: '$8.2M', score: 94, status: 'HOT', sc: 'bg-green-100 text-green-700' },
-    { name: 'Peak Roofing Co', ind: 'Roofing', rev: '$5.1M', score: 87, sc: 'bg-green-100 text-green-700', status: 'HOT' },
-    { name: 'Cascade Plumbing', ind: 'Plumbing', rev: '$3.8M', score: 72, sc: 'bg-yellow-100 text-yellow-700', status: 'WARM' },
-    { name: 'Alpine Electric', ind: 'Electrical', rev: '$6.4M', score: 68, sc: 'bg-yellow-100 text-yellow-700', status: 'WARM' },
-    { name: 'Summit Landscaping', ind: 'Landscaping', rev: '$1.9M', score: 41, sc: 'bg-gray-100 text-gray-500', status: 'COLD' },
+function DealsContent() {
+  const deals = [
+    { name: 'Meridian HVAC', stage: 'NDA Signed', rev: '$8.2M', multiple: '4.1x', buyer: '3 matched', status: 'bg-green-100 text-green-700' },
+    { name: 'Peak Roofing Co', stage: 'CIM Sent', rev: '$5.1M', multiple: '3.8x', buyer: '7 matched', status: 'bg-blue-100 text-blue-700' },
+    { name: 'Cascade Plumbing', stage: 'LOI Stage', rev: '$3.8M', multiple: '3.2x', buyer: '2 matched', status: 'bg-purple-100 text-purple-700' },
+    { name: 'Alpine Electric', stage: 'Outreach', rev: '$6.4M', multiple: '4.5x', buyer: '—', status: 'bg-gray-100 text-gray-500' },
   ];
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-black">Seller Prospects</span>
-          <span className="text-[10px] text-gray-400">247 found · updated 4h ago</span>
+          <span className="text-xs font-semibold text-black">Deal Pipeline</span>
+          <span className="text-[10px] text-gray-400">4 active deals</span>
         </div>
-        <span className="text-[10px] px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">Apollo</span>
+        <div className="flex items-center gap-1.5">
+          <Lock size={10} className="text-gray-400" />
+          <span className="text-[9px] text-gray-400">Secure deal room</span>
+        </div>
       </div>
       <div className="flex-1 overflow-auto">
         <table className="w-full text-[11px]">
           <thead className="bg-gray-50 border-b border-gray-100">
             <tr>
               <th className="text-left px-4 py-2 text-gray-400 font-medium">Company</th>
-              <th className="text-left px-2 py-2 text-gray-400 font-medium">Industry</th>
+              <th className="text-left px-2 py-2 text-gray-400 font-medium">Stage</th>
               <th className="text-left px-2 py-2 text-gray-400 font-medium">Revenue</th>
-              <th className="text-left px-2 py-2 text-gray-400 font-medium">Score</th>
-              <th className="text-left px-2 py-2 text-gray-400 font-medium">ICP Match</th>
+              <th className="text-left px-2 py-2 text-gray-400 font-medium">Multiple</th>
+              <th className="text-left px-2 py-2 text-gray-400 font-medium">Buyers</th>
             </tr>
           </thead>
           <tbody>
-            {rows.map((r, i) => (
-              <tr key={r.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}>
-                <td className="px-4 py-2 font-medium text-black">{r.name}</td>
-                <td className="px-2 py-2 text-gray-500">{r.ind}</td>
-                <td className="px-2 py-2 text-gray-600">{r.rev}</td>
+            {deals.map((d, i) => (
+              <tr key={d.name} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}>
+                <td className="px-4 py-2 font-medium text-black">{d.name}</td>
                 <td className="px-2 py-2">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-12 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-black rounded-full" style={{ width: `${r.score}%` }} />
-                    </div>
-                    <span className="text-gray-600 font-medium">{r.score}</span>
-                  </div>
+                  <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold ${d.status}`}>{d.stage}</span>
                 </td>
-                <td className="px-2 py-2">
-                  <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold ${r.sc}`}>{r.status}</span>
-                </td>
+                <td className="px-2 py-2 text-gray-600">{d.rev}</td>
+                <td className="px-2 py-2 text-gray-600">{d.multiple}</td>
+                <td className="px-2 py-2 text-gray-500">{d.buyer}</td>
               </tr>
             ))}
           </tbody>
@@ -139,7 +137,43 @@ function FindContent() {
       </div>
       <div className="border-t border-gray-100 px-4 py-2 bg-gray-50 flex items-center gap-2">
         <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-        <span className="text-[10px] text-gray-500">Apollo scan running weekly · Next run in 3 days</span>
+        <span className="text-[10px] text-gray-500">AI operator active · CIM for Meridian HVAC drafted and ready for review</span>
+      </div>
+    </div>
+  );
+}
+
+function ValuationsContent() {
+  const calcs = [
+    { type: 'SaaS', company: 'CloudMetrics Inc', arr: '$1.2M', multiple: '5.8x', val: '$6.96M', trend: '+12%' },
+    { type: 'Ecommerce', company: 'TrailGear Co', arr: '$3.4M', multiple: '2.9x', val: '$9.86M', trend: '+5%' },
+    { type: 'Services', company: 'Meridian HVAC', arr: '$8.2M', multiple: '4.1x', val: '$33.6M', trend: '+8%' },
+  ];
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
+        <span className="text-xs font-semibold text-black">Valuation Calculators</span>
+        <span className="text-[10px] px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">SaaS · Ecommerce · Services · Content</span>
+      </div>
+      <div className="flex-1 overflow-auto divide-y divide-gray-100">
+        {calcs.map((c) => (
+          <div key={c.company} className="px-4 py-3 flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="text-[9px] font-bold bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">{c.type}</span>
+                <span className="text-[11px] font-semibold text-black">{c.company}</span>
+              </div>
+              <span className="text-[9px] text-gray-400">Revenue {c.arr} · {c.multiple} multiple</span>
+            </div>
+            <div className="text-right">
+              <p className="text-[13px] font-bold text-black">{c.val}</p>
+              <p className="text-[9px] text-green-600">{c.trend} YoY</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="border-t border-gray-100 px-4 py-2 bg-gray-50">
+        <span className="text-[10px] text-gray-500">Share a live valuation link with any seller — no login required</span>
       </div>
     </div>
   );
@@ -149,14 +183,7 @@ function OutreachContent() {
   const seqs = [
     { name: 'HVAC Owner Outreach Q2', step: 3, total: 5, contacts: 42, status: 'Live', sc: 'bg-green-100 text-green-700', open: '28%', reply: '6.2%' },
     { name: 'Roofing Business Sellers', step: 1, total: 5, contacts: 18, status: 'Live', sc: 'bg-green-100 text-green-700', open: '34%', reply: '8.1%' },
-    { name: 'Plumbing Owner Sequence', step: 2, total: 5, contacts: 31, status: 'Paused', sc: 'bg-yellow-100 text-yellow-700', open: '22%', reply: '4.3%' },
-  ];
-  const timeline = [
-    { time: '9:00 AM', event: 'Day 1 email sent to 42 contacts', done: true },
-    { time: '9:03 AM', event: '18 emails delivered, 2 bounced', done: true },
-    { time: '1:12 PM', event: 'First open: Meridian HVAC', done: true },
-    { time: 'Day 3', event: 'Follow-up queued for non-openers', done: false },
-    { time: 'Day 7', event: 'Final touch scheduled', done: false },
+    { name: 'Referral Partner — CPAs', step: 2, total: 4, contacts: 31, status: 'Live', sc: 'bg-green-100 text-green-700', open: '22%', reply: '4.3%' },
   ];
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
@@ -165,43 +192,30 @@ function OutreachContent() {
           <span className="text-xs font-semibold text-black">Active Sequences</span>
           <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[9px] font-bold rounded-full">3 LIVE</span>
         </div>
-        <span className="text-[10px] px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">Powered by Instantly</span>
+        <span className="text-[10px] text-gray-400">AI-written in your voice · you approve before it sends</span>
       </div>
-      <div className="flex-1 flex overflow-hidden">
-        <div className="flex-1 overflow-auto px-4 py-3 space-y-2 border-r border-gray-100">
-          {seqs.map((s) => (
-            <div key={s.name} className="border border-gray-200 rounded-xl p-3 bg-white">
-              <div className="flex items-start justify-between mb-2">
-                <p className="text-[11px] font-semibold text-black leading-tight">{s.name}</p>
-                <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold flex-shrink-0 ml-2 ${s.sc}`}>{s.status}</span>
-              </div>
-              <div className="flex items-center gap-1 mb-2">
-                {Array.from({ length: s.total }).map((_, i) => (
-                  <div key={i} className={`h-1 flex-1 rounded-full ${i < s.step ? 'bg-black' : 'bg-gray-200'}`} />
-                ))}
-              </div>
-              <div className="flex gap-3 text-[10px] text-gray-500">
-                <span>{s.contacts} contacts</span>
-                <span>{s.open} open</span>
-                <span className="text-green-600 font-medium">{s.reply} reply</span>
-              </div>
+      <div className="flex-1 overflow-auto px-4 py-3 space-y-2">
+        {seqs.map((s) => (
+          <div key={s.name} className="border border-gray-200 rounded-xl p-3 bg-white">
+            <div className="flex items-start justify-between mb-2">
+              <p className="text-[11px] font-semibold text-black leading-tight">{s.name}</p>
+              <span className={`px-1.5 py-0.5 rounded-full text-[9px] font-bold flex-shrink-0 ml-2 ${s.sc}`}>{s.status}</span>
             </div>
-          ))}
-        </div>
-        <div className="w-40 px-3 py-3 overflow-auto">
-          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-2">Activity</p>
-          <div className="space-y-2">
-            {timeline.map((t) => (
-              <div key={t.time} className="flex gap-1.5">
-                <div className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${t.done ? 'bg-green-500' : 'bg-gray-200'}`} />
-                <div>
-                  <p className="text-[9px] text-gray-400">{t.time}</p>
-                  <p className={`text-[10px] leading-tight ${t.done ? 'text-gray-700' : 'text-gray-400'}`}>{t.event}</p>
-                </div>
-              </div>
-            ))}
+            <div className="flex items-center gap-1 mb-2">
+              {Array.from({ length: s.total }).map((_, i) => (
+                <div key={i} className={`h-1 flex-1 rounded-full ${i < s.step ? 'bg-black' : 'bg-gray-200'}`} />
+              ))}
+            </div>
+            <div className="flex gap-3 text-[10px] text-gray-500">
+              <span>{s.contacts} contacts</span>
+              <span>{s.open} open</span>
+              <span className="text-green-600 font-medium">{s.reply} reply</span>
+            </div>
           </div>
-        </div>
+        ))}
+      </div>
+      <div className="border-t border-gray-100 px-4 py-2 bg-gray-50">
+        <span className="text-[10px] text-gray-500">Apollo prospecting included · connect your own Instantly key</span>
       </div>
     </div>
   );
@@ -221,10 +235,7 @@ function RepliesContent() {
           <span className="text-xs font-semibold text-black">Reply Inbox</span>
           <span className="px-1.5 py-0.5 bg-red-500 text-white text-[9px] font-bold rounded-full">2 HOT</span>
         </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          <span className="text-[9px] text-gray-400">SMS sent to your phone</span>
-        </div>
+        <span className="text-[9px] text-gray-400">AI classified · draft reply ready</span>
       </div>
       <div className="flex-1 overflow-auto divide-y divide-gray-100">
         {replies.map((r) => (
@@ -246,7 +257,7 @@ function RepliesContent() {
       </div>
       <div className="border-t border-gray-100 px-4 py-2 bg-red-50 flex items-center gap-2">
         <Bell size={11} className="text-red-500 flex-shrink-0" />
-        <span className="text-[10px] text-red-600 font-medium">SMS sent: &quot;Mike Torres at Meridian HVAC replied HOT. Call now.&quot;</span>
+        <span className="text-[10px] text-red-600 font-medium">HOT alert: &quot;Mike Torres at Meridian HVAC replied HOT.&quot;</span>
       </div>
     </div>
   );
@@ -254,7 +265,7 @@ function RepliesContent() {
 
 function IntelContent() {
   const items = [
-    { icon: '⚠️', type: 'Competitor', title: 'Deal Capital dropped their retainer to $2,500 down from $4,000', time: '1h ago', tag: 'Pricing move', tc: 'bg-orange-100 text-orange-700' },
+    { icon: '⚠️', type: 'Competitor', title: 'Deal Studio dropped their retainer fee this week — pricing page updated', time: '1h ago', tag: 'Pricing move', tc: 'bg-orange-100 text-orange-700' },
     { icon: '📰', type: 'Market', title: 'HVAC sector M&A activity up 23% YoY according to Axial data', time: '4h ago', tag: 'Opportunity', tc: 'bg-green-100 text-green-700' },
     { icon: '🤖', type: 'AI Citation', title: 'Claude cited Midwest M&A Advisors for HVAC exits. Not you. Your score: 42.', time: '12h ago', tag: 'AI Visibility', tc: 'bg-blue-100 text-blue-700' },
     { icon: '📢', type: 'Competitor', title: 'ExitRight Advisors published: How to sell your trades business in 2025', time: 'Yesterday', tag: 'Content move', tc: 'bg-gray-100 text-gray-600' },
@@ -290,71 +301,6 @@ function IntelContent() {
   );
 }
 
-function BrandContent() {
-  const podcasts = [
-    { name: 'The Exit Strategy Podcast', listeners: '42K', status: 'Pitch sent', sc: 'bg-yellow-100 text-yellow-700' },
-    { name: 'M&A Science', listeners: '89K', status: 'Booked', sc: 'bg-green-100 text-green-700' },
-    { name: 'Business Buying Strategies', listeners: '31K', status: 'Pending', sc: 'bg-gray-100 text-gray-500' },
-  ];
-  const score = { current: 72 };
-  const media = [
-    { outlet: 'Inc.com', query: 'Expert comment: M&A trends in trades businesses 2025', deadline: '2 days' },
-    { outlet: 'Forbes', query: 'What should small business owners know before selling?', deadline: '5 days' },
-  ];
-  return (
-    <div className="flex-1 flex flex-col overflow-hidden">
-      <div className="px-4 py-3 border-b border-gray-100">
-        <span className="text-xs font-semibold text-black">Brand and Authority</span>
-      </div>
-      <div className="flex-1 overflow-auto px-4 py-3 space-y-4">
-        <div className="border border-gray-200 rounded-xl p-3 bg-white">
-          <div className="flex items-center justify-between mb-2">
-            <p className="text-[10px] font-semibold text-gray-700">AI Visibility Score</p>
-            <span className="text-[9px] text-green-600 font-bold">+14 pts this month</span>
-          </div>
-          <div className="flex items-end gap-3">
-            <span className="text-3xl font-bold text-black">{score.current}</span>
-            <div className="flex-1 pb-1">
-              <p className="text-[9px] text-gray-400 mb-1.5">Checked weekly in Claude. ChatGPT, Perplexity, and Google AI Overview coming.</p>
-              <div className="w-full h-1.5 bg-gray-100 rounded-full">
-                <div className="h-full bg-black rounded-full" style={{ width: `${score.current}%` }} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Podcast Outreach</p>
-          <div className="space-y-1.5">
-            {podcasts.map((p) => (
-              <div key={p.name} className="flex items-center justify-between border border-gray-100 rounded-lg px-3 py-1.5 bg-white">
-                <div>
-                  <p className="text-[10px] font-medium text-black">{p.name}</p>
-                  <p className="text-[9px] text-gray-400">{p.listeners} listeners</p>
-                </div>
-                <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${p.sc}`}>{p.status}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-wide mb-1.5">Earned Media</p>
-          <div className="space-y-1.5">
-            {media.map((m) => (
-              <div key={m.outlet} className="flex items-center justify-between border border-gray-100 rounded-lg px-3 py-1.5 bg-white">
-                <div className="flex-1 min-w-0 mr-2">
-                  <span className="text-[9px] font-bold text-orange-600 mr-1.5">{m.outlet}</span>
-                  <span className="text-[9px] text-gray-600">{m.query}</span>
-                </div>
-                <span className="text-[9px] text-red-500 font-medium flex-shrink-0">{m.deadline}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function ProductDemo() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [visible, setVisible] = useState(true);
@@ -375,11 +321,11 @@ function ProductDemo() {
   const activeTab = DEMO_TABS[activeIndex];
 
   const contentMap: Record<TabId, React.ReactNode> = {
-    find:     <FindContent />,
-    outreach: <OutreachContent />,
-    replies:  <RepliesContent />,
-    intel:    <IntelContent />,
-    brand:    <BrandContent />,
+    deals:      <DealsContent />,
+    valuations: <ValuationsContent />,
+    outreach:   <OutreachContent />,
+    replies:    <RepliesContent />,
+    intel:      <IntelContent />,
   };
 
   return (
@@ -447,114 +393,64 @@ interface Feature {
   description: string;
 }
 
-// ── Tool Consolidation Section ──────────────────────────────────────────
+// ── vs Deal Studio comparison ──────────────────────────────────────────
 
-const TOOLS = [
-  { name: 'Apollo',    what: 'Prospecting',    price: '$99/mo',  dot: 'bg-orange-400' },
-  { name: 'Instantly', what: 'Cold email',     price: '$97/mo',  dot: 'bg-blue-400' },
-  { name: 'Twilio',    what: 'SMS delivery',   price: '$50/mo',  dot: 'bg-red-400' },
-  { name: 'Resend',    what: 'Email delivery', price: '$20/mo',  dot: 'bg-violet-400' },
-  { name: 'Claude',    what: 'AI engine',      price: '$40/mo',  dot: 'bg-gray-400' },
-];
-
-function ToolConsolidationSection() {
-  const totalRetail = TOOLS.reduce((sum, t) => {
-    const n = parseInt(t.price.replace(/[^0-9]/g, ''), 10);
-    return sum + n;
-  }, 0);
-  void totalRetail;
-  const scoreData  = [18, 24, 22, 31, 38, 44, 52, 71];
-  const maxScore   = 80;
-
-  const prospects = [
-    { initials: 'MH', color: 'bg-violet-500', name: 'Mike Hartley', company: 'Hartley HVAC', rev: '$6.2M', badge: 'HOT', badgeColor: 'bg-red-500 text-white', sms: '2m ago' },
-    { initials: 'SC', color: 'bg-blue-500',   name: 'Sarah Chen',   company: 'Peak Roofing',  rev: '$5.1M', badge: 'HOT', badgeColor: 'bg-red-500 text-white', sms: '15m ago' },
-    { initials: 'JR', color: 'bg-emerald-500',name: 'James Ruiz',   company: 'Alpine Elec',   rev: '$3.8M', badge: 'WARM', badgeColor: 'bg-yellow-400 text-black', sms: null },
-    { initials: 'TW', color: 'bg-slate-400',  name: 'Tom Walsh',    company: 'Summit HVAC',   rev: '$1.9M', badge: 'COLD', badgeColor: 'bg-gray-200 text-gray-500', sms: null },
+function ComparisonSection() {
+  const rows = [
+    { feature: 'Secure deal room + NDA e-sign', be: true, ds: true },
+    { feature: 'CIM / teaser generation (AI)', be: true, ds: false },
+    { feature: 'Valuation calculators (4 types)', be: true, ds: false },
+    { feature: 'Buyer database + matching', be: true, ds: true },
+    { feature: 'Leads-for-sale referral marketplace', be: true, ds: false },
+    { feature: 'AI reply classification (HOT/WARM/COLD)', be: true, ds: false },
+    { feature: 'Seller prospecting (Apollo included)', be: true, ds: false },
+    { feature: 'AI outreach sequences', be: true, ds: false },
+    { feature: 'Competitor + market intel feed', be: true, ds: false },
+    { feature: 'AI operator / assistant', be: true, ds: false },
+    { feature: 'Price', be: 'From $499/mo', ds: '$600–$900/mo' },
   ];
-
-  const activities = [
-    { dot: 'bg-red-500',    text: 'Mike Hartley replied HOT',          sub: 'SMS fired to your phone',        time: '2m' },
-    { dot: 'bg-violet-500', text: '12 new prospects added',             sub: 'Apollo scan complete',            time: '1h' },
-    { dot: 'bg-blue-500',   text: 'Sequence step 3 sent to 38 contacts',sub: 'Powered by Instantly',           time: '9h' },
-    { dot: 'bg-emerald-500',text: 'Deal moved to due diligence',          sub: 'Pipeline updated',                time: '1d' },
-    { dot: 'bg-yellow-400', text: 'Competitor update detected',         sub: 'Deal Capital changed pricing',    time: '2d' },
-  ];
-
   return (
     <section className="py-16 px-6 border-t border-gray-100">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-3xl">
         <div className="text-center mb-10">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">One invoice. Every tool included.</p>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">How we compare</p>
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-3">
-            Five tools. Five invoices.<br />
-            <span className="text-gray-400">Or one.</span>
+            Everything Deal Studio does.<br />
+            <span className="text-gray-400">Plus everything it doesn&apos;t.</span>
           </h2>
           <p className="text-gray-500 max-w-lg mx-auto">
-            We hold the master accounts and provision you onto every platform. You pay one number — less than what the tools cost at retail.
+            Deal Studio is a good deal room. BrokerEngine is a deal room with an AI operator, valuation tools, automated outreach, and a referral marketplace built in.
           </p>
         </div>
-
-        {/* tool cards flowing to arrow to BrokerEngine */}
-        <div className="flex flex-col md:flex-row items-center gap-6 justify-center">
-
-          {/* left: tool list */}
-          <div className="flex flex-col gap-2 w-full max-w-xs">
-            {TOOLS.map((t) => (
-              <div key={t.name} className="flex items-center justify-between px-4 py-3 rounded-xl border border-gray-200 bg-white shadow-sm">
-                <div className="flex items-center gap-3">
-                  <div className={`w-2.5 h-2.5 rounded-full ${t.dot} flex-shrink-0`} />
-                  <div>
-                    <p className="text-sm font-semibold text-black">{t.name}</p>
-                    <p className="text-xs text-gray-400">{t.what}</p>
-                  </div>
-                </div>
-                <span className="text-sm text-gray-300 line-through font-medium">{t.price}</span>
-              </div>
-            ))}
-            <div className="flex items-center justify-between px-4 py-2">
-              <span className="text-xs text-gray-400">Total at retail</span>
-              <span className="text-sm font-bold text-gray-400 line-through">$306/mo</span>
-            </div>
+        <div className="rounded-2xl border border-gray-200 overflow-hidden bg-white shadow-sm">
+          <div className="grid grid-cols-3 bg-gray-50 border-b border-gray-200 px-4 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-widest">
+            <div>Feature</div>
+            <div className="text-center text-black">BrokerEngine</div>
+            <div className="text-center">Deal Studio</div>
           </div>
-
-          {/* center: arrow */}
-          <div className="flex flex-col items-center gap-2 px-4">
-            <div className="hidden md:flex flex-col items-center gap-1">
-              <div className="w-px h-8 bg-gray-200" />
-              <ArrowRight size={22} className="text-black rotate-0 md:rotate-0" />
-              <div className="w-px h-8 bg-gray-200" />
-            </div>
-            <div className="md:hidden">
-              <ArrowRight size={22} className="text-black rotate-90" />
-            </div>
-          </div>
-
-          {/* right: BrokerEngine card */}
-          <div className="w-full max-w-xs">
-            <div className="rounded-2xl border-2 border-black bg-black text-white px-6 py-8 flex flex-col items-center text-center shadow-xl">
-              <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-4">
-                <Image src="/icon.svg" alt="" width={32} height={32} />
+          {rows.map((r, i) => (
+            <div key={r.feature} className={`grid grid-cols-3 px-4 py-3 text-sm items-center ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}>
+              <span className="text-gray-700">{r.feature}</span>
+              <div className="flex justify-center">
+                {typeof r.be === 'boolean' ? (
+                  r.be
+                    ? <CheckCircle2 size={16} className="text-green-500" />
+                    : <span className="text-gray-300 text-lg">—</span>
+                ) : (
+                  <span className="text-xs font-bold text-black">{r.be}</span>
+                )}
               </div>
-              <p className="text-lg font-bold mb-1">BrokerEngine</p>
-              <p className="text-gray-400 text-sm mb-5">All tools. Automated. One bill.</p>
-              <div className="w-full border-t border-white/10 pt-5 space-y-2">
-                {TOOLS.map((t) => (
-                  <div key={t.name} className="flex items-center justify-between">
-                    <span className="text-sm text-gray-300 flex items-center gap-2">
-                      <CheckCircle2 size={12} className="text-emerald-400" />{t.name}
-                    </span>
-                    <span className="text-xs text-emerald-400 font-medium">Included</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-6 w-full border-t border-white/10 pt-4">
-                <p className="text-2xl font-bold">$499<span className="text-base font-normal text-gray-400">/mo</span></p>
-                <p className="text-xs text-gray-400 mt-1">Starter tier. Less than the tools alone.</p>
+              <div className="flex justify-center">
+                {typeof r.ds === 'boolean' ? (
+                  r.ds
+                    ? <CheckCircle2 size={16} className="text-gray-400" />
+                    : <span className="text-gray-300 text-lg">—</span>
+                ) : (
+                  <span className="text-xs font-bold text-gray-400">{r.ds}</span>
+                )}
               </div>
             </div>
-          </div>
-
+          ))}
         </div>
       </div>
     </section>
@@ -563,74 +459,65 @@ function ToolConsolidationSection() {
 
 const FEATURES: Feature[] = [
   {
-    icon: <Target size={20} />, iconBg: 'bg-blue-100 text-blue-600',
+    icon: <Lock size={20} />, iconBg: 'bg-blue-100 text-blue-600',
+    title: 'Secure Deal Room',
+    description: 'Anonymized listings with staged disclosure. Buyers e-sign an NDA before seeing any seller details. Document vault with view tracking. Full audit trail. Built-in — not bolted on.',
+  },
+  {
+    icon: <Calculator size={20} />, iconBg: 'bg-green-100 text-green-600',
+    title: 'Valuation Calculators',
+    description: 'SaaS, ecommerce, services, and content site calculators built in. Share a live valuation link with any seller — no login required. Converts prospects into engaged sellers.',
+  },
+  {
+    icon: <FileText size={20} />, iconBg: 'bg-purple-100 text-purple-600',
+    title: 'AI CIM Generator',
+    description: 'Drop in deal data and the AI operator drafts a full Confidential Information Memorandum in minutes. Structured sections, your voice, ready to share with qualified buyers.',
+  },
+  {
+    icon: <Users size={20} />, iconBg: 'bg-amber-100 text-amber-600',
+    title: 'Buyer Database + Matching',
+    description: 'Add your buyer network once. When a seller reaches the right stage, the platform identifies matches and drafts a teaser for your review. You approve. It sends.',
+  },
+  {
+    icon: <DollarSign size={20} />, iconBg: 'bg-emerald-100 text-emerald-600',
+    title: 'Leads-for-Sale Referral Marketplace',
+    description: 'Disqualified sellers don\'t disappear — they go to the marketplace. Refer them to other brokers under an e-signed agreement. Earn a fee on close. Nothing like this exists in Deal Studio.',
+  },
+  {
+    icon: <Brain size={20} />, iconBg: 'bg-indigo-100 text-indigo-600',
+    title: 'AI Operator',
+    description: 'An AI assistant that knows your deals, your pipeline, and your sellers. Ask it anything. It drafts replies, summarizes deals, and runs your workflow — without leaving the dashboard.',
+  },
+  {
+    icon: <Target size={20} />, iconBg: 'bg-orange-100 text-orange-600',
     title: 'Seller Prospecting',
-    description: 'Apollo scans for business owners matching your ICP every week. Revenue range, industry, geography. New prospects land in your pipeline automatically. No manual searching.',
+    description: 'Apollo is included — we cover the cost. Business owners matching your ICP appear in your pipeline every week. Revenue range, industry, geography. No manual searching.',
   },
   {
-    icon: <Mail size={20} />, iconBg: 'bg-indigo-100 text-indigo-600',
-    title: 'Cold Email Sequences',
-    description: 'Outreach runs in your voice via Instantly. AI writes the emails. Exit Audit 5-step cadence is the default. Multi-step follow-ups run on schedule. You approve each draft before it sends.',
+    icon: <Mail size={20} />, iconBg: 'bg-rose-100 text-rose-600',
+    title: 'AI Outreach Sequences',
+    description: 'Bring your own Instantly key. The AI writes personalized emails in your voice. Multi-step follow-up cadences run on schedule. You review every draft before it sends.',
   },
   {
-    icon: <Globe size={20} />, iconBg: 'bg-teal-100 text-teal-600',
-    title: 'Referral Partner Outreach',
-    description: 'Every week, 5 river guides are targeted: CPAs, fractional CFOs, M&A attorneys, EOS implementors, business coaches. Separate track from founder outreach. Peer-to-peer tone. 15% commission offer. You approve before it sends.',
-  },
-  {
-    icon: <Brain size={20} />, iconBg: 'bg-purple-100 text-purple-600',
-    title: 'AI Reply Classification + Draft Reply',
-    description: 'Every reply is read and sorted: HOT, WARM, COLD, OOO, or Unsubscribe. Claude drafts a contextual reply in your voice for each one. You approve in one click. Nothing sends without your sign-off.',
+    icon: <Brain size={20} />, iconBg: 'bg-pink-100 text-pink-600',
+    title: 'HOT / WARM / COLD Classification',
+    description: 'Every reply is read and classified instantly. HOT replies trigger an immediate alert. Claude drafts a contextual reply in your voice for each one. Nothing moves without your sign-off.',
   },
   {
     icon: <Bell size={20} />, iconBg: 'bg-red-100 text-red-600',
-    title: 'SMS on HOT Reply',
-    description: 'A seller signals they want to talk. Your phone buzzes within two minutes. Name, company, and reply included. HOT threshold is configurable — you set the revenue and intent floor.',
+    title: 'HOT Lead Alerts',
+    description: 'A seller signals they want to talk. You get an immediate notification. Name, company, and reply included. HOT threshold is configurable — you set the intent floor.',
   },
   {
-    icon: <Phone size={20} />, iconBg: 'bg-rose-100 text-rose-600',
-    title: 'SMS on Booked Meeting',
-    description: 'When a seller books via Calendly, you get a text within seconds. Meeting time, attendee name, and deal context. No logging in to check. It comes to you.',
+    icon: <Radar size={20} />, iconBg: 'bg-teal-100 text-teal-600',
+    title: 'Competitor Intel Feed',
+    description: 'Monitors your named competitors weekly. Flags when their positioning, pricing, or content changes. You stay one step ahead without having to look.',
   },
-
   {
     icon: <Gauge size={20} />, iconBg: 'bg-cyan-100 text-cyan-600',
     title: 'AI Visibility Score',
-    description: 'Weekly check: does your name appear when someone asks an AI search engine about selling a business in your niche? Tracks your citation trend over time. Tells you if your content is working.',
+    description: 'Weekly check: does your name appear when someone asks an AI engine about selling a business in your niche? Tracks your citation trend over time and tells you if your content is working.',
   },
-  {
-    icon: <Radar size={20} />, iconBg: 'bg-green-100 text-green-600',
-    title: 'Competitor Intel Feed',
-    description: 'Monitors your named competitors weekly. Flags when their positioning or content changes. You stay one step ahead without having to look.',
-  },
-  {
-    icon: <Mic2 size={20} />, iconBg: 'bg-pink-100 text-pink-600',
-    title: 'Podcast Outreach',
-    description: 'AI identifies shows where your ICP listens and drafts a personalized pitch email in your voice. You review the draft and send it yourself. Your credibility compounds.',
-  },
-  {
-    icon: <Newspaper size={20} />, iconBg: 'bg-orange-100 text-orange-600',
-    title: 'Earned Media',
-    description: 'Journalist queries that fit your expertise surface in your dashboard. AI drafts your expert response in your voice. You submit it to the publication directly.',
-  },
-  {
-    icon: <Globe size={20} />, iconBg: 'bg-slate-100 text-slate-600',
-    title: 'Built-In Deal Pipeline',
-    description: 'Your CRM lives inside BrokerEngine. Sellers, buyers, deals, and contacts all in one place. Kanban pipeline with stage tracking. No third-party CRM required.',
-  },
-  {
-    icon: <Briefcase size={20} />, iconBg: 'bg-amber-100 text-amber-600',
-    title: 'Buyer Database',
-    description: 'Add your buyer network once. When a seller reaches the right stage, the system identifies matches and drafts a teaser email for your review. You approve. It sends.',
-  },
-];
-
-const BUNDLED_TOOLS = [
-  { name: 'Apollo', what: 'Prospecting', price: '$99' },
-  { name: 'Instantly', what: 'Cold email', price: '$97' },
-  { name: 'Twilio', what: 'SMS', price: '$50' },
-  { name: 'Resend', what: 'Email delivery', price: '$20' },
-  { name: 'Claude', what: 'AI engine', price: '$40' },
 ];
 
 export default function Home() {
@@ -663,19 +550,19 @@ export default function Home() {
         <div className="mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-black text-white rounded-full text-xs font-semibold">
             <Zap size={12} className="text-yellow-400" />
-            The operating system for M&A advisors
+            The AI-native deal platform for M&amp;A advisors
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-black mb-5 leading-tight">
-            Find sellers. Run outreach.<br />
-            <span className="text-gray-400">Close pipeline.</span>
+            Deal Studio replacement.<br />
+            <span className="text-gray-400">At half the price.</span>
           </h1>
           <p className="text-lg text-gray-500 mb-6 max-w-2xl mx-auto">
-            BrokerEngine holds every subscription you need: Apollo, Instantly, Twilio, and more. Built-in CRM, AI reply classification, and HOT lead SMS. You pay one number. We automate the entire pipeline end to end.
+            Everything Deal Studio does — secure deal room, NDA e-sign, buyer matching — plus valuation calculators, AI-generated CIMs, a leads referral marketplace, automated outreach, and an AI operator that runs the whole workflow. One platform. One price.
           </p>
-          <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-500">
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />One bill. No stack to manage.</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Agents working on day one.</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Less than the bundle alone.</span>
+          <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-500 flex-wrap">
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Secure deal room included.</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Apollo prospecting included.</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />AI operator on day one.</span>
           </div>
           <div className="flex flex-col md:flex-row gap-3 justify-center mb-4">
             <input type="email" placeholder="Enter your email" className="flex-1 max-w-sm px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black" />
@@ -695,8 +582,8 @@ export default function Home() {
         <ProductDemo />
       </section>
 
-      {/* TOOL CONSOLIDATION */}
-      <ToolConsolidationSection />
+      {/* VS DEAL STUDIO */}
+      <ComparisonSection />
 
       {/* FEATURES */}
       <section id="features" className="py-20 px-6 bg-gray-50">
@@ -705,7 +592,7 @@ export default function Home() {
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Everything in one platform</p>
             <h2 className="text-4xl font-bold text-black mb-4">Every lever pulled. Automatically.</h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              From finding your first seller prospect to getting quoted in Forbes. BrokerEngine runs it all while you focus on closing.
+              From valuing a business to closing a deal. BrokerEngine runs it all while you focus on the conversations that matter.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -732,12 +619,12 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              { n: '01', icon: <Settings size={16} />, title: 'You complete your voice profile', desc: 'A 20-minute setup. Tell BrokerEngine your niche, deal size, and how you write. Every agent uses this from day one.' },
-              { n: '02', icon: <Target size={16} />, title: 'Apollo scans weekly', desc: 'Business owners matching your ICP appear in your pipeline automatically. You never search for leads manually.' },
-              { n: '03', icon: <Mail size={16} />, title: 'Sequences run in your voice', desc: 'AI writes personalized emails via Instantly. Multi-step follow-ups run on schedule. You review what goes out.' },
-              { n: '04', icon: <Brain size={16} />, title: 'Replies get sorted instantly', desc: 'Every reply classified HOT, WARM, or COLD. HOT gets a text to your phone within minutes.' },
-              { n: '05', icon: <Briefcase size={16} />, title: 'Deal pipeline tracks every opportunity', desc: 'Sellers, buyers, and deals managed in your built-in CRM. Kanban pipeline with stage tracking. No separate CRM needed.' },
-              { n: '06', icon: <TrendingUp size={16} />, title: 'You review. You close.', desc: 'Open your dashboard each morning. HOT leads to call. Drafts to approve. Deals to move forward. That is your whole job.' },
+              { n: '01', icon: <Settings size={16} />, title: 'Complete your voice profile', desc: 'A 20-minute setup. Tell BrokerEngine your niche, deal size, and how you write. Every AI agent uses this from day one.' },
+              { n: '02', icon: <Target size={16} />, title: 'Prospects appear automatically', desc: 'Apollo scans for business owners matching your ICP every week. New prospects land in your pipeline. No manual searching.' },
+              { n: '03', icon: <Mail size={16} />, title: 'AI runs outreach in your voice', desc: 'Sequences go out via your Instantly account. AI writes the emails. Multi-step follow-ups run on schedule. You review what goes out.' },
+              { n: '04', icon: <Brain size={16} />, title: 'HOT replies surface instantly', desc: 'Every reply classified HOT, WARM, or COLD. HOT replies trigger an immediate alert. Draft reply ready for your review.' },
+              { n: '05', icon: <Lock size={16} />, title: 'Deal room handles the process', desc: 'Seller moves to NDA → data room → CIM → buyer matching, all inside BrokerEngine. Secure, staged, and tracked.' },
+              { n: '06', icon: <TrendingUp size={16} />, title: 'You review. You close.', desc: 'Open your dashboard each morning. HOT leads to call. Drafts to approve. Deals to advance. That is your whole job.' },
             ].map((item) => (
               <div key={item.n} className="flex gap-4 p-5 border border-gray-200 rounded-2xl bg-white">
                 <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -760,21 +647,21 @@ export default function Home() {
       <section className="py-16 px-6 bg-gray-50">
         <div className="mx-auto max-w-4xl">
           <div className="border border-gray-200 rounded-2xl p-8 md:p-12 bg-white text-center">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Built for brokers. Not demos.</p>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Built for M&amp;A advisors</p>
             <h2 className="text-3xl font-bold text-black mb-6">
-              Every tool a broker needs, connected and working together from day one.
+              Deal Studio handles the deal room.<br className="hidden md:block" /> BrokerEngine handles everything else too.
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto mb-8">
-              BrokerEngine replaces your Apollo bill, your Instantly bill, and your CRM subscription with one platform built specifically for M&A brokers. AI-assisted outreach, deal tracking, and buyer matching — all in one place.
+              Valuation calculators that convert prospects. An AI operator that drafts CIMs, classifies replies, and runs outreach. A referral marketplace for leads you can&apos;t take. All in one platform, for less than Deal Studio alone.
             </p>
             <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
               <div>
-                <p className="text-3xl font-bold text-black mb-1">$40</p>
-                <p className="text-xs text-gray-500">Per broker AI cost per month</p>
+                <p className="text-3xl font-bold text-black mb-1">$499</p>
+                <p className="text-xs text-gray-500">Starting price per month</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-black mb-1">1</p>
-                <p className="text-xs text-gray-500">Invoice. Every tool included.</p>
+                <p className="text-xs text-gray-500">Platform for your entire operation</p>
               </div>
             </div>
           </div>
@@ -787,18 +674,18 @@ export default function Home() {
           <div className="text-center mb-12">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Simple pricing</p>
             <h2 className="text-4xl font-bold text-black mb-3">One HOT lead pays for the year.</h2>
-            <p className="text-gray-500 max-w-lg mx-auto">All plans include every tool subscription. No Apollo bill. No Instantly bill. Built-in CRM included. Choose by volume.</p>
+            <p className="text-gray-500 max-w-lg mx-auto">All plans include the full deal platform, Apollo prospecting, AI operator, and valuation tools. Choose by volume.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             {[
               {
                 name: 'Starter', price: '$499', highlight: false,
-                features: ['500 prospects per month', 'Cold email sequences', 'HOT / WARM / COLD classification', 'SMS alerts on HOT replies', 'Built-in deal pipeline', 'Live prospect dashboard'],
+                features: ['500 prospects/mo (Apollo included)', 'Secure deal room + NDA e-sign', 'HOT / WARM / COLD classification', 'HOT lead alerts', 'AI CIM generator', 'Valuation calculators', 'Leads-for-sale referral marketplace', 'AI operator / assistant'],
                 cta: 'Start closing deals',
               },
               {
                 name: 'Pro', price: '$1,299', highlight: true,
-                features: ['2,000 prospects per month', 'Everything in Starter', 'Multi-sequence campaigns', 'AI visibility scoring', 'Competitor intel feed', 'Buyer database + deal matching', 'Referral partner outreach'],
+                features: ['2,000 prospects/mo', 'Everything in Starter', 'Multi-sequence outreach campaigns', 'AI visibility scoring', 'Competitor intel feed', 'Buyer database + deal matching', 'Referral partner outreach'],
                 cta: 'Scale your pipeline',
               },
               {
@@ -839,7 +726,7 @@ export default function Home() {
         <div className="mx-auto max-w-2xl">
           <div className="bg-black rounded-3xl p-12 text-center text-white">
             <h3 className="text-3xl font-bold mb-3">Your pipeline does not run itself. Ours does.</h3>
-            <p className="text-gray-400 mb-8">Sign up in two minutes. Complete your voice profile. Your agents start finding sellers the same week.</p>
+            <p className="text-gray-400 mb-8">Sign up in two minutes. Complete your voice profile. Your AI operator starts finding and qualifying sellers the same week.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
               <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-500 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-white/40" />
               <a href="/signup" className="px-7 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-100 whitespace-nowrap text-sm inline-flex items-center justify-center">

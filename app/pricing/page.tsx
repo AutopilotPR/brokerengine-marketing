@@ -14,19 +14,23 @@ export default function Pricing() {
 
   const starterFeatures = [
     '1 seat',
-    'Seller prospecting (Apollo)',
-    'Cold email sequences (Instantly)',
+    '500 prospects/mo — Apollo included',
+    'Secure deal room + NDA e-sign',
+    'AI CIM generator',
+    'Valuation calculators (SaaS, ecommerce, services, content)',
     'HOT / WARM / COLD reply classification',
-    'SMS alerts on HOT replies',
-    'Built-in deal pipeline',
+    'HOT lead alerts',
+    'Leads-for-sale referral marketplace',
+    'AI operator / assistant',
+    'Connect your own Instantly account for outreach',
     'Email support',
   ];
 
   const proFeatures = [
     '3 seats',
     'Everything in Starter',
-    '2,000 prospects per month',
-    'Multi-sequence campaigns',
+    '2,000 prospects/mo',
+    'Multi-sequence outreach campaigns',
     'Buyer database + deal matching',
     'Referral partner outreach',
     'AI Visibility Score (weekly)',
@@ -53,15 +57,18 @@ export default function Pricing() {
             BrokerEngine
           </a>
           <div className="hidden md:flex items-center gap-8">
+            <a href="/" className="text-sm text-gray-600 hover:text-black">
+              Product
+            </a>
             <a href="/pricing" className="text-sm text-gray-600 hover:text-black font-medium">
               Pricing
             </a>
             <a href="/login" className="text-sm text-gray-600 hover:text-black">
               Login
             </a>
-            <button className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900">
+            <a href="/signup" className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900">
               Request access
-            </button>
+            </a>
           </div>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -76,10 +83,14 @@ export default function Pricing() {
       <section className="py-16 px-6">
         <div className="mx-auto max-w-7xl text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-black mb-4">
-            Less than the sum of the parts.
+            More than Deal Studio.<br />
+            <span className="text-gray-400">For less.</span>
           </h1>
-          <p className="text-xl text-gray-500 mb-10">
-            Replace Apollo, Instantly, Twilio, and your VA — for one flat price. CRM included.
+          <p className="text-xl text-gray-500 mb-4 max-w-2xl mx-auto">
+            Secure deal room, AI operator, valuation calculators, CIM generator, buyer matching, and a leads referral marketplace. One price. No add-ons.
+          </p>
+          <p className="text-sm text-gray-400 mb-10">
+            Apollo prospecting included in all plans. Connect your own Instantly account for email sequences.
           </p>
 
           {/* Billing Toggle */}
@@ -87,26 +98,25 @@ export default function Pricing() {
             <button
               onClick={() => setBillingPeriod('monthly')}
               className={`text-sm font-medium ${
-                billingPeriod === 'monthly'
-                  ? 'text-black'
-                  : 'text-gray-500'
+                billingPeriod === 'monthly' ? 'text-black' : 'text-gray-500'
               }`}
             >
               Monthly
             </button>
-            <div className="relative w-16 h-8 bg-gray-200 rounded-full cursor-pointer" onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}>
+            <div
+              className="relative w-16 h-8 bg-gray-200 rounded-full cursor-pointer"
+              onClick={() => setBillingPeriod(billingPeriod === 'monthly' ? 'annual' : 'monthly')}
+            >
               <div
                 className={`absolute top-1 w-6 h-6 bg-black rounded-full transition-transform ${
                   billingPeriod === 'annual' ? 'translate-x-8' : 'translate-x-1'
                 }`}
-              ></div>
+              />
             </div>
             <button
               onClick={() => setBillingPeriod('annual')}
               className={`text-sm font-medium ${
-                billingPeriod === 'annual'
-                  ? 'text-black'
-                  : 'text-gray-500'
+                billingPeriod === 'annual' ? 'text-black' : 'text-gray-500'
               }`}
             >
               Annual <span className="text-green-600 ml-2 text-xs">Save 20%</span>
@@ -122,7 +132,7 @@ export default function Pricing() {
             {/* Starter */}
             <div className="rounded-2xl border border-gray-200 p-8 bg-white hover:shadow-lg transition">
               <h3 className="text-2xl font-bold text-black mb-2">Starter</h3>
-              <p className="text-gray-500 mb-6 text-sm">Pipeline + outreach on autopilot</p>
+              <p className="text-gray-500 mb-6 text-sm">Full deal platform for solo advisors</p>
               <div className="mb-8">
                 <p className="text-4xl font-bold text-black">
                   ${billingPeriod === 'monthly' ? prices.starter.monthly : prices.starter.annual}
@@ -132,13 +142,13 @@ export default function Pricing() {
                   <p className="text-xs text-gray-400 mt-1">Billed annually</p>
                 )}
               </div>
-              <button className="w-full px-6 py-3 border-2 border-black text-black rounded-full font-medium hover:bg-black hover:text-white transition mb-8">
+              <a href="/signup" className="w-full block text-center px-6 py-3 border-2 border-black text-black rounded-full font-medium hover:bg-black hover:text-white transition mb-8">
                 Get started
-              </button>
+              </a>
               <div className="space-y-4">
                 {starterFeatures.map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <Check size={18} className="text-black flex-shrink-0" />
+                  <div key={feature} className="flex items-start gap-3">
+                    <Check size={16} className="text-black flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-600">{feature}</span>
                   </div>
                 ))}
@@ -161,13 +171,13 @@ export default function Pricing() {
                   <p className="text-xs text-gray-300 mt-1">Billed annually</p>
                 )}
               </div>
-              <button className="w-full px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition mb-8">
+              <a href="/signup" className="w-full block text-center px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition mb-8">
                 Start free trial
-              </button>
+              </a>
               <div className="space-y-4">
                 {proFeatures.map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <Check size={18} className="text-white flex-shrink-0" />
+                  <div key={feature} className="flex items-start gap-3">
+                    <Check size={16} className="text-white flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-200">{feature}</span>
                   </div>
                 ))}
@@ -182,18 +192,28 @@ export default function Pricing() {
                 <p className="text-3xl font-bold text-black">Custom</p>
                 <p className="text-sm text-gray-500">Contact sales for pricing</p>
               </div>
-              <button className="w-full px-6 py-3 border-2 border-black text-black rounded-full font-medium hover:bg-black hover:text-white transition mb-8">
+              <a href="/signup" className="w-full block text-center px-6 py-3 border-2 border-black text-black rounded-full font-medium hover:bg-black hover:text-white transition mb-8">
                 Talk to sales
-              </button>
+              </a>
               <div className="space-y-4">
                 {enterpriseFeatures.map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <Check size={18} className="text-black flex-shrink-0" />
+                  <div key={feature} className="flex items-start gap-3">
+                    <Check size={16} className="text-black flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-600">{feature}</span>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
+
+          {/* FAQ note */}
+          <div className="mt-12 text-center">
+            <p className="text-sm text-gray-400">
+              All plans include a 14-day free trial. No credit card required. Cancel anytime.
+            </p>
+            <p className="text-sm text-gray-400 mt-2">
+              Apollo prospecting is included — we cover the cost. Bring your own Instantly API key to activate email sequences.
+            </p>
           </div>
         </div>
       </section>
@@ -203,15 +223,9 @@ export default function Pricing() {
         <div className="mx-auto max-w-7xl flex justify-between items-center">
           <p className="font-bold text-black">BrokerEngine</p>
           <div className="flex gap-8 text-sm text-gray-600">
-            <a href="/" className="hover:text-black">
-              Product
-            </a>
-            <a href="/pricing" className="hover:text-black">
-              Pricing
-            </a>
-            <a href="/login" className="hover:text-black">
-              Login
-            </a>
+            <a href="/" className="hover:text-black">Product</a>
+            <a href="/pricing" className="hover:text-black">Pricing</a>
+            <a href="/login" className="hover:text-black">Login</a>
           </div>
         </div>
       </footer>
