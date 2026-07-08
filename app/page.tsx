@@ -394,64 +394,53 @@ interface Feature {
   description: string;
 }
 
-// ── vs Deal Studio comparison ──────────────────────────────────────────
+// ── Stack replacement section ──────────────────────────────────────────
 
-function ComparisonSection() {
-  const rows = [
-    { feature: 'Secure deal room + NDA e-sign', be: true, ds: true },
-    { feature: 'CIM / teaser generation (AI)', be: true, ds: false },
-    { feature: 'Valuation calculators (4 types)', be: true, ds: false },
-    { feature: 'Buyer database + matching', be: true, ds: true },
-    { feature: 'Leads-for-sale referral marketplace', be: true, ds: false },
-    { feature: 'AI reply classification (HOT/WARM/COLD)', be: true, ds: false },
-    { feature: 'Seller prospecting (Apollo included)', be: true, ds: false },
-    { feature: 'AI outreach sequences', be: true, ds: false },
-    { feature: 'Competitor + market intel feed', be: true, ds: false },
-    { feature: 'AI operator / assistant', be: true, ds: false },
-    { feature: 'Price', be: 'From $499/mo', ds: '$600–$900/mo' },
+function StackSection() {
+  const stackItems = [
+    { tool: 'Secure deal room', example: 'ShareVault, SecureDocs', price: '$160–$250/mo' },
+    { tool: 'CRM / pipeline', example: 'Pipedrive, HubSpot', price: '$39–$90/mo' },
+    { tool: 'Cold outreach', example: 'Instantly, Lemlist', price: '$94/mo' },
+    { tool: 'Prospect database', example: 'Apollo, ZoomInfo', price: '$49–$99/mo' },
+    { tool: 'E-sign / NDA', example: 'DocuSign, PandaDoc', price: '$19–$30/mo' },
+    { tool: 'AI CIM writer', example: 'Deliverables.ai, ChatGPT Pro', price: '$20–$179/mo' },
   ];
   return (
     <section className="py-16 px-6 border-t border-gray-100">
       <div className="mx-auto max-w-3xl">
         <div className="text-center mb-10">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">How we compare</p>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Why brokers switch</p>
           <h2 className="text-3xl md:text-4xl font-bold text-black mb-3">
-            Everything Deal Studio does.<br />
-            <span className="text-gray-400">Plus everything it doesn&apos;t.</span>
+            The average broker runs<br />
+            <span className="text-gray-400">5–6 tools to close one deal.</span>
           </h2>
           <p className="text-gray-500 max-w-lg mx-auto">
-            Deal Studio is a good deal room. BrokerEngine is a deal room with an AI operator, valuation tools, automated outreach, and a referral marketplace built in.
+            Deal room. CRM. Outreach. Prospect database. E-sign. CIM writer. Each tool a separate login, a separate bill, a separate workflow. BrokerEngine replaces the whole stack — from $499/mo, priced on the page.
           </p>
         </div>
-        <div className="rounded-2xl border border-gray-200 overflow-hidden bg-white shadow-sm">
+        <div className="rounded-2xl border border-gray-200 overflow-hidden bg-white shadow-sm mb-6">
           <div className="grid grid-cols-3 bg-gray-50 border-b border-gray-200 px-4 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-widest">
-            <div>Feature</div>
-            <div className="text-center text-black">BrokerEngine</div>
-            <div className="text-center">Deal Studio</div>
+            <div>Tool category</div>
+            <div>Typical products</div>
+            <div className="text-right">Monthly cost</div>
           </div>
-          {rows.map((r, i) => (
-            <div key={r.feature} className={`grid grid-cols-3 px-4 py-3 text-sm items-center ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}>
-              <span className="text-gray-700">{r.feature}</span>
-              <div className="flex justify-center">
-                {typeof r.be === 'boolean' ? (
-                  r.be
-                    ? <CheckCircle2 size={16} className="text-green-500" />
-                    : <span className="text-gray-300 text-lg">—</span>
-                ) : (
-                  <span className="text-xs font-bold text-black">{r.be}</span>
-                )}
-              </div>
-              <div className="flex justify-center">
-                {typeof r.ds === 'boolean' ? (
-                  r.ds
-                    ? <CheckCircle2 size={16} className="text-gray-400" />
-                    : <span className="text-gray-300 text-lg">—</span>
-                ) : (
-                  <span className="text-xs font-bold text-gray-400">{r.ds}</span>
-                )}
-              </div>
+          {stackItems.map((item, i) => (
+            <div key={item.tool} className={`grid grid-cols-3 px-4 py-3 text-sm items-center ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}>
+              <span className="font-medium text-gray-800">{item.tool}</span>
+              <span className="text-gray-400 text-xs">{item.example}</span>
+              <span className="text-right text-gray-600">{item.price}</span>
             </div>
           ))}
+          <div className="grid grid-cols-3 px-4 py-4 text-sm items-center bg-gray-50 border-t-2 border-gray-200">
+            <span className="font-bold text-black">Full stack total</span>
+            <span className="text-gray-400 text-xs">Without buyer matching</span>
+            <span className="text-right font-bold text-black">$481–$742/mo</span>
+          </div>
+        </div>
+        <div className="rounded-2xl border-2 border-black bg-black text-white p-6 text-center">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">BrokerEngine</p>
+          <p className="text-3xl font-bold mb-1">From $499/mo</p>
+          <p className="text-gray-400 text-sm">All of the above — plus AI CIM generation, buyer matching, and outreach — in one login. Apollo prospecting included.</p>
         </div>
       </div>
     </section>
@@ -551,27 +540,27 @@ export default function Home() {
         <div className="mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 bg-black text-white rounded-full text-xs font-semibold">
             <Zap size={12} className="text-yellow-400" />
-            The AI-native deal platform for M&amp;A advisors
+            Now accepting founding brokers
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-black mb-5 leading-tight">
-            Deal Studio replacement.<br />
-            <span className="text-gray-400">At half the price.</span>
+            Draft your CIM in minutes.<br />
+            <span className="text-gray-400">Run your deal room. Close more.</span>
           </h1>
           <p className="text-lg text-gray-500 mb-6 max-w-2xl mx-auto">
-            Everything Deal Studio does — secure deal room, NDA e-sign, buyer matching — plus valuation calculators, AI-generated CIMs, a leads referral marketplace, automated outreach, and an AI operator that runs the whole workflow. One platform. One price.
+            BrokerEngine replaces the 5-tool stack brokers assemble themselves — deal room, CRM, CIM writer, outreach, e-sign — in one login, from $499/mo, priced on the page. Apollo prospecting included.
           </p>
           <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-500 flex-wrap">
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Secure deal room included.</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Apollo prospecting included.</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />AI operator on day one.</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Secure deal room + NDA e-sign.</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />AI CIM generator included.</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Apollo prospecting on day one.</span>
           </div>
           <div className="flex flex-col md:flex-row gap-3 justify-center mb-4">
             <input type="email" placeholder="Enter your email" className="flex-1 max-w-sm px-4 py-3 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black" />
             <a href="/signup" className="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-900 whitespace-nowrap inline-flex items-center justify-center gap-1">
-              Request access <ArrowRight size={14} />
+              Apply for founding access <ArrowRight size={14} />
             </a>
           </div>
-          <p className="text-xs text-gray-400">14-day trial. No credit card needed. Cancel anytime.</p>
+          <p className="text-xs text-gray-400">Founding broker pilot — free full access, white-glove onboarding. 5 slots remaining.</p>
         </div>
       </section>
 
@@ -583,8 +572,8 @@ export default function Home() {
         <ProductDemo />
       </section>
 
-      {/* VS DEAL STUDIO */}
-      <ComparisonSection />
+      {/* STACK REPLACEMENT */}
+      <StackSection />
 
       {/* PRODUCT TOUR */}
       <ProductTour />
@@ -656,7 +645,7 @@ export default function Home() {
               Deal Studio handles the deal room.<br className="hidden md:block" /> BrokerEngine handles everything else too.
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto mb-8">
-              Valuation calculators that convert prospects. An AI operator that drafts CIMs, classifies replies, and runs outreach. A referral marketplace for leads you can&apos;t take. All in one platform, for less than Deal Studio alone.
+              Valuation calculators that convert prospects. An AI operator that drafts CIMs, classifies replies, and runs outreach. A referral marketplace for leads you can&apos;t take. All in one login, from $499/mo.
             </p>
             <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
               <div>
@@ -721,7 +710,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <p className="text-center text-gray-400 text-xs mt-5">Billed monthly. Cancel anytime. 14-day trial included.</p>
+          <p className="text-center text-gray-400 text-xs mt-5">Billed monthly. Cancel anytime. Founding brokers get free full access during pilot.</p>
         </div>
       </section>
 
@@ -730,11 +719,11 @@ export default function Home() {
         <div className="mx-auto max-w-2xl">
           <div className="bg-black rounded-3xl p-12 text-center text-white">
             <h3 className="text-3xl font-bold mb-3">Your pipeline does not run itself. Ours does.</h3>
-            <p className="text-gray-400 mb-8">Sign up in two minutes. Complete your voice profile. Your AI operator starts finding and qualifying sellers the same week.</p>
+            <p className="text-gray-400 mb-8">Complete your voice profile in 20 minutes. Your AI operator starts finding and qualifying sellers the same week. Founding brokers get white-glove onboarding at no charge.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
               <input type="email" placeholder="Enter your email" className="flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-gray-500 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-white/40" />
               <a href="/signup" className="px-7 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-100 whitespace-nowrap text-sm inline-flex items-center justify-center">
-                Request access
+                Apply for founding access
               </a>
             </div>
             <a href="/pricing" className="text-sm text-gray-400 hover:text-white inline-flex items-center gap-1">

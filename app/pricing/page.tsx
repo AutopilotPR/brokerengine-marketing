@@ -83,11 +83,11 @@ export default function Pricing() {
       <section className="py-16 px-6">
         <div className="mx-auto max-w-7xl text-center">
           <h1 className="text-5xl md:text-6xl font-bold text-black mb-4">
-            More than Deal Studio.<br />
-            <span className="text-gray-400">For less.</span>
+            One platform.<br />
+            <span className="text-gray-400">One price. Everything included.</span>
           </h1>
           <p className="text-xl text-gray-500 mb-4 max-w-2xl mx-auto">
-            Secure deal room, AI operator, valuation calculators, CIM generator, buyer matching, and a leads referral marketplace. One price. No add-ons.
+            Secure deal room, AI CIM generator, valuation calculators, buyer matching, outreach, and a leads referral marketplace. Replaces the $500–$700/mo stack brokers assemble themselves.
           </p>
           <p className="text-sm text-gray-400 mb-10">
             Apollo prospecting included in all plans. Connect your own Instantly account for email sequences.
@@ -209,10 +209,10 @@ export default function Pricing() {
           {/* FAQ note */}
           <div className="mt-12 text-center">
             <p className="text-sm text-gray-400">
-              All plans include a 14-day free trial. No credit card required. Cancel anytime.
+              All plans include a founding-broker pilot period. No credit card required to start. Cancel anytime.
             </p>
             <p className="text-sm text-gray-400 mt-2">
-              Apollo prospecting is included — we cover the cost. Bring your own Instantly API key to activate email sequences.
+              Apollo prospecting is included — we cover the cost. Bring your own Instantly API key to activate email sequences. Founding brokers get free full access during pilot.
             </p>
           </div>
         </div>
