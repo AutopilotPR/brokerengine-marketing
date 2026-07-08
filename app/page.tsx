@@ -10,30 +10,22 @@ import {
   Target,
   Mail,
   MessageSquare,
-  BarChart2,
   Settings,
   Radar,
-  Mic2,
   FileText,
-  Newspaper,
-  Gauge,
   CheckCircle2,
   Zap,
   Brain,
   TrendingUp,
   Bell,
-  Globe,
-  Calendar,
   Briefcase,
   ArrowRight,
-  Activity,
   Lock,
   DollarSign,
   Users,
-  Calculator,
 } from 'lucide-react';
 
-type TabId = 'deals' | 'valuations' | 'outreach' | 'replies' | 'intel';
+type TabId = 'deals' | 'outreach' | 'replies' | 'intel';
 
 interface DemoTab {
   id: TabId;
@@ -44,7 +36,7 @@ interface DemoTab {
 
 const DEMO_TABS: DemoTab[] = [
   { id: 'deals',      emoji: '🗂️', label: 'Deal Room',      sublabel: 'Secure pipeline' },
-  { id: 'valuations', emoji: '🧮', label: 'Valuations',      sublabel: 'AI calculators' },
+
   { id: 'outreach',   emoji: '📧', label: 'Outreach',        sublabel: 'AI sequences' },
   { id: 'replies',    emoji: '🔥', label: 'Hot Replies',     sublabel: 'AI classification' },
   { id: 'intel',      emoji: '🔭', label: 'Market Intel',    sublabel: 'Competitor feed' },
@@ -53,7 +45,7 @@ const DEMO_TABS: DemoTab[] = [
 function AppSidebar({ activeTab }: { activeTab: TabId }) {
   const navItems: { id: TabId; label: string; icon: React.ReactNode }[] = [
     { id: 'deals',      label: 'Deal Pipeline', icon: <Briefcase size={13} /> },
-    { id: 'valuations', label: 'Valuations',    icon: <Calculator size={13} /> },
+
     { id: 'deals',      label: 'Sellers',       icon: <Target size={13} /> },
     { id: 'deals',      label: 'Buyers',        icon: <Users size={13} /> },
     { id: 'deals',      label: 'Leads for Sale',icon: <DollarSign size={13} /> },
@@ -139,42 +131,6 @@ function DealsContent() {
       <div className="border-t border-gray-100 px-4 py-2 bg-gray-50 flex items-center gap-2">
         <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
         <span className="text-[10px] text-gray-500">AI operator active · CIM for Meridian HVAC drafted and ready for review</span>
-      </div>
-    </div>
-  );
-}
-
-function ValuationsContent() {
-  const calcs = [
-    { type: 'SaaS', company: 'CloudMetrics Inc', arr: '$1.2M', multiple: '5.8x', val: '$6.96M', trend: '+12%' },
-    { type: 'Ecommerce', company: 'TrailGear Co', arr: '$3.4M', multiple: '2.9x', val: '$9.86M', trend: '+5%' },
-    { type: 'Services', company: 'Meridian HVAC', arr: '$8.2M', multiple: '4.1x', val: '$33.6M', trend: '+8%' },
-  ];
-  return (
-    <div className="flex-1 flex flex-col overflow-hidden">
-      <div className="px-4 py-3 flex items-center justify-between border-b border-gray-100">
-        <span className="text-xs font-semibold text-black">Valuation Calculators</span>
-        <span className="text-[10px] px-2 py-1 bg-blue-50 text-blue-600 rounded-full font-medium">SaaS · Ecommerce · Services · Content</span>
-      </div>
-      <div className="flex-1 overflow-auto divide-y divide-gray-100">
-        {calcs.map((c) => (
-          <div key={c.company} className="px-4 py-3 flex items-center justify-between">
-            <div>
-              <div className="flex items-center gap-2 mb-0.5">
-                <span className="text-[9px] font-bold bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">{c.type}</span>
-                <span className="text-[11px] font-semibold text-black">{c.company}</span>
-              </div>
-              <span className="text-[9px] text-gray-400">Revenue {c.arr} · {c.multiple} multiple</span>
-            </div>
-            <div className="text-right">
-              <p className="text-[13px] font-bold text-black">{c.val}</p>
-              <p className="text-[9px] text-green-600">{c.trend} YoY</p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="border-t border-gray-100 px-4 py-2 bg-gray-50">
-        <span className="text-[10px] text-gray-500">Share a live valuation link with any seller — no login required</span>
       </div>
     </div>
   );
@@ -268,7 +224,7 @@ function IntelContent() {
   const items = [
     { icon: '⚠️', type: 'Competitor', title: 'Deal Studio dropped their retainer fee this week — pricing page updated', time: '1h ago', tag: 'Pricing move', tc: 'bg-orange-100 text-orange-700' },
     { icon: '📰', type: 'Market', title: 'HVAC sector M&A activity up 23% YoY according to Axial data', time: '4h ago', tag: 'Opportunity', tc: 'bg-green-100 text-green-700' },
-    { icon: '🤖', type: 'AI Citation', title: 'Claude cited Midwest M&A Advisors for HVAC exits. Not you. Your score: 42.', time: '12h ago', tag: 'AI Visibility', tc: 'bg-blue-100 text-blue-700' },
+    { icon: '🔔', type: 'HOT Lead', title: 'Meridian HVAC replied: “Interested in discussing options” — AI classified HOT.', time: '12h ago', tag: 'HOT', tc: 'bg-green-100 text-green-700' },
     { icon: '📢', type: 'Competitor', title: 'ExitRight Advisors published: How to sell your trades business in 2025', time: 'Yesterday', tag: 'Content move', tc: 'bg-gray-100 text-gray-600' },
   ];
   return (
@@ -322,11 +278,10 @@ function ProductDemo() {
   const activeTab = DEMO_TABS[activeIndex];
 
   const contentMap: Record<TabId, React.ReactNode> = {
-    deals:      <DealsContent />,
-    valuations: <ValuationsContent />,
-    outreach:   <OutreachContent />,
-    replies:    <RepliesContent />,
-    intel:      <IntelContent />,
+    deals:    <DealsContent />,
+    outreach: <OutreachContent />,
+    replies:  <RepliesContent />,
+    intel:    <IntelContent />,
   };
 
   return (
@@ -453,11 +408,7 @@ const FEATURES: Feature[] = [
     title: 'Secure Deal Room',
     description: 'Anonymized listings with staged disclosure. Buyers e-sign an NDA before seeing any seller details. Document vault with view tracking. Full audit trail. Built-in — not bolted on.',
   },
-  {
-    icon: <Calculator size={20} />, iconBg: 'bg-green-100 text-green-600',
-    title: 'Valuation Calculators',
-    description: 'SaaS, ecommerce, services, and content site calculators built in. Share a live valuation link with any seller — no login required. Converts prospects into engaged sellers.',
-  },
+
   {
     icon: <FileText size={20} />, iconBg: 'bg-purple-100 text-purple-600',
     title: 'AI CIM Generator',
@@ -503,11 +454,7 @@ const FEATURES: Feature[] = [
     title: 'Competitor Intel Feed',
     description: 'Monitors your named competitors weekly. Flags when their positioning, pricing, or content changes. You stay one step ahead without having to look.',
   },
-  {
-    icon: <Gauge size={20} />, iconBg: 'bg-cyan-100 text-cyan-600',
-    title: 'AI Visibility Score',
-    description: 'Weekly check: does your name appear when someone asks an AI engine about selling a business in your niche? Tracks your citation trend over time and tells you if your content is working.',
-  },
+
 ];
 
 export default function Home() {
@@ -645,7 +592,7 @@ export default function Home() {
               Deal Studio handles the deal room.<br className="hidden md:block" /> BrokerEngine handles everything else too.
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto mb-8">
-              Valuation calculators that convert prospects. An AI operator that drafts CIMs, classifies replies, and runs outreach. A referral marketplace for leads you can&apos;t take. All in one login, $200/mo.
+              An AI operator that drafts CIMs, classifies replies, and runs outreach. A referral marketplace for leads you can’t take. All in one login, $200/mo.
             </p>
             <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
               <div>
@@ -681,7 +628,7 @@ export default function Home() {
                 Apply for founding access
               </a>
               <ul className="space-y-3">
-                {['500 prospects/mo (Apollo included)', 'Secure deal room + NDA e-sign', 'AI CIM generator', 'Valuation calculators (SaaS, ecommerce, services, content)', 'HOT / WARM / COLD reply classification + alerts', 'Buyer database + deal matching', 'Leads-for-sale referral marketplace', 'Competitor intel feed', 'AI operator / assistant'].map((f) => (
+                {['500 prospects/mo (Apollo included)', 'Secure deal room + NDA e-sign', 'AI CIM generator', 'HOT / WARM / COLD reply classification + alerts', 'Buyer database + deal matching', 'Leads-for-sale referral marketplace', 'Competitor intel feed', 'AI operator / assistant'].map((f) => (
                   <li key={f} className="flex items-start gap-2 text-sm">
                     <CheckCircle2 size={13} className="mt-0.5 flex-shrink-0 text-green-400" />
                     <span className="text-gray-200">{f}</span>
