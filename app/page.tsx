@@ -415,7 +415,7 @@ function StackSection() {
             <span className="text-gray-400">5–6 tools to close one deal.</span>
           </h2>
           <p className="text-gray-500 max-w-lg mx-auto">
-            Deal room. CRM. Outreach. Prospect database. E-sign. CIM writer. Each tool a separate login, a separate bill, a separate workflow. BrokerEngine replaces the whole stack — from $499/mo, priced on the page.
+            Deal room. CRM. Outreach. Prospect database. E-sign. CIM writer. Each tool a separate login, a separate bill, a separate workflow. BrokerEngine replaces the whole stack — $200/mo, priced on the page.
           </p>
         </div>
         <div className="rounded-2xl border border-gray-200 overflow-hidden bg-white shadow-sm mb-6">
@@ -439,7 +439,7 @@ function StackSection() {
         </div>
         <div className="rounded-2xl border-2 border-black bg-black text-white p-6 text-center">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">BrokerEngine</p>
-          <p className="text-3xl font-bold mb-1">From $499/mo</p>
+          <p className="text-3xl font-bold mb-1">$200/mo</p>
           <p className="text-gray-400 text-sm">All of the above — plus AI CIM generation, buyer matching, and outreach — in one login. Apollo prospecting included.</p>
         </div>
       </div>
@@ -547,7 +547,7 @@ export default function Home() {
             <span className="text-gray-400">Run your deal room. Close more.</span>
           </h1>
           <p className="text-lg text-gray-500 mb-6 max-w-2xl mx-auto">
-            BrokerEngine replaces the 5-tool stack brokers assemble themselves — deal room, CRM, CIM writer, outreach, e-sign — in one login, from $499/mo, priced on the page. Apollo prospecting included.
+            BrokerEngine replaces the 5-tool stack brokers assemble themselves — deal room, CRM, CIM writer, outreach, e-sign — in one login, $200/mo, priced on the page. Apollo prospecting included.
           </p>
           <div className="flex items-center justify-center gap-6 mb-8 text-sm text-gray-500 flex-wrap">
             <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-green-500" />Secure deal room + NDA e-sign.</span>
@@ -645,12 +645,12 @@ export default function Home() {
               Deal Studio handles the deal room.<br className="hidden md:block" /> BrokerEngine handles everything else too.
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto mb-8">
-              Valuation calculators that convert prospects. An AI operator that drafts CIMs, classifies replies, and runs outreach. A referral marketplace for leads you can&apos;t take. All in one login, from $499/mo.
+              Valuation calculators that convert prospects. An AI operator that drafts CIMs, classifies replies, and runs outreach. A referral marketplace for leads you can&apos;t take. All in one login, $200/mo.
             </p>
             <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
               <div>
-                <p className="text-3xl font-bold text-black mb-1">$499</p>
-                <p className="text-xs text-gray-500">Starting price per month</p>
+                <p className="text-3xl font-bold text-black mb-1">$200</p>
+                <p className="text-xs text-gray-500">Founding broker price per month</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-black mb-1">1</p>
@@ -666,51 +666,31 @@ export default function Home() {
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-12">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Simple pricing</p>
-            <h2 className="text-4xl font-bold text-black mb-3">One HOT lead pays for the year.</h2>
-            <p className="text-gray-500 max-w-lg mx-auto">All plans include the full deal platform, Apollo prospecting, AI operator, and valuation tools. Choose by volume.</p>
+            <h2 className="text-4xl font-bold text-black mb-3">One HOT lead pays for the month.</h2>
+            <p className="text-gray-500 max-w-lg mx-auto">Everything included. One plan. One price. Founding brokers lock this rate for life.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              {
-                name: 'Starter', price: '$499', highlight: false,
-                features: ['500 prospects/mo (Apollo included)', 'Secure deal room + NDA e-sign', 'HOT / WARM / COLD classification', 'HOT lead alerts', 'AI CIM generator', 'Valuation calculators', 'Leads-for-sale referral marketplace', 'AI operator / assistant'],
-                cta: 'Start closing deals',
-              },
-              {
-                name: 'Pro', price: '$1,299', highlight: true,
-                features: ['2,000 prospects/mo', 'Everything in Starter', 'Multi-sequence outreach campaigns', 'AI visibility scoring', 'Competitor intel feed', 'Buyer database + deal matching', 'Referral partner outreach'],
-                cta: 'Scale your pipeline',
-              },
-              {
-                name: 'Partner', price: '$2,499', highlight: false,
-                features: ['Unlimited prospects', 'Everything in Pro', 'Multi-advisor seats', 'White-label reporting', 'Dedicated CSM', 'Custom onboarding'],
-                cta: 'Contact us',
-              },
-            ].map((plan) => (
-              <div key={plan.name} className={`rounded-2xl border p-7 flex flex-col ${plan.highlight ? 'border-black bg-black text-white' : 'border-gray-200 bg-white'}`}>
-                {plan.highlight && <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Most popular</div>}
-                <div className="mb-5">
-                  <p className={`text-base font-semibold mb-1 ${plan.highlight ? 'text-white' : 'text-black'}`}>{plan.name}</p>
-                  <div className="flex items-baseline gap-1">
-                    <span className={`text-4xl font-bold ${plan.highlight ? 'text-white' : 'text-black'}`}>{plan.price}</span>
-                    <span className="text-gray-400 text-sm">/mo</span>
-                  </div>
-                </div>
-                <ul className="space-y-2 flex-1 mb-7">
-                  {plan.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm">
-                      <CheckCircle2 size={13} className={`mt-0.5 flex-shrink-0 ${plan.highlight ? 'text-green-400' : 'text-green-500'}`} />
-                      <span className={plan.highlight ? 'text-gray-300' : 'text-gray-600'}>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a href="/signup" className={`block text-center py-3 rounded-full text-sm font-bold transition-colors ${plan.highlight ? 'bg-white text-black hover:bg-gray-100' : 'bg-black text-white hover:bg-gray-900'}`}>
-                  {plan.cta}
-                </a>
+          <div className="max-w-lg mx-auto">
+            <div className="rounded-2xl border-2 border-black bg-black text-white p-8">
+              <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Founding broker price</div>
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-5xl font-bold">$200</span>
+                <span className="text-gray-400">/mo</span>
               </div>
-            ))}
+              <p className="text-sm text-gray-400 mb-7">Locked for life for the first 5 brokers. Will rise after launch.</p>
+              <a href="/signup" className="block text-center py-3 rounded-full text-sm font-bold bg-white text-black hover:bg-gray-100 transition mb-7">
+                Apply for founding access
+              </a>
+              <ul className="space-y-3">
+                {['500 prospects/mo (Apollo included)', 'Secure deal room + NDA e-sign', 'AI CIM generator', 'Valuation calculators (SaaS, ecommerce, services, content)', 'HOT / WARM / COLD reply classification + alerts', 'Buyer database + deal matching', 'Leads-for-sale referral marketplace', 'Competitor intel feed', 'AI operator / assistant'].map((f) => (
+                  <li key={f} className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 size={13} className="mt-0.5 flex-shrink-0 text-green-400" />
+                    <span className="text-gray-200">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <p className="text-center text-gray-400 text-xs mt-5">Billed monthly. Cancel anytime. Founding brokers get free full access during pilot.</p>
+          <p className="text-center text-gray-400 text-xs mt-5">No credit card required. Founding brokers get white-glove onboarding at no charge. Apollo included — we cover the cost.</p>
         </div>
       </section>
 
