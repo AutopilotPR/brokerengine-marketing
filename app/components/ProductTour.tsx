@@ -525,7 +525,7 @@ const TOURS = [
     emoji: '🗂️',
     label: 'Deal Pipeline',
     headline: 'Kanban deal room. Every seller, every stage.',
-    description: 'Drag deals from Outreach → Engaged → NDA → CIM → Offer. Full audit trail. Stalled deals flagged automatically after 14 days of inactivity. Zero manual status updates.',
+    description: 'Drag deals from Outreach → Engaged → NDA → CIM → Offer. Every stage change is timestamped with a full audit trail, so the pipeline reflects reality without manual status updates.',
     screen: <DealPipelineScreen />,
   },
   {

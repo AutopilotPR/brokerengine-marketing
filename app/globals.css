@@ -2,9 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Ink / slate scale — calm, expensive, financial-services */
+  --navy-950: #080d18;
+  --navy-900: #0d1424;
+  --slate-900: #101828;
+  --slate-700: #344054;
+  --slate-500: #667085;
+  --slate-400: #98a2b3;
+  --slate-300: #d0d5dd;
+  --slate-200: #e4e7ec;
+  --slate-100: #f2f4f7;
+  --slate-50: #f9fafb;
+
+  /* Accents — used sparingly */
+  --blue: #2563eb;
+  --green: #16a34a;
+  --amber: #d97706;
+
+  --background: #ffffff;
+  --foreground: var(--slate-900);
+}
+
+@layer base {
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
 @layer utilities {
   .dotted-grid {
     background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  /* Soft, expensive page glow behind the hero */
+  .page-glow {
+    background:
+      radial-gradient(60% 50% at 50% -8%, rgba(37, 99, 235, 0.10) 0%, rgba(37, 99, 235, 0) 60%),
+      radial-gradient(40% 40% at 85% 10%, rgba(22, 163, 74, 0.06) 0%, rgba(22, 163, 74, 0) 60%),
+      #ffffff;
+  }
+
+  /* Glassy sticky nav */
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+
+  /* Brand gradient — the one place we let color sing */
+  .brand-gradient {
+    background-image: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+  }
+  .brand-text-gradient {
+    background-image: linear-gradient(135deg, #2563eb 0%, #16a34a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Standard premium card */
+  .card-premium {
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
+  }
+
+  /* Dark accent band */
+  .band-dark {
+    background:
+      radial-gradient(50% 60% at 50% 0%, rgba(37, 99, 235, 0.18) 0%, rgba(37, 99, 235, 0) 70%),
+      var(--navy-950);
   }
 }
