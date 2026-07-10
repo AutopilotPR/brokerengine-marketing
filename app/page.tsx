@@ -2,20 +2,15 @@
 
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import { ProductTour } from './components/ProductTour';
 import {
-  ChevronRight,
   Menu,
   X,
   Target,
-  Mail,
   MessageSquare,
-  Settings,
   Radar,
   FileText,
   CheckCircle2,
   Brain,
-  TrendingUp,
   Bell,
   Briefcase,
   ArrowRight,
@@ -26,7 +21,6 @@ import {
   Shield,
   History,
   KeyRound,
-  Calculator,
 } from 'lucide-react';
 
 type TabId = 'deals' | 'outreach' | 'replies' | 'intel';
@@ -352,49 +346,66 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ── Three operating pillars ──────────────────────────────────────────────────
+// ── Data ─────────────────────────────────────────────────────────────────────
+
+const STACK = [
+  { tool: 'Secure deal room', example: 'ShareVault, SecureDocs', price: '$160–$250/mo' },
+  { tool: 'CRM / pipeline', example: 'Pipedrive, HubSpot', price: '$39–$90/mo' },
+  { tool: 'Cold outreach', example: 'Instantly, Lemlist', price: '$94/mo' },
+  { tool: 'Prospect database', example: 'Apollo, ZoomInfo', price: '$49–$99/mo' },
+  { tool: 'E-sign / NDA', example: 'DocuSign, PandaDoc', price: '$19–$30/mo' },
+  { tool: 'AI CIM writer', example: 'Deliverables.ai, ChatGPT Pro', price: '$20–$179/mo' },
+];
+
+const WORKFLOW = [
+  { n: '01', icon: <Target size={18} />, title: 'Find sellers', desc: 'Apollo prospects matching your ICP land in your pipeline every week. No manual searching.' },
+  { n: '02', icon: <MessageSquare size={18} />, title: 'Qualify replies', desc: 'Every reply is triaged HOT / WARM / COLD, surfacing the conversations that matter — alerts in-app and by email.' },
+  { n: '03', icon: <FileText size={18} />, title: 'Build the deal', desc: 'Generate the CIM, gate documents behind a signed NDA, and track exactly what each buyer opens.' },
+  { n: '04', icon: <Users size={18} />, title: 'Move the buyer', desc: 'Match buyers by fit, draft the teaser for your review, and keep the pipeline advancing.' },
+];
 
 const PILLARS = [
   {
     kicker: 'Originate',
     title: 'Find and warm sellers.',
-    desc: 'Owners matching your mandate arrive every week. Outreach goes out in your voice — you approve every draft — and replies are triaged the moment they land.',
+    desc: 'Owners matching your mandate arrive every week, and every reply is triaged the moment it lands.',
     points: [
-      { icon: <Target size={15} />, text: 'Apollo prospecting included, matched to your ICP' },
-      { icon: <Mail size={15} />, text: 'AI outreach sequences you review before they send' },
-      { icon: <Bell size={15} />, text: 'HOT / WARM / COLD reply triage with instant in-app & email alerts' },
+      'Apollo prospecting, matched to your ICP',
+      'AI outreach you approve before it sends',
+      'HOT / WARM / COLD reply triage',
+      'Hot-lead alerts in-app and by email',
     ],
   },
   {
     kicker: 'Package',
     title: 'Turn a conversation into a deal.',
-    desc: 'Move from a phone call to a shareable, professional package without leaving the workspace — valuations, a full CIM, and a controlled place to disclose it.',
+    desc: 'Go from a phone call to a shareable, professional package without leaving the workspace.',
     points: [
-      { icon: <Calculator size={15} />, text: 'Valuation calculators for services, SaaS, ecommerce & content' },
-      { icon: <FileText size={15} />, text: 'AI CIM generator — draft in minutes, edit section by section' },
-      { icon: <Lock size={15} />, text: 'Secure deal room with staged disclosure' },
+      'AI CIM generator',
+      'Valuation calculators',
+      'NDA e-sign',
+      'Secure, staged deal room',
     ],
   },
   {
     kicker: 'Move',
     title: 'Get to a signed buyer.',
-    desc: 'The right buyers surface by fit, sign an NDA in a minute, and everything they touch is logged. Leads you can’t take earn a fee instead of going cold.',
+    desc: 'The right buyers surface by fit, sign in a minute, and everything they touch is logged.',
     points: [
-      { icon: <Users size={15} />, text: 'Buyer database with fit-ranked matching' },
-      { icon: <KeyRound size={15} />, text: 'One-click NDA e-sign that unlocks the data room' },
-      { icon: <DollarSign size={15} />, text: 'Leads-for-sale referral marketplace' },
+      'Buyer database with fit-ranked matching',
+      'Leads-for-sale referral marketplace',
+      'Competitor intel feed',
+      'AI operator that knows your pipeline',
     ],
   },
 ];
-
-// ── Trust / security items ───────────────────────────────────────────────────
 
 const TRUST = [
   { icon: <KeyRound size={18} />, title: 'NDA-gated access', desc: 'Buyers e-sign a confidentiality agreement before a single seller detail is revealed.' },
   { icon: <Eye size={18} />, title: 'Staged disclosure', desc: 'Listings are anonymized by default. You decide what unlocks, and when.' },
   { icon: <FileText size={18} />, title: 'Document view tracking', desc: 'Every file opened in the data room is logged — you see who looked at what.' },
   { icon: <History size={18} />, title: 'Full audit trail', desc: 'Signatures are timestamped and stored. Nothing moves without a record.' },
-  { icon: <Shield size={18} />, title: 'Buyer permissions', desc: 'Confidential documents are reached only through short-lived, signed links.' },
+  { icon: <Shield size={18} />, title: 'Buyer-level permissions', desc: 'Confidential documents are reached only through short-lived, signed links.' },
   { icon: <Lock size={18} />, title: 'Private one-time links', desc: 'Data-room links aren’t listed anywhere and aren’t guessable.' },
 ];
 
@@ -441,50 +452,50 @@ export default function Home() {
         <div className="mx-auto max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 mb-7 px-3.5 py-1.5 bg-white border border-[#e4e7ec] rounded-full text-xs font-medium text-[#475467] shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a]" />
-            Now accepting founding brokers · 5 seats
+            Now accepting founding brokers
           </div>
           <h1 className="text-[42px] md:text-[62px] font-semibold tracking-[-0.03em] leading-[1.04] mb-6">
             The <span className="brand-text-gradient">operating system</span><br className="hidden sm:block" /> for boutique M&amp;A advisors.
           </h1>
-          <p className="text-lg text-[#475467] mb-8 max-w-xl mx-auto leading-relaxed">
-            Prospecting, CIMs, a secure deal room, buyer matching, and outreach — one calm, private workspace instead of six logins.
+          <p className="text-lg text-[#475467] mb-6 max-w-xl mx-auto leading-relaxed">
+            Draft CIMs, gate your deal room, qualify sellers, match buyers, and move deals forward — from one private workspace.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+          <p className="text-[13px] text-[#98a2b3] mb-9 max-w-xl mx-auto">
+            Deal room · AI CIMs · NDA e-sign · buyer matching · seller outreach · Apollo included
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
             <a href="/signup" className="px-7 py-3.5 brand-gradient text-white rounded-full font-medium hover:opacity-90 transition-opacity shadow-sm inline-flex items-center justify-center gap-1.5">
               Apply for founding access <ArrowRight size={16} />
             </a>
             <a href="https://app.brokerengine.ai/demo" className="px-7 py-3.5 bg-white border border-[#d0d5dd] text-[#344054] rounded-full font-medium hover:border-[#98a2b3] hover:text-[#101828] transition-colors inline-flex items-center justify-center gap-1.5">
-              See the live demo →
+              Explore live demo →
             </a>
           </div>
-          <div className="flex items-center justify-center gap-x-6 gap-y-2 text-sm text-[#667085] flex-wrap">
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={15} className="text-[#16a34a]" />Secure NDA-gated deal room</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={15} className="text-[#16a34a]" />AI CIM generator included</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={15} className="text-[#16a34a]" />Apollo prospecting on day one</span>
-          </div>
+          <p className="text-sm text-[#667085]">Founding broker pilot · 5 seats remaining · white-glove onboarding included</p>
         </div>
       </section>
 
       {/* PRODUCT PREVIEW */}
-      <section className="px-6 pb-20">
-        <div className="mx-auto max-w-[1140px] mb-4 text-center">
-          <p className="text-sm text-[#98a2b3]">The real app — it cycles through the modules on its own. Hover to pause.</p>
+      <section className="px-6 pb-24">
+        <div className="mx-auto max-w-[1140px] mb-7 text-center">
+          <h2 className="text-2xl font-semibold tracking-[-0.01em] mb-2">A real workspace, not a mockup.</h2>
+          <p className="text-sm text-[#98a2b3]">Explore the live demo with read-only data — no signup required. It cycles on its own; hover to pause.</p>
         </div>
         <a href="https://app.brokerengine.ai/demo" className="block group">
           <ProductDemo />
           <p className="text-center text-sm text-[#667085] mt-6 group-hover:text-[#101828] transition-colors">
-            Open the live demo — no signup, read-only, real data →
+            Open the live demo →
           </p>
         </a>
       </section>
 
-      {/* BEFORE / AFTER */}
-      <section className="py-20 px-6 bg-[#f9fafb] border-y border-[#e4e7ec]">
+      {/* BEFORE / AFTER + STACK REPLACEMENT */}
+      <section className="py-24 px-6 bg-[#f9fafb] border-y border-[#e4e7ec]">
         <div className="mx-auto max-w-5xl">
           <div className="text-center mb-12">
             <Eyebrow>The difference</Eyebrow>
             <h2 className="text-3xl md:text-[40px] font-semibold tracking-[-0.02em] leading-tight">
-              A deal shouldn’t live in six tabs.
+              Stop running deals across six tools.
             </h2>
           </div>
           <div className="grid md:grid-cols-2 gap-5">
@@ -493,11 +504,10 @@ export default function Home() {
               <p className="text-[11px] font-semibold text-[#98a2b3] uppercase tracking-[0.16em] mb-5">Before BrokerEngine</p>
               <ul className="space-y-3.5">
                 {[
-                  'A CRM, a deal room, an outreach tool, a prospect database, an e-sign app, and a CIM writer — six logins, six bills.',
-                  'Deals stall in your inbox because nothing tells you which reply is hot.',
+                  'Six logins for a CRM, deal room, outreach tool, prospect database, e-sign, and CIM writer.',
+                  'Deals stall in your inbox — nothing tells you which reply is hot.',
                   'CIMs written by hand over a weekend.',
                   'Buyer matching lives in a spreadsheet you cross-reference by memory.',
-                  'Disqualified sellers go cold and earn nothing.',
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-3 text-sm text-[#667085] leading-relaxed">
                     <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#d0d5dd] flex-shrink-0" />
@@ -511,11 +521,10 @@ export default function Home() {
               <p className="text-[11px] font-semibold text-white/50 uppercase tracking-[0.16em] mb-5">On BrokerEngine</p>
               <ul className="space-y-3.5">
                 {[
-                  'One workspace. One login. One $200/mo bill, priced on the page.',
-                  'Every reply triaged HOT / WARM / COLD, with the hot ones surfaced instantly.',
+                  'One workspace. One login. One bill.',
+                  'Every reply triaged HOT / WARM / COLD, hot ones surfaced instantly.',
                   'A full CIM drafted in minutes, then edited in your voice.',
                   'Buyers ranked by fit and sent an NDA in one click.',
-                  'Leads you can’t take listed to other brokers for a fee on close.',
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-3 text-sm text-white/80 leading-relaxed">
                     <CheckCircle2 size={16} className="mt-0.5 flex-shrink-0 text-[#4ade80]" />
@@ -525,11 +534,68 @@ export default function Home() {
               </ul>
             </div>
           </div>
+
+          {/* Compressed cost strip */}
+          <div className="mt-6 rounded-2xl border border-[#e4e7ec] bg-white p-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-10 text-center">
+            <div>
+              <span className="text-sm text-[#98a2b3]">Typical stack</span>{' '}
+              <span className="text-lg font-semibold text-[#667085] line-through decoration-[#d0d5dd]">$481–$742/mo</span>
+            </div>
+            <div className="hidden sm:block w-px h-6 bg-[#e4e7ec]" />
+            <div>
+              <span className="text-sm text-[#98a2b3]">BrokerEngine</span>{' '}
+              <span className="text-lg font-semibold text-[#101828]">$200/mo founding price</span>
+            </div>
+          </div>
+          <details className="group mt-3 max-w-xl mx-auto">
+            <summary className="text-center text-sm text-[#2563eb] cursor-pointer hover:underline list-none marker:hidden">See the comparison</summary>
+            <div className="mt-4 rounded-2xl border border-[#e4e7ec] overflow-hidden bg-white">
+              {STACK.map((item, i) => (
+                <div key={item.tool} className={`grid grid-cols-3 px-4 py-3 text-sm items-center ${i % 2 === 0 ? 'bg-white' : 'bg-[#f9fafb]/60'}`}>
+                  <span className="font-medium text-[#344054]">{item.tool}</span>
+                  <span className="text-[#98a2b3] text-xs">{item.example}</span>
+                  <span className="text-right text-[#667085]">{item.price}</span>
+                </div>
+              ))}
+              <div className="grid grid-cols-3 px-4 py-3.5 text-sm items-center bg-[#f2f4f7] border-t border-[#e4e7ec]">
+                <span className="font-semibold text-[#101828]">Full stack</span>
+                <span className="text-[#98a2b3] text-xs">Without buyer matching</span>
+                <span className="text-right font-semibold text-[#101828]">$481–$742/mo</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      {/* WORKFLOW */}
+      <section id="workflow" className="py-24 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center mb-16 max-w-2xl mx-auto">
+            <Eyebrow>How it runs</Eyebrow>
+            <h2 className="text-3xl md:text-[40px] font-semibold tracking-[-0.02em] leading-tight mb-4">
+              From first seller touch to signed buyer.
+            </h2>
+            <p className="text-[#667085] text-lg leading-relaxed">
+              Set it up once. It runs every week — you review and close.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {WORKFLOW.map((s) => (
+              <div key={s.n} className="card-premium rounded-2xl p-6">
+                <div className="flex items-center justify-between mb-5">
+                  <span className="w-10 h-10 rounded-xl bg-[#101828] text-white flex items-center justify-center">{s.icon}</span>
+                  <span className="text-2xl font-semibold text-[#e4e7ec]">{s.n}</span>
+                </div>
+                <h3 className="font-semibold mb-2">{s.title}</h3>
+                <p className="text-sm text-[#667085] leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* PLATFORM / PILLARS */}
-      <section id="platform" className="py-24 px-6">
+      <section id="platform" className="py-24 px-6 bg-[#f9fafb] border-y border-[#e4e7ec]">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <Eyebrow>The platform</Eyebrow>
@@ -546,11 +612,11 @@ export default function Home() {
                 <p className="text-[11px] font-semibold text-[#2563eb] uppercase tracking-[0.16em] mb-3">{p.kicker}</p>
                 <h3 className="text-xl font-semibold tracking-[-0.01em] mb-3 leading-snug">{p.title}</h3>
                 <p className="text-sm text-[#667085] leading-relaxed mb-6">{p.desc}</p>
-                <ul className="space-y-3 mt-auto">
+                <ul className="space-y-2.5 mt-auto">
                   {p.points.map((pt) => (
-                    <li key={pt.text} className="flex items-start gap-3">
-                      <span className="mt-0.5 w-7 h-7 rounded-lg bg-[#f2f4f7] text-[#344054] flex items-center justify-center flex-shrink-0">{pt.icon}</span>
-                      <span className="text-[13px] text-[#475467] leading-relaxed pt-1">{pt.text}</span>
+                    <li key={pt} className="flex items-start gap-2.5 text-[13px] text-[#475467] leading-relaxed">
+                      <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0 text-[#16a34a]" />
+                      {pt}
                     </li>
                   ))}
                 </ul>
@@ -560,62 +626,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRODUCT TOUR (dark accent band — the one place we go dark) */}
-      <ProductTour />
-
       {/* SECURITY / TRUST */}
-      <section id="security" className="py-24 px-6 bg-[#f9fafb] border-y border-[#e4e7ec]">
+      <section id="security" className="py-24 px-6">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16 max-w-2xl mx-auto">
             <Eyebrow>Security &amp; trust</Eyebrow>
             <h2 className="text-3xl md:text-[40px] font-semibold tracking-[-0.02em] leading-tight mb-4">
-              Built like the deal depends on it.
+              Built for confidential transactions.
             </h2>
             <p className="text-[#667085] text-lg leading-relaxed">
-              Confidentiality isn’t a feature bolted on the side. It’s how the deal room works by default.
+              Confidentiality isn’t bolted on the side. It’s how the deal room works by default.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {TRUST.map((t) => (
               <div key={t.title} className="card-premium rounded-2xl p-6">
-                <div className="w-11 h-11 rounded-xl bg-white border border-[#e4e7ec] text-[#2563eb] flex items-center justify-center mb-4 shadow-sm">{t.icon}</div>
+                <div className="w-11 h-11 rounded-xl bg-[#f9fafb] border border-[#e4e7ec] text-[#2563eb] flex items-center justify-center mb-4">{t.icon}</div>
                 <h3 className="font-semibold mb-1.5">{t.title}</h3>
                 <p className="text-sm text-[#667085] leading-relaxed">{t.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* HOW IT RUNS — operating timeline */}
-      <section className="py-24 px-6">
-        <div className="mx-auto max-w-5xl">
-          <div className="text-center mb-16">
-            <Eyebrow>How it runs</Eyebrow>
-            <h2 className="text-3xl md:text-[40px] font-semibold tracking-[-0.02em] leading-tight">
-              Set it up once. It runs every week.
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            {[
-              { n: '01', icon: <Settings size={16} />, title: 'Complete your voice profile', desc: 'A 20-minute setup. Your niche, deal size, and how you write. Every AI step uses it from day one.' },
-              { n: '02', icon: <Target size={16} />, title: 'Prospects appear automatically', desc: 'Apollo surfaces business owners matching your ICP each week, straight into your pipeline. No manual searching.' },
-              { n: '03', icon: <Mail size={16} />, title: 'AI runs outreach in your voice', desc: 'Multi-step sequences go out through your Instantly account. You review every draft before it sends.' },
-              { n: '04', icon: <Brain size={16} />, title: 'HOT replies surface instantly', desc: 'Every reply classified HOT, WARM, or COLD. Hot ones alert you in-app and by email, with a draft reply ready.' },
-              { n: '05', icon: <Lock size={16} />, title: 'The deal room handles the process', desc: 'NDA → data room → CIM → buyer matching, all inside BrokerEngine. Secure, staged, and tracked.' },
-              { n: '06', icon: <TrendingUp size={16} />, title: 'You review. You close.', desc: 'Open your dashboard each morning: hot leads to call, drafts to approve, deals to advance. That’s the job.' },
-            ].map((item) => (
-              <div key={item.n} className="flex gap-4 p-6 card-premium rounded-2xl">
-                <div className="w-10 h-10 rounded-full bg-[#101828] text-white flex items-center justify-center flex-shrink-0 mt-0.5">
-                  {item.icon}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-[#d0d5dd]">{item.n}</span>
-                    <h3 className="font-semibold text-[15px]">{item.title}</h3>
-                  </div>
-                  <p className="text-sm text-[#667085] leading-relaxed">{item.desc}</p>
-                </div>
               </div>
             ))}
           </div>
@@ -633,10 +661,10 @@ export default function Home() {
             <p className="text-[#667085] leading-relaxed">Everything included. One plan. Founding brokers lock this rate for life.</p>
           </div>
           <div className="rounded-3xl border border-[#101828] bg-[#101828] text-white p-8 shadow-[0_30px_70px_-30px_rgba(16,24,40,0.6)]">
-            <div className="text-[10px] font-semibold text-white/50 uppercase tracking-[0.16em] mb-4">Founding broker price</div>
+            <div className="text-[10px] font-semibold text-white/50 uppercase tracking-[0.16em] mb-4">Founding broker plan</div>
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-5xl font-semibold tracking-tight">$200</span>
-              <span className="text-white/50">/mo · 5 seats</span>
+              <span className="text-white/50">/month · 5 seats</span>
             </div>
             <p className="text-sm text-white/50 mb-7">Locked for life for the first 5 brokers. Rises after launch.</p>
             <a href="/signup" className="block text-center py-3.5 rounded-full text-sm font-semibold bg-white text-[#101828] hover:bg-[#f2f4f7] transition-colors mb-7">
@@ -644,13 +672,11 @@ export default function Home() {
             </a>
             <ul className="space-y-3">
               {[
-                'Apollo prospecting included — we cover the cost',
-                'Secure deal room + NDA e-sign',
+                '500 Apollo prospects/month — we cover the cost',
                 'AI CIM generator + valuation calculators',
-                'HOT / WARM / COLD reply triage + alerts',
-                'Buyer database + fit-ranked matching',
-                'Leads-for-sale referral marketplace',
-                'Competitor intel feed',
+                'Secure deal room + NDA e-sign',
+                'Buyer matching + referral marketplace',
+                'AI outreach + reply classification',
                 'AI operator that knows your pipeline',
               ].map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm">
@@ -667,11 +693,11 @@ export default function Home() {
       {/* FINAL CTA */}
       <section className="py-24 px-6 band-dark">
         <div className="mx-auto max-w-2xl text-center text-white">
-          <h3 className="text-3xl md:text-[38px] font-semibold tracking-[-0.02em] leading-tight mb-4">Your pipeline doesn’t run itself.<br className="hidden sm:block" /> Ours does.</h3>
+          <h3 className="text-3xl md:text-[38px] font-semibold tracking-[-0.02em] leading-tight mb-4">Run your next deal from one workspace.</h3>
           <p className="text-white/60 mb-9 max-w-lg mx-auto leading-relaxed">
-            Complete your voice profile in 20 minutes. Your workspace starts finding and qualifying sellers the same week. Founding brokers get white-glove onboarding at no charge.
+            Apply for founding access and we’ll help you set up your voice profile, ICP, outreach workflow, and first deal room.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="/signup" className="px-7 py-3.5 bg-white text-[#101828] rounded-full font-semibold hover:bg-[#f2f4f7] transition-colors inline-flex items-center justify-center gap-1.5">
               Apply for founding access <ArrowRight size={16} />
             </a>
@@ -679,9 +705,6 @@ export default function Home() {
               Explore the live demo →
             </a>
           </div>
-          <a href="/pricing" className="text-sm text-white/50 hover:text-white inline-flex items-center gap-1 transition-colors">
-            See full pricing <ChevronRight size={14} />
-          </a>
         </div>
       </section>
 
