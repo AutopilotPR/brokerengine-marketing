@@ -373,7 +373,7 @@ function StackSection() {
             Deal room. CRM. Outreach. Prospect database. E-sign. CIM writer. Each tool a separate login, a separate bill, a separate workflow. BrokerEngine replaces the whole stack — $200/mo, priced on the page.
           </p>
         </div>
-        <div className="rounded-2xl border border-gray-200 overflow-hidden bg-white shadow-sm mb-6">
+        <div className="rounded-2xl border border-gray-200 overflow-hidden bg-white shadow-sm mb-6" id="why-brokers-switch">
           <div className="grid grid-cols-3 bg-gray-50 border-b border-gray-200 px-4 py-3 text-[11px] font-bold text-gray-400 uppercase tracking-widest">
             <div>Tool category</div>
             <div>Typical products</div>
@@ -392,6 +392,12 @@ function StackSection() {
             <span className="text-right font-bold text-black">$481–$742/mo</span>
           </div>
         </div>
+        <p className="text-center text-sm text-gray-500 mb-6">
+          Rather click around yourself?{' '}
+          <a href="https://app.brokerengine.ai/demo" className="font-medium text-black underline underline-offset-2 hover:text-emerald-600 transition-colors">
+            Open the live demo — no signup, real data.
+          </a>
+        </p>
         <div className="rounded-2xl border-2 border-black bg-black text-white p-6 text-center">
           <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">BrokerEngine</p>
           <p className="text-3xl font-bold mb-1">$200/mo</p>
@@ -473,6 +479,7 @@ export default function Home() {
             <a href="#features" className="text-sm text-gray-600 hover:text-black">Features</a>
             <a href="/how-it-works" className="text-sm text-gray-600 hover:text-black">How it works</a>
             <a href="/pricing" className="text-sm text-gray-600 hover:text-black">Pricing</a>
+            <a href="https://app.brokerengine.ai/demo" className="text-sm font-semibold text-emerald-600 hover:text-emerald-700">Live demo</a>
             <a href="/login" className="text-sm text-gray-600 hover:text-black">Login</a>
             <a href="/signup" className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-900">Request access</a>
           </div>
@@ -506,8 +513,12 @@ export default function Home() {
             <a href="/signup" className="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-900 whitespace-nowrap inline-flex items-center justify-center gap-1">
               Apply for founding access <ArrowRight size={14} />
             </a>
+            <a href="https://app.brokerengine.ai/demo" className="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:border-gray-500 hover:text-black whitespace-nowrap inline-flex items-center justify-center gap-1 transition-colors">
+              See the live demo →
+            </a>
           </div>
           <p className="text-xs text-gray-400">Founding broker pilot — free full access, white-glove onboarding. 5 slots remaining.</p>
+          <p className="text-xs text-gray-400 mt-1">No signup · read-only · real data.</p>
         </div>
       </section>
 
@@ -516,7 +527,12 @@ export default function Home() {
         <div className="mx-auto max-w-[1140px] mb-3 text-center">
           <p className="text-sm text-gray-400">See every module. Hover to pause.</p>
         </div>
-        <ProductDemo />
+        <a href="https://app.brokerengine.ai/demo" className="block group">
+          <ProductDemo />
+          <p className="text-center text-sm text-gray-500 mt-4 group-hover:text-black transition-colors">
+            This is the real app — click in and try it →
+          </p>
+        </a>
       </section>
 
       {/* STACK REPLACEMENT */}
@@ -653,9 +669,15 @@ export default function Home() {
                 Apply for founding access
               </a>
             </div>
-            <a href="/pricing" className="text-sm text-gray-400 hover:text-white inline-flex items-center gap-1">
-              See pricing <ChevronRight size={14} />
-            </a>
+            <div className="flex items-center justify-center gap-4 flex-wrap">
+              <a href="/pricing" className="text-sm text-gray-400 hover:text-white inline-flex items-center gap-1">
+                See pricing <ChevronRight size={14} />
+              </a>
+              <span className="text-gray-600 text-sm">·</span>
+              <a href="https://app.brokerengine.ai/demo" className="text-sm text-gray-400 hover:text-white inline-flex items-center gap-1">
+                or explore the live demo →
+              </a>
+            </div>
           </div>
         </div>
       </section>
